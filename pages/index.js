@@ -5,45 +5,75 @@ import Header from "@components/Header";
 import Footer from "@components/Footer";
 import Photo from "@components/Photo";
 
-export default function Home() {
+export default function Home({ photos }) {
   return (
     <div className="container">
       <Head>
-        <title>Next.js Starter!</title>
+        <title>Mon portfolio</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <Header title="Welcome to my app!" />
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
-      </main>
-
-      <div>
-        {photos !== undefined &&
-          photos.map((p) => {
-            let title = p.title[0].text;
-            let key = `${title}`;
+        <Header />
+        <div className="photos">
+          {photos.map((p) => {
             return (
               <Photo
-                key={key}
-                photolink={p.photolink}
+                key={p.title}
+                photolink={p["photo-link"]}
                 photo={p.photo}
-                title={title}
-                description={description}
+                title={p.title}
+                description={p.description}
               />
             );
           })}
-      </div>
+        </div>
+      </main>
 
       <Footer />
+
+      <style jsx>{`
+        .container {
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        main {
+          padding: 5rem 0;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .photos {
+          display: flex;
+        }
+      `}</style>
+
+      <style jsx global>{`
+        html,
+        body {
+          padding: 0;
+          margin: 0;
+          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+            sans-serif;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+      `}</style>
     </div>
   );
 }
 
 export async function getStaticProps() {
-  // query() is empty on purpose!
   // https://prismic.io/docs/rest-api/query-the-api/query-all-documents
   const res = await client.query("");
 
