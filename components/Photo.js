@@ -1,10 +1,12 @@
-function Photo({ photolink, photo, title, description }) {
+function Photo({ date, photolink, photo, title, description }) {
+  console.log({ date });
   return (
     <div className="photo">
       <img width="200" src={`${photolink.url}`} />
       <div className="description">{description[0].text}</div>
       <div className="text">
         <h2>{title[0].text}</h2>
+        {date}
       </div>
 
       <style jsx>{`

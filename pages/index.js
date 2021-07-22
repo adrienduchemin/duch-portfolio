@@ -20,6 +20,7 @@ export default function Home({ photos }) {
             return (
               <Photo
                 key={p.title}
+                date={p.date}
                 photolink={p["photo-link"]}
                 photo={p.photo}
                 title={p.title}
