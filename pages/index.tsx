@@ -4,6 +4,7 @@ import styles from "@styles/Home.module.css";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
 import Photo from "@components/Photo";
+import Gallery from "@components/Gallery";
 import { GetStaticProps } from "next";
 
 export interface Photo {
@@ -30,7 +31,9 @@ export default function Home({ photos }: HomeProps) {
 
       <main className={styles.main}>
         <Header />
-        <div className="photos">
+        <Gallery />
+        <br />
+        {/* <div className="photos">
           {photos.map((p) => {
             return (
               <Photo
@@ -42,7 +45,7 @@ export default function Home({ photos }: HomeProps) {
               />
             );
           })}
-        </div>
+        </div> */}
       </main>
 
       <footer className={styles.footer}>
