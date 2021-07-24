@@ -2,20 +2,24 @@ import "photoswipe/dist/photoswipe.css";
 import "photoswipe/dist/default-skin/default-skin.css";
 import { MutableRefObject } from "react";
 import { Item, Gallery as PhotoswipeGallery } from "react-photoswipe-gallery";
+import ReactDOMServer from "react-dom/server";
 
 export default function Gallery() {
-  const html = `
-  <div style="
-    color: white;
-    display: flex;
-    place-content: center;
-    flex-direction: column;
-    height: 100%;
-    text-align: center;
-  ">
-    <h1>😿</h1>
-    There are no kittens :(
-  </div>`;
+  const html = ReactDOMServer.renderToStaticMarkup(
+    <div
+      style={{
+        color: "white",
+        display: "flex",
+        placeContent: "center",
+        flexDirection: "column",
+        height: "100%",
+        textAlign: "center",
+      }}
+    >
+      <h1>😿</h1>
+      There are no kittens :(
+    </div>
+  );
 
   return (
     <PhotoswipeGallery

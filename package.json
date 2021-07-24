@@ -12,6 +12,7 @@
   "devDependencies": {
     "@types/photoswipe": "^4.1.2",
     "@types/react": "17.0.14",
+    "@types/react-dom": "^17.0.9",
     "babel-eslint": "^10.1.0",
     "css-loader": "^3.6.0",
     "eslint": "7.31.0",
