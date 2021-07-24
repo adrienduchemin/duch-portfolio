@@ -4,14 +4,34 @@ import { MutableRefObject } from "react";
 import { Item, Gallery as PhotoswipeGallery } from "react-photoswipe-gallery";
 
 export default function Gallery() {
+  const html = `
+  <div style="
+    color: white;
+    display: flex;
+    place-content: center;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+  ">
+    <h1>😿</h1>
+    There are no kittens :(
+  </div>`;
+
   return (
     <PhotoswipeGallery
       id="gallery"
+      fullscreenButton={true}
+      toggleFullscreenButtonCaption=""
+      closeButtonCaption=""
+      prevButtonCaption=""
+      nextButtonCaption=""
       zoomButton={false}
-      fullscreenButton={false}
+      // zoomButtonCaption=""
       shareButton={false}
+      // shareButtonCaption=""
       options={{
         getThumbBoundsFn: undefined,
+        bgOpacity: 1,
       }}
     >
       <Item
@@ -38,7 +58,8 @@ export default function Gallery() {
         original="https://placekitten.com/1024/768?image=2"
         height="768"
         width="1024"
-        title="mes petits chatons"
+        title="mes petits chatons mes petits chatons mes petits chatons mes petits chatons mes petits chatons"
+        key="title2"
       >
         {({ ref, open }) => (
           <a
@@ -50,6 +71,20 @@ export default function Gallery() {
             }}
           >
             chat 2
+          </a>
+        )}
+      </Item>
+      <Item id="title3" html={html} key="title3">
+        {({ ref, open }) => (
+          <a
+            ref={ref as MutableRefObject<HTMLAnchorElement>}
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+              open();
+            }}
+          >
+            chat 3
           </a>
         )}
       </Item>
