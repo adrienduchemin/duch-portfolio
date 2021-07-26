@@ -1,6 +1,14 @@
 import styles from "./Photo.module.css";
 import { Date as ParseDate } from "prismic-reactjs";
-import { Photo } from "../pages";
+
+export interface Photo {
+  date: string;
+  photo: {
+    url: string;
+  };
+  title: { text: string }[];
+  description: { text: string }[];
+}
 
 interface PhotoProps extends Photo {}
 

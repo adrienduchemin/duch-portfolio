@@ -3,9 +3,21 @@ import "photoswipe/dist/default-skin/default-skin.css";
 import { MutableRefObject } from "react";
 import { Item, Gallery as PhotoswipeGallery } from "react-photoswipe-gallery";
 import ReactDOMServer from "react-dom/server";
+// import Imgix from "react-imgix";
+import { IPhoto } from "../pages";
+import Image from "next/image";
 
-export default function Gallery() {
+interface GalleryProps {
+  photos: IPhoto[];
+}
+
+export default function Gallery({ photos }: GalleryProps) {
   const html = ReactDOMServer.renderToStaticMarkup(
+    //     <Imgix
+    //   src="https://assets.imgix.net/examples/pione.jpg"
+    //   width={100} // This sets what resolution the component should load from the CDN and the size of the resulting image
+    //   height={200}
+    // />;
     <div
       style={{
         color: "white",
@@ -38,60 +50,45 @@ export default function Gallery() {
         bgOpacity: 1,
       }}
     >
-      <Item
-        id="title1"
-        original="https://placekitten.com/1024/768?image=1"
-        height="768"
-        width="1024"
-      >
-        {({ ref, open }) => (
-          <a
-            ref={ref as MutableRefObject<HTMLAnchorElement>}
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-              open();
-            }}
-          >
-            chat 1
-          </a>
-        )}
-      </Item>
-      <Item
-        id="title2"
-        original="https://placekitten.com/1024/768?image=2"
-        height="768"
-        width="1024"
-        title="mes petits chatons mes petits chatons mes petits chatons mes petits chatons mes petits chatons"
-        key="title2"
-      >
-        {({ ref, open }) => (
-          <a
-            ref={ref as MutableRefObject<HTMLAnchorElement>}
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-              open();
-            }}
-          >
-            chat 2
-          </a>
-        )}
-      </Item>
-      <Item id="title3" html={html} key="title3">
-        {({ ref, open }) => (
-          <a
-            ref={ref as MutableRefObject<HTMLAnchorElement>}
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-              open();
-            }}
-          >
-            chat 3
-          </a>
-        )}
-      </Item>
+      {photos.map(({ data, uid, updatedAt }) => (
+        //   <Item
+        //   key={uid}
+        //   html={html} // this should do the whole img original/width/height with imgix + title etc
+        //   id={uid}
+        // >
+        <Item
+          key={`slider-${uid}`}
+          id={uid}
+          original={data.photo.url}
+          height={data.photo.dimensions.height}
+          width={data.photo.dimensions.width}
+        >
+          {({ ref, open }) => (
+            <a
+              ref={ref as MutableRefObject<HTMLAnchorElement>}
+              href=""
+              onClick={(e) => {
+                e.preventDefault();
+                open();
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="small.jpg"
+                srcSet={`${data.photo[1].url} 1024w, ${data.photo[2].url} 640w, ${data.photo[3].url} 320w`}
+                sizes="33.3vw"
+                alt={data.photo.alt ?? ""}
+              />
+              {/* <Imgix
+                htmlAttributes={{ alt: data.photo.alt ?? "dancing" }}
+                key={`gallery-${uid}`}
+                sizes="(min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                src={data.photo[1].url}
+              /> */}
+            </a>
+          )}
+        </Item>
+      ))}
     </PhotoswipeGallery>
   );
 }
