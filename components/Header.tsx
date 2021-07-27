@@ -1,3 +1,8 @@
+import styles from "./Header.module.css";
 export default function Header() {
-  return <span>Mon portfolio</span>;
+  return (
+    <div className={styles.container}>
+      <span>Mon portfolio</span>
+    </div>
+  );
 }

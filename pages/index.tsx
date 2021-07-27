@@ -1,16 +1,17 @@
 import { client } from "@utils/prismicPhotos";
-import styles from "@styles/Home.module.css";
+import styles from "@styles/index.module.css";
 // import Photo from "@components/Photo";
 import Gallery from "@components/Gallery";
 import { GetStaticProps } from "next";
 // import util from "util";
 import { Document } from "@prismicio/client/types/documents";
+import { Date as ParseDate } from "prismic-reactjs";
 
 interface IPageData {
   photos: [
     {
       photo: {
-        id: "YPx4ZxAAACMA6grY";
+        id: string;
       };
     }
   ];
@@ -18,55 +19,59 @@ interface IPageData {
 
 interface IPage {
   data: IPageData;
-  uid: Document["uid"];
-  updatedAt: Document["last_publication_date"];
+  uid: string;
+  updatedAt: string;
 }
 
 interface IPhotoData {
-  title: "Chat 1";
+  title: string;
   photo: {
     "1": {
-      dimensions: { width: 700; height: 900 };
-      alt: null;
-      copyright: null;
-      url: "https://images.prismic.io/duch-portfolio/18edecbf-d3d6-4373-a5ce-c8d8dab35b85_chat1.jpeg?auto=compress,format&rect=267,0,933,1200&w=700&h=900";
+      dimensions: { width: number; height: number };
+      alt: string | null;
+      copyright: string | null;
+      url: string;
     };
     "2": {
-      dimensions: { width: 400; height: 600 };
-      alt: null;
-      copyright: null;
-      url: "https://images.prismic.io/duch-portfolio/18edecbf-d3d6-4373-a5ce-c8d8dab35b85_chat1.jpeg?auto=compress,format&rect=346,0,800,1200&w=400&h=600";
+      dimensions: { width: number; height: number };
+      alt: string | null;
+      copyright: string | null;
+      url: string;
     };
     "3": {
-      dimensions: { width: 100; height: 300 };
-      alt: null;
-      copyright: null;
-      url: "https://images.prismic.io/duch-portfolio/18edecbf-d3d6-4373-a5ce-c8d8dab35b85_chat1.jpeg?auto=compress,format&rect=581,0,400,1200&w=100&h=300";
+      dimensions: { width: number; height: number };
+      alt: string | null;
+      copyright: string | null;
+      url: string;
     };
-    dimensions: { width: 1200; height: 1200 };
-    alt: null;
-    copyright: null;
-    url: "https://images.prismic.io/duch-portfolio/18edecbf-d3d6-4373-a5ce-c8d8dab35b85_chat1.jpeg?auto=compress,format";
+    dimensions: { width: number; height: number };
+    alt: string | null;
+    copyright: string | null;
+    url: string;
   };
 }
 
 export interface IPhoto {
   data: IPhotoData;
-  id: Document["uid"];
-  updatedAt: Document["last_publication_date"];
+  id: string;
+  tags?: string[];
+  updatedAt: string;
 }
 
 interface HomeProps {
   photos: IPhoto[];
-  uid: Document["uid"];
-  updatedAt: Document["last_publication_date"];
+  uid: string;
+  updatedAt: string;
 }
 
 export default function Home({ photos, uid, updatedAt }: HomeProps) {
+  const updatedAtDate = ParseDate(updatedAt);
+
   return (
-    <div className={styles.container}>
+    <>
       <Gallery photos={photos} />
-    </div>
+      {/* {updatedAtDate.toLocaleString()} */}
+    </>
   );
 }
 
@@ -92,8 +97,8 @@ const getPage = async (): Promise<IPage> => {
 
   return {
     data: data as IPageData,
-    uid,
-    updatedAt,
+    uid: uid as string,
+    updatedAt: updatedAt as string,
   };
 };
 
@@ -102,8 +107,9 @@ const getPhotos = async (pageData: IPageData): Promise<IPhoto[]> => {
     pageData.photos.map(async (photo) => {
       const {
         data,
-        last_publication_date: updatedAt,
         id,
+        last_publication_date: updatedAt,
+        tags,
       } = await client.getByID(photo.photo.id, {
         lang: "fr-fr",
       });
@@ -111,8 +117,9 @@ const getPhotos = async (pageData: IPageData): Promise<IPhoto[]> => {
       // console.log(util.inspect(toto, false, null, true));
       return {
         data: data as IPhotoData,
-        id,
-        updatedAt,
+        id: id as string,
+        tags,
+        updatedAt: updatedAt as string,
       };
     })
   );

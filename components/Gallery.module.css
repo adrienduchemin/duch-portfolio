@@ -3,3 +3,10 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto;
 }
+
+.picture,
+.img {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}

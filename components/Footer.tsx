@@ -2,12 +2,8 @@ import styles from "./Footer.module.css";
 
 export default function Footer(): JSX.Element {
   return (
-    <span>
-      Powered by{" "}
-      <span className={styles.logo}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/netliheart.svg" alt="Netlify Logo" width={72} height={16} />
-      </span>
-    </span>
+    <div className={styles.container}>
+      <span>©2021-2021 duch-portfolio.com</span>
+    </div>
   );
 }

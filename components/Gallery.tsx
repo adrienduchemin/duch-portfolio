@@ -52,7 +52,7 @@ export default function Gallery({ photos }: GalleryProps) {
           bgOpacity: 1,
         }}
       >
-        {photos.map(({ data, id, updatedAt }) => (
+        {photos.map(({ data, id, tags, updatedAt }, index) => (
           //   <Item
           //   key={uid}
           //   html={html} // this should do the whole img original/width/height with imgix + title etc
@@ -64,6 +64,11 @@ export default function Gallery({ photos }: GalleryProps) {
             original={data.photo.url}
             height={data.photo.dimensions.height}
             width={data.photo.dimensions.width}
+            title={`${data.title ? `${data.title} ` : ""} ${
+              data.photo.copyright !== null ? `©${data.photo.copyright} ` : ""
+            }${
+              tags !== undefined && tags.length > 0 ? `#${tags.join(" #")}` : ""
+            } `}
           >
             {({ ref, open }) => (
               <a
@@ -74,39 +79,24 @@ export default function Gallery({ photos }: GalleryProps) {
                   open();
                 }}
               >
-                <picture>
+                <picture className={styles.picture}>
                   <source
-                    srcSet="https://assets.imgix.net/blog/unsplash-kiss.jpg?w=1280"
-                    media="(min-width: 1280px)"
+                    srcSet={data.photo[1].url}
+                    media={`(min-width: ${data.photo[1].dimensions.width}px)`}
                   />
                   <source
-                    srcSet="https://assets.imgix.net/blog/unsplash-kiss.jpg?w=768&h=1024&fit=crop"
-                    media="(min-width: 768px)"
+                    srcSet={data.photo[2].url}
+                    media={`(min-width: ${data.photo[2].dimensions.width}px)`}
                   />
-                  <source
-                    srcSet="https://assets.imgix.net/blog/unsplash-kiss.jpg?w=568&h=320&fit=crop"
-                    media="(min-width: 480px)"
-                  />
+                  <source srcSet={data.photo[3].url} />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="https://assets.imgix.net/blog/unsplash-kiss.jpg?w=320&h=568&fit=crop"
-                    alt=""
+                    className={styles.img}
+                    src={data.photo.url}
+                    alt={data.photo.alt ?? ""}
                     loading="lazy"
                   />
                 </picture>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                {/* <img
-                src="small.jpg"
-                srcSet={`${data.photo[1].url} 1024w, ${data.photo[2].url} 640w, ${data.photo[3].url} 320w`}
-                sizes="33.3vw"
-                alt={data.photo.alt ?? ""}
-              /> */}
-                {/* <Imgix
-                htmlAttributes={{ alt: data.photo.alt ?? "dancing" }}
-                key={`gallery-${uid}`}
-                sizes="(min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
-                src={data.photo[1].url}
-              /> */}
               </a>
             )}
           </Item>
