@@ -1,8 +1,5 @@
-import Head from "next/head";
 import { client } from "@utils/prismicPhotos";
 import styles from "@styles/Home.module.css";
-import Footer from "@components/Footer";
-import Header from "@components/Header";
 // import Photo from "@components/Photo";
 import Gallery from "@components/Gallery";
 import { GetStaticProps } from "next";
@@ -68,20 +65,7 @@ interface HomeProps {
 export default function Home({ photos, uid, updatedAt }: HomeProps) {
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Duch portfolio</title>
-        <meta name="description" content="Duch portfolio" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <Header />
-        <Gallery photos={photos} />
-      </main>
-
-      <footer className={styles.footer}>
-        <Footer />
-      </footer>
+      <Gallery photos={photos} />
     </div>
   );
 }

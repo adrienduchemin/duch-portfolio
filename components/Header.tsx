@@ -1,3 +1,3 @@
 export default function Header() {
-  return <h1>Mon portfolio</h1>;
+  return <span>Mon portfolio</span>;
 }
