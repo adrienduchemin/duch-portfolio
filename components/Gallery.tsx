@@ -6,7 +6,7 @@ import ReactDOMServer from "react-dom/server";
 // import Imgix from "react-imgix";
 import { IPhoto } from "../pages";
 import styles from "./Gallery.module.css";
-import Image from "next/image";
+// import Image from "next/image";
 
 interface GalleryProps {
   photos: IPhoto[];
@@ -52,15 +52,15 @@ export default function Gallery({ photos }: GalleryProps) {
           bgOpacity: 1,
         }}
       >
-        {photos.map(({ data, uid, updatedAt }) => (
+        {photos.map(({ data, id, updatedAt }) => (
           //   <Item
           //   key={uid}
           //   html={html} // this should do the whole img original/width/height with imgix + title etc
           //   id={uid}
           // >
           <Item
-            key={`slider-${uid}`}
-            id={uid}
+            key={`slider-${id}`}
+            id={id}
             original={data.photo.url}
             height={data.photo.dimensions.height}
             width={data.photo.dimensions.width}

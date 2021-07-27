@@ -52,7 +52,7 @@ interface IPhotoData {
 
 export interface IPhoto {
   data: IPhotoData;
-  uid: Document["uid"];
+  id: Document["uid"];
   updatedAt: Document["last_publication_date"];
 }
 
@@ -71,7 +71,6 @@ export default function Home({ photos, uid, updatedAt }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  // console.log(util.inspect(photo, false, null, true));
   const { data, uid, updatedAt } = await getPage();
   const photos = await getPhotos(data);
 
@@ -104,14 +103,15 @@ const getPhotos = async (pageData: IPageData): Promise<IPhoto[]> => {
       const {
         data,
         last_publication_date: updatedAt,
-        uid,
+        id,
       } = await client.getByID(photo.photo.id, {
         lang: "fr-fr",
       });
 
+      // console.log(util.inspect(toto, false, null, true));
       return {
         data: data as IPhotoData,
-        uid,
+        id,
         updatedAt,
       };
     })
