@@ -1,9 +1,9 @@
 import { GetStaticProps } from 'next';
 import { Date as ParseDate } from 'prismic-reactjs';
+// import util from 'util';
 
 import Gallery from '@components/Gallery';
 import { client } from '@utils/prismic';
-// import util from "util";
 
 interface IPageData {
   photos: [
@@ -46,6 +46,10 @@ interface IPhotoData {
     alt: string | null;
     copyright: string | null;
     url: string;
+  };
+  video: {
+    name?: string; // peut etre qu'il faudra enlever l'extension s'il y en a une
+    url?: string; // extraire l'extension pour trouver le type de la video
   };
 }
 

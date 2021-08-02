@@ -16,5 +16,6 @@
 }
 
 .img {
+  cursor: pointer;
   content-visibility: auto;
 }
