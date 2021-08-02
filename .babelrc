@@ -1,0 +1,13 @@
+{
+  "presets": [
+    [
+      "next/babel",
+      {
+        "preset-env": {
+          "targets": "> 0.25%" // can be anything browserlist supports
+        }
+      }
+    ]
+  ],
+  "plugins": ["@babel/plugin-transform-typescript"]
+}

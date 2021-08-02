@@ -1,11 +1,9 @@
-import { client } from "@utils/prismicPhotos";
-import styles from "@styles/index.module.css";
-// import Photo from "@components/Photo";
-import Gallery from "@components/Gallery";
-import { GetStaticProps } from "next";
+import { GetStaticProps } from 'next';
+import { Date as ParseDate } from 'prismic-reactjs';
+
+import Gallery from '@components/Gallery';
+import { client } from '@utils/prismic';
 // import util from "util";
-import { Document } from "@prismicio/client/types/documents";
-import { Date as ParseDate } from "prismic-reactjs";
 
 interface IPageData {
   photos: [
@@ -13,7 +11,7 @@ interface IPageData {
       photo: {
         id: string;
       };
-    }
+    },
   ];
 }
 
@@ -26,19 +24,19 @@ interface IPage {
 interface IPhotoData {
   title: string;
   photo: {
-    "1": {
+    '1': {
       dimensions: { width: number; height: number };
       alt: string | null;
       copyright: string | null;
       url: string;
     };
-    "2": {
+    '2': {
       dimensions: { width: number; height: number };
       alt: string | null;
       copyright: string | null;
       url: string;
     };
-    "3": {
+    '3': {
       dimensions: { width: number; height: number };
       alt: string | null;
       copyright: string | null;
@@ -64,8 +62,9 @@ interface HomeProps {
   updatedAt: string;
 }
 
-export default function Home({ photos, uid, updatedAt }: HomeProps) {
+export default function Home({ photos, updatedAt }: HomeProps): JSX.Element {
   const updatedAtDate = ParseDate(updatedAt);
+  console.log({ updatedAtDate });
 
   return (
     <>
@@ -93,7 +92,7 @@ const getPage = async (): Promise<IPage> => {
     data,
     last_publication_date: updatedAt,
     uid,
-  } = await client.getSingle("portfolio", { lang: "fr-fr" });
+  } = await client.getSingle('portfolio', { lang: 'fr-fr' });
 
   return {
     data: data as IPageData,
@@ -102,8 +101,8 @@ const getPage = async (): Promise<IPage> => {
   };
 };
 
-const getPhotos = async (pageData: IPageData): Promise<IPhoto[]> => {
-  return Promise.all(
+const getPhotos = async (pageData: IPageData): Promise<IPhoto[]> =>
+  Promise.all(
     pageData.photos.map(async (photo) => {
       const {
         data,
@@ -111,16 +110,15 @@ const getPhotos = async (pageData: IPageData): Promise<IPhoto[]> => {
         last_publication_date: updatedAt,
         tags,
       } = await client.getByID(photo.photo.id, {
-        lang: "fr-fr",
+        lang: 'fr-fr',
       });
 
       // console.log(util.inspect(toto, false, null, true));
       return {
         data: data as IPhotoData,
-        id: id as string,
+        id,
         tags,
         updatedAt: updatedAt as string,
       };
-    })
+    }),
   );
-};

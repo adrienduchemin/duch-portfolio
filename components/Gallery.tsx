@@ -1,70 +1,27 @@
-import "photoswipe/dist/photoswipe.css";
-import "photoswipe/dist/default-skin/default-skin.css";
-import { LegacyRef } from "react";
-import { Item, Gallery as PhotoswipeGallery } from "react-photoswipe-gallery";
-import ReactDOMServer from "react-dom/server";
-import { IPhoto } from "../pages";
-import styles from "./Gallery.module.css";
+import lgZoom from 'lightgallery/plugins/zoom';
+import dynamic from 'next/dynamic';
+
+import { IPhoto } from '../pages';
+import styles from './Gallery.module.css';
+import 'lightgallery/css/lightgallery.css';
+import 'lightgallery/css/lg-zoom.css';
+
+const LightGallery = dynamic(() => import('lightgallery/react'), {
+  ssr: false,
+});
 
 interface GalleryProps {
   photos: IPhoto[];
 }
 
-export default function Gallery({ photos }: GalleryProps) {
-  const html = ReactDOMServer.renderToStaticMarkup(
-    // use a <img> with loading=lazy
-    <div
-      style={{
-        color: "white",
-        display: "flex",
-        placeContent: "center",
-        flexDirection: "column",
-        height: "100%",
-        textAlign: "center",
-      }}
-    >
-      <h1>😿</h1>
-      There are no kittens :(
-    </div>
-  );
-
+export default function Gallery({ photos }: GalleryProps): JSX.Element {
   return (
     <div className={styles.container}>
-      <PhotoswipeGallery
-        id="gallery"
-        fullscreenButton={true}
-        toggleFullscreenButtonCaption=""
-        closeButtonCaption=""
-        prevButtonCaption=""
-        nextButtonCaption=""
-        zoomButton={false}
-        // zoomButtonCaption=""
-        shareButton={false}
-        // shareButtonCaption=""
-        options={{
-          getThumbBoundsFn: undefined,
-          bgOpacity: 1,
-        }}
-      >
-        {photos.map(({ data, id, tags, updatedAt }, index) => (
-          //   <Item
-          //   key={uid}
-          //   html={html} // this should do the whole img original/width/height with imgix + title etc
-          //   id={uid}
-          // >
-          <Item
-            key={`slider-${id}`}
-            id={id}
-            original={data.photo.url}
-            height={data.photo.dimensions.height}
-            width={data.photo.dimensions.width}
-            title={`${data.title ? `${data.title} ` : ""} ${
-              data.photo.copyright !== null ? `©${data.photo.copyright} ` : ""
-            }${
-              tags !== undefined && tags.length > 0 ? `#${tags.join(" #")}` : ""
-            } `}
-          >
-            {({ ref, open }) => (
+      {/* lgZoom, lgAutoplay, lgComment, lgFullscreen , lgHash, lgPager, lgRotate, lgShare, lgThumbnail, lgVideo, lgMediumZoom */}
+      <LightGallery elementClassNames={styles.lightGallery} plugins={[lgZoom]}>
+        {photos.map(({ data, id }) => (
+          <>
+            <a href={data.photo.url} key={id}>
               <picture className={styles.picture}>
                 <source
                   srcSet={data.photo[1].url}
@@ -78,18 +35,32 @@ export default function Gallery({ photos }: GalleryProps) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   className={styles.img}
+                  key={id}
                   decoding="async"
                   src={data.photo.url}
-                  alt={data.photo.alt ?? ""}
+                  alt={data.photo.alt ? data.photo.alt : ''}
                   loading="lazy"
-                  ref={ref as LegacyRef<HTMLImageElement>}
-                  onClick={open}
                 />
               </picture>
-            )}
-          </Item>
+            </a>
+          </>
         ))}
-      </PhotoswipeGallery>
+      </LightGallery>
     </div>
   );
 }
+//  <Item
+//               key={`slider-${id}`}
+//               id={id}
+//               original={data.photo.url}
+//               height={data.photo.dimensions.height}
+//               width={data.photo.dimensions.width}
+//               title={`${data.title ? `${data.title} ` : ""} ${
+//                 data.photo.copyright !== null ? `©${data.photo.copyright} ` : ""
+//               }${
+//                 tags !== undefined && tags.length > 0
+//                   ? `#${tags.join(" #")}`
+//                   : ""
+//               } `}
+//             >
+//             </Item>
