@@ -6,7 +6,7 @@ export interface IGalleryItem {
 }
 
 export interface IGalleryItemData {
-  title: string;
+  title: string | null;
   photo: {
     '1': {
       // donner des meilleurs noms de resolution (voire par format ?)

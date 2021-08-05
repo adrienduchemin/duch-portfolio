@@ -1,14 +1,15 @@
-import lgVideo from 'lightgallery/plugins/video';
-import lgZoom from 'lightgallery/plugins/zoom';
-import dynamic from 'next/dynamic';
-// import { Date as ParseDate } from 'prismic-reactjs';
-
-import { IGalleryItem } from '../interfaces/GalleryItem';
-import styles from './Gallery.module.css';
 import 'lightgallery/css/lightgallery.css';
 import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-video.css';
 
+import lgVideo from 'lightgallery/plugins/video';
+import lgZoom from 'lightgallery/plugins/zoom';
+import dynamic from 'next/dynamic';
+
+import { IGalleryItem } from '../interfaces/GalleryItem';
+import styles from './Gallery.module.css';
+
+// import { Date as ParseDate } from 'prismic-reactjs';
 const LightGallery = dynamic(() => import('lightgallery/react'), {
   ssr: false,
 });
@@ -25,18 +26,27 @@ export default function Gallery({ items }: GalleryProps): JSX.Element {
       <LightGallery
         elementClassNames={styles.lightGallery}
         plugins={[lgZoom, lgVideo]}
+        appendSubHtmlTo=".lg-item"
       >
         {items.map(({ data, id }) => (
           // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a
-            href={!data.video.url ? data.photo.url : undefined} // regarder si on met un href pour la video ca pete
+            href={!data.video.url ? data.photo.url : undefined}
             key={id}
             data-video={
               data.video.url
                 ? `{"source": [{"src":"${data.video.url}", "type":"video/mp4"}], "attributes": {"preload": true, "controls": true}}`
                 : undefined
-            } // changer le type de la video en extrayant celui de la video => voir mime types available
+            }
             data-poster={data.video.url ? data.photo.url : undefined}
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            data-sub-html={`<div class="${styles.lightGallerySub!}">${
+              data.title !== null ? `<h4>${data.title}</h4>` : ''
+            }${
+              data.photo.copyright !== null
+                ? `<p>Copyright - ©${data.photo.copyright}</p>`
+                : ''
+            }</div>`}
           >
             <picture className={styles.picture}>
               <source
@@ -63,18 +73,3 @@ export default function Gallery({ items }: GalleryProps): JSX.Element {
     </div>
   );
 }
-//  <Item
-//               key={`slider-${id}`}
-//               id={id}
-//               original={data.photo.url}
-//               height={data.photo.dimensions.height}
-//               width={data.photo.dimensions.width}
-//               title={`${data.title ? `${data.title} ` : ""} ${
-//                 data.photo.copyright !== null ? `©${data.photo.copyright} ` : ""
-//               }${
-//                 tags !== undefined && tags.length > 0
-//                   ? `#${tags.join(" #")}`
-//                   : ""
-//               } `}
-//             >
-//             </Item>

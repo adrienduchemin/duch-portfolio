@@ -19,3 +19,11 @@
   cursor: pointer;
   content-visibility: auto;
 }
+
+.lightGallerySub {
+  color: white;
+}
+
+/* .lg-item .lg-sub-html {
+  background: rgba(0, 0, 0, 0.8);
+} */
