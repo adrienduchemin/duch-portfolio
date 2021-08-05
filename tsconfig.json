@@ -21,6 +21,7 @@
     "resolveJsonModule": true,
     "paths": {
       "@components/*": ["components/*"],
+      "@interfaces/*": ["interfaces/*"],
       "@utils/*": ["utils/*"],
       "@styles/*": ["styles/*"]
     },

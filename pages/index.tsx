@@ -1,13 +1,20 @@
 import { GetStaticProps } from 'next';
-import { Date as ParseDate } from 'prismic-reactjs';
 // import util from 'util';
 
 import Gallery from '@components/Gallery';
 import { client } from '@utils/prismic';
 
+import { IGalleryItem, IGalleryItemData } from '../interfaces/GalleryItem';
+
+interface IPage {
+  data: IPageData;
+}
+
 interface IPageData {
+  // gallery
   photos: [
     {
+      // galleryItem
       photo: {
         id: string;
       };
@@ -15,111 +22,50 @@ interface IPageData {
   ];
 }
 
-interface IPage {
-  data: IPageData;
-  uid: string;
-  updatedAt: string;
-}
-
-interface IPhotoData {
-  title: string;
-  photo: {
-    '1': {
-      dimensions: { width: number; height: number };
-      alt: string | null;
-      copyright: string | null;
-      url: string;
-    };
-    '2': {
-      dimensions: { width: number; height: number };
-      alt: string | null;
-      copyright: string | null;
-      url: string;
-    };
-    '3': {
-      dimensions: { width: number; height: number };
-      alt: string | null;
-      copyright: string | null;
-      url: string;
-    };
-    dimensions: { width: number; height: number };
-    alt: string | null;
-    copyright: string | null;
-    url: string;
-  };
-  video: {
-    name?: string; // peut etre qu'il faudra enlever l'extension s'il y en a une
-    url?: string; // extraire l'extension pour trouver le type de la video
-  };
-}
-
-export interface IPhoto {
-  data: IPhotoData;
-  id: string;
-  tags?: string[];
-  updatedAt: string;
-}
-
 interface HomeProps {
-  photos: IPhoto[];
-  uid: string;
-  updatedAt: string;
+  galleryItems: IGalleryItem[];
 }
 
-export default function Home({ photos, updatedAt }: HomeProps): JSX.Element {
-  const updatedAtDate = ParseDate(updatedAt);
-  console.log({ updatedAtDate });
-
-  return (
-    <>
-      <Gallery photos={photos} />
-      {/* {updatedAtDate.toLocaleString()} */}
-    </>
-  );
+export default function Home({ galleryItems }: HomeProps): JSX.Element {
+  return <Gallery items={galleryItems} />;
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const { data, uid, updatedAt } = await getPage();
-  const photos = await getPhotos(data);
+  const { data } = await getPage();
+  const galleryItems = await getGalleryItems(data);
 
   return {
     props: {
-      photos,
-      uid,
-      updatedAt,
+      galleryItems,
     },
   };
 };
 
 const getPage = async (): Promise<IPage> => {
-  const {
-    data,
-    last_publication_date: updatedAt,
-    uid,
-  } = await client.getSingle('portfolio', { lang: 'fr-fr' });
+  const { data } = await client.getSingle('portfolio', { lang: 'fr-fr' });
 
+  // console.log(util.inspect(data, false, null, true));
   return {
     data: data as IPageData,
-    uid: uid as string,
-    updatedAt: updatedAt as string,
   };
 };
 
-const getPhotos = async (pageData: IPageData): Promise<IPhoto[]> =>
+const getGalleryItems = async (pageData: IPageData): Promise<IGalleryItem[]> =>
   Promise.all(
-    pageData.photos.map(async (photo) => {
+    // pageData.gallery.map(async (g) => {
+    pageData.photos.map(async (galleryItem) => {
       const {
         data,
         id,
         last_publication_date: updatedAt,
         tags,
-      } = await client.getByID(photo.photo.id, {
+        // } = await client.getByID(g.galleryItem.id, {
+      } = await client.getByID(galleryItem.photo.id, {
         lang: 'fr-fr',
       });
 
-      // console.log(util.inspect(toto, false, null, true));
       return {
-        data: data as IPhotoData,
+        data: data as IGalleryItemData,
         id,
         tags,
         updatedAt: updatedAt as string,
