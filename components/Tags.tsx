@@ -1,7 +1,5 @@
 import styles from './Tags.module.css';
 
-// import { Date as ParseDate } from 'prismic-reactjs';
-
 interface TagsProps {
   toogleTag: (tag: string) => void;
   currentTags: string[];
