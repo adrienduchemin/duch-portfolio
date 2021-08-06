@@ -1,4 +1,5 @@
 import { InitDetail } from 'lightgallery/lg-events';
+import lgHash from 'lightgallery/plugins/hash';
 import lgVideo from 'lightgallery/plugins/video';
 import lgZoom from 'lightgallery/plugins/zoom';
 import dynamic from 'next/dynamic';
@@ -50,16 +51,17 @@ export default function Gallery({
 
   return (
     <div className={styles.container}>
-      {/* lgZoom, lgAutoplay, lgComment, lgFullscreen , lgHash, lgPager, lgRotate, lgShare, lgThumbnail, lgVideo, lgMediumZoom */}
       <LightGallery
         elementClassNames={styles.lightGallery}
-        plugins={[lgZoom, lgVideo]}
+        plugins={[lgHash, lgZoom, lgVideo]}
         appendSubHtmlTo=".lg-item"
+        customSlideName
         onInit={onInit}
       >
         {(newItems.length > 0 ? newItems : items).map(({ data, id }) => (
           // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a
+            data-slide-name={id}
             href={!data.video.url ? data.photo.url : undefined}
             key={id}
             data-video={
