@@ -1,7 +1,7 @@
 export interface IGalleryItem {
   data: IGalleryItemData;
   id: string;
-  tags?: string[];
+  tags: string[];
   updatedAt: string;
 }
 

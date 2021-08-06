@@ -1,10 +1,13 @@
 import { GetStaticProps } from 'next';
-// import util from 'util';
+import { useCallback, useState } from 'react';
 
 import Gallery from '@components/Gallery';
+import Tags from '@components/Tags';
+import styles from '@styles/index.module.css';
 import { client } from '@utils/prismic';
 
 import { IGalleryItem, IGalleryItemData } from '../interfaces/GalleryItem';
+// import util from 'util';
 
 interface IPage {
   data: IPageData;
@@ -17,6 +20,7 @@ interface IPageData {
       // galleryItem
       photo: {
         id: string;
+        tags: string[];
       };
     },
   ];
@@ -24,19 +28,40 @@ interface IPageData {
 
 interface HomeProps {
   galleryItems: IGalleryItem[];
+  allTags: string[];
 }
 
-export default function Home({ galleryItems }: HomeProps): JSX.Element {
-  return <Gallery items={galleryItems} />;
+export default function Home({
+  galleryItems,
+  allTags,
+}: HomeProps): JSX.Element {
+  const [currentTags, setCurrentTags] = useState<string[]>([]);
+
+  const toogleTag = useCallback((tag: string) => {
+    setCurrentTags((previousTags) =>
+      previousTags.includes(tag)
+        ? previousTags.filter((previousTag) => previousTag !== tag)
+        : [...previousTags, tag],
+    );
+  }, []);
+
+  return (
+    <div className={styles.container}>
+      <Tags allTags={allTags} currentTags={currentTags} toogleTag={toogleTag} />
+      <Gallery currentTags={currentTags} items={galleryItems} />
+    </div>
+  );
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const allTags: string[] = [];
   const { data } = await getPage();
-  const galleryItems = await getGalleryItems(data);
+  const galleryItems = await getGalleryItems(data, allTags);
 
   return {
     props: {
       galleryItems,
+      allTags: [...new Set(allTags)].sort(),
     },
   };
 };
@@ -50,19 +75,26 @@ const getPage = async (): Promise<IPage> => {
   };
 };
 
-const getGalleryItems = async (pageData: IPageData): Promise<IGalleryItem[]> =>
+// photos => gallery
+const getGalleryItems = async (
+  { photos }: IPageData,
+  allTags: string[],
+): Promise<IGalleryItem[]> =>
   Promise.all(
-    // pageData.gallery.map(async (g) => {
-    pageData.photos.map(async (galleryItem) => {
+    // photos => gallery et photo => galleryItem
+    photos.map(async ({ photo }) => {
       const {
         data,
         id,
-        last_publication_date: updatedAt,
         tags,
-        // } = await client.getByID(g.galleryItem.id, {
-      } = await client.getByID(galleryItem.photo.id, {
+        last_publication_date: updatedAt,
+        // photo => galleryItem
+      } = await client.getByID(photo.id, {
         lang: 'fr-fr',
       });
+
+      // photo => galleryItem
+      allTags.push(...photo.tags);
 
       return {
         data: data as IGalleryItemData,
