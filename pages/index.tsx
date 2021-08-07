@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react';
 
 import Gallery from '@components/Gallery';
 import Tags from '@components/Tags';
+import { SettingTag } from '@interfaces/SettingTag';
 import styles from '@styles/index.module.css';
 import { client } from '@utils/prismic';
 
@@ -36,7 +37,18 @@ export default function Home({
   allTags,
 }: HomeProps): JSX.Element {
   const [currentTags, setCurrentTags] = useState<string[]>([]);
+  const [currentSettingTags, setCurrentSettingTags] = useState<SettingTag[]>(
+    [],
+  );
   const [isFiltering, setIsFiltering] = useState(false);
+
+  const toogleSettingTag = useCallback((tag: SettingTag) => {
+    setCurrentSettingTags((previousTags) =>
+      previousTags.includes(tag)
+        ? previousTags.filter((previousTag) => previousTag !== tag)
+        : [...previousTags, tag],
+    );
+  }, []);
 
   const toogleTag = useCallback((tag: string) => {
     setCurrentTags((previousTags) =>
@@ -66,10 +78,16 @@ export default function Home({
         <Tags
           allTags={allTags}
           currentTags={currentTags}
+          currentSettingTags={currentSettingTags}
           toogleTag={toogleTag}
+          toogleSettingTag={toogleSettingTag}
         />
       )}
-      <Gallery currentTags={currentTags} items={galleryItems} />
+      <Gallery
+        currentTags={currentTags}
+        currentSettingTags={currentSettingTags}
+        items={galleryItems}
+      />
     </div>
   );
 }

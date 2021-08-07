@@ -5,7 +5,9 @@ import lgZoom from 'lightgallery/plugins/zoom';
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { IGalleryItem } from '../interfaces/GalleryItem';
+import { IGalleryItem } from '@interfaces/GalleryItem';
+import { SettingTag } from '@interfaces/SettingTag';
+
 import styles from './Gallery.module.css';
 
 import 'lightgallery/css/lightgallery.css';
@@ -19,11 +21,13 @@ const LightGallery = dynamic(() => import('lightgallery/react'), {
 
 interface GalleryProps {
   currentTags: string[];
+  currentSettingTags: SettingTag[];
   items: IGalleryItem[];
 }
 
 export default function Gallery({
   currentTags,
+  currentSettingTags,
   items,
 }: GalleryProps): JSX.Element {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,16 +42,40 @@ export default function Gallery({
 
   const newItems = useMemo(
     () =>
-      items.filter((item) =>
-        item.tags.some((tag) => currentTags.includes(tag)),
-      ),
-    [currentTags, items],
+      items
+        .filter((item) => {
+          if (currentSettingTags.length === 0) {
+            return true;
+          }
+          const checkSettingTagPhoto = currentSettingTags.includes(
+            SettingTag.Photo,
+          )
+            ? item.data.video.url === undefined
+            : false;
+          const checkSettingTagVideo = currentSettingTags.includes(
+            SettingTag.Video,
+          )
+            ? item.data.video.url !== undefined
+            : false;
+
+          return checkSettingTagPhoto || checkSettingTagVideo;
+        })
+        .filter((item) => {
+          if (currentTags.length === 0) {
+            return true;
+          }
+
+          return item.tags.some((tag) => currentTags.includes(tag));
+        }),
+    [currentSettingTags, currentTags, items],
   );
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     lightGallery.current?.refresh();
   }, [newItems]);
+
+  console.log({ newItems, items });
 
   return (
     <div className={styles.container}>
@@ -58,7 +86,7 @@ export default function Gallery({
         customSlideName
         onInit={onInit}
       >
-        {(newItems.length > 0 ? newItems : items).map(({ data, id }) => (
+        {newItems.map(({ data, id }) => (
           // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a
             data-slide-name={id}
