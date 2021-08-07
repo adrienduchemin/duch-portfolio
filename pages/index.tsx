@@ -1,5 +1,4 @@
 import { GetStaticProps } from 'next';
-import Image from 'next/image';
 import { useCallback, useState } from 'react';
 
 import Gallery from '@components/Gallery';
@@ -60,7 +59,8 @@ export default function Home({
         role="button"
         tabIndex={0}
       >
-        <Image src="/filter.svg" height={28} width={28} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/filter.svg" height={28} width={28} alt="filter" />
       </div>
       {isFiltering && (
         <Tags

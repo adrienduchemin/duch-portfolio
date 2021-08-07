@@ -1,6 +1,5 @@
 import { GetStaticProps } from 'next';
 import { RichText, RichTextBlock } from 'prismic-reactjs';
-import util from 'util';
 
 import styles from '@styles/about.module.css';
 import { client } from '@utils/prismic';
@@ -61,7 +60,6 @@ export const getStaticProps: GetStaticProps<AboutProps> = async () => {
 const getPage = async (): Promise<IPage> => {
   const { data } = await client.getSingle('about', { lang: 'fr-fr' });
 
-  console.log(util.inspect(data, false, null, true));
   return {
     data: data as IPageData,
   };
