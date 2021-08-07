@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next';
+import Image from 'next/image';
 import { useCallback, useState } from 'react';
 
 import Gallery from '@components/Gallery';
@@ -36,6 +37,7 @@ export default function Home({
   allTags,
 }: HomeProps): JSX.Element {
   const [currentTags, setCurrentTags] = useState<string[]>([]);
+  const [isFiltering, setIsFiltering] = useState(false);
 
   const toogleTag = useCallback((tag: string) => {
     setCurrentTags((previousTags) =>
@@ -45,9 +47,28 @@ export default function Home({
     );
   }, []);
 
+  const toogleFilter = useCallback(() => {
+    setIsFiltering((previousIsFiltering) => !previousIsFiltering);
+  }, []);
+
   return (
     <div className={styles.container}>
-      <Tags allTags={allTags} currentTags={currentTags} toogleTag={toogleTag} />
+      <div
+        className={styles.filter}
+        onClick={toogleFilter}
+        onKeyPress={toogleFilter}
+        role="button"
+        tabIndex={0}
+      >
+        <Image src="/filter.svg" height={28} width={28} />
+      </div>
+      {isFiltering && (
+        <Tags
+          allTags={allTags}
+          currentTags={currentTags}
+          toogleTag={toogleTag}
+        />
+      )}
       <Gallery currentTags={currentTags} items={galleryItems} />
     </div>
   );

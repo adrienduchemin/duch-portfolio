@@ -1,7 +1,7 @@
 .tag {
   margin: 0 5px 3px 0;
   display: inline-block;
-  background: #e0e0e0;
+  background: #d1d0d0;
   padding: 0 12px;
   height: 32px;
   line-height: 32px;
@@ -13,7 +13,7 @@
   opacity: 0.3;
 }
 .tagSelected {
-  background: red;
+  background: rgb(41, 41, 148);
 }
 .tagSelected:hover {
   opacity: 0.3;
