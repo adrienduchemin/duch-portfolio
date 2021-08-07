@@ -75,8 +75,6 @@ export default function Gallery({
     lightGallery.current?.refresh();
   }, [newItems]);
 
-  console.log({ newItems, items });
-
   return (
     <div className={styles.container}>
       <LightGallery

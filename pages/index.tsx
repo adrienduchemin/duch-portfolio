@@ -62,6 +62,11 @@ export default function Home({
     setIsFiltering((previousIsFiltering) => !previousIsFiltering);
   }, []);
 
+  const resetTags = useCallback(() => {
+    setCurrentTags([]);
+    setCurrentSettingTags([]);
+  }, []);
+
   return (
     <div className={styles.container}>
       <div
@@ -77,6 +82,7 @@ export default function Home({
       {isFiltering && (
         <Tags
           allTags={allTags}
+          resetTags={resetTags}
           currentTags={currentTags}
           currentSettingTags={currentSettingTags}
           toogleTag={toogleTag}

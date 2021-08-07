@@ -5,6 +5,7 @@ import styles from './Tags.module.css';
 interface TagsProps {
   toogleSettingTag: (tag: SettingTag) => void;
   toogleTag: (tag: string) => void;
+  resetTags: () => void;
   currentSettingTags: SettingTag[];
   currentTags: string[];
   allTags: string[];
@@ -16,9 +17,13 @@ export default function Tags({
   allTags,
   currentSettingTags,
   currentTags,
+  resetTags,
 }: TagsProps): JSX.Element {
   return (
     <div className={styles.tags}>
+      <button type="button" onClick={resetTags}>
+        Reset tags
+      </button>
       {allTags.map((tag) => (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div
