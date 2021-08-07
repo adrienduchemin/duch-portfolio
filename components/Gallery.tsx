@@ -52,7 +52,8 @@ export default function Gallery({
   return (
     <div className={styles.container}>
       <LightGallery
-        elementClassNames={styles.lightGallery}
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        elementClassNames={`${styles.lightGallery!} ${styles.captions!}`}
         plugins={[lgHash, lgZoom, lgVideo]}
         appendSubHtmlTo=".lg-item"
         customSlideName
@@ -98,6 +99,10 @@ export default function Gallery({
                 loading="lazy"
               />
             </picture>
+            <div className={styles.caption}>
+              <h1>Amazing Caption</h1>
+              <p>Whatever It Is - Always Awesome</p>
+            </div>
           </a>
         ))}
       </LightGallery>
