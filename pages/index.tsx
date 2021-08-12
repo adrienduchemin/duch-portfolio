@@ -1,7 +1,9 @@
+import ReactFullpage from '@fullpage/react-fullpage';
 import { GetStaticProps } from 'next';
 import { useCallback, useState } from 'react';
 
 import Gallery from '@components/Gallery';
+import Layout from '@components/Layout';
 import Tags from '@components/Tags';
 import { SettingTag } from '@interfaces/SettingTag';
 import styles from '@styles/index.module.css';
@@ -68,33 +70,51 @@ export default function Home({
   }, []);
 
   return (
-    <div className={styles.container}>
-      <div
-        className={styles.filter}
-        onClick={toogleFilter}
-        onKeyPress={toogleFilter}
-        role="button"
-        tabIndex={0}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/filter.svg" height={28} width={28} alt="filter" />
-      </div>
-      {isFiltering && (
-        <Tags
-          allTags={allTags}
-          resetTags={resetTags}
-          currentTags={currentTags}
-          currentSettingTags={currentSettingTags}
-          toogleTag={toogleTag}
-          toogleSettingTag={toogleSettingTag}
-        />
+    <ReactFullpage
+      licenseKey="YOUR_KEY_HERE"
+      scrollingSpeed={1000}
+      render={({ fullpageApi }) => (
+        <ReactFullpage.Wrapper>
+          <div className="section">
+            <p>Portfolio</p>
+            <button type="button" onClick={() => fullpageApi.moveSectionDown()}>
+              Click me to move down
+            </button>
+          </div>
+          <div className="section">
+            <Layout>
+              <div className={styles.container}>
+                <div
+                  className={styles.filter}
+                  onClick={toogleFilter}
+                  onKeyPress={toogleFilter}
+                  role="button"
+                  tabIndex={0}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/filter.svg" height={28} width={28} alt="filter" />
+                </div>
+                {isFiltering && (
+                  <Tags
+                    allTags={allTags}
+                    resetTags={resetTags}
+                    currentTags={currentTags}
+                    currentSettingTags={currentSettingTags}
+                    toogleTag={toogleTag}
+                    toogleSettingTag={toogleSettingTag}
+                  />
+                )}
+                <Gallery
+                  currentTags={currentTags}
+                  currentSettingTags={currentSettingTags}
+                  items={galleryItems}
+                />
+              </div>
+            </Layout>
+          </div>
+        </ReactFullpage.Wrapper>
       )}
-      <Gallery
-        currentTags={currentTags}
-        currentSettingTags={currentSettingTags}
-        items={galleryItems}
-      />
-    </div>
+    />
   );
 }
 
