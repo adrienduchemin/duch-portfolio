@@ -1,3 +1,4 @@
+import { globalStyle } from '@vanilla-extract/css';
 import { createAtomicStyles, createAtomsFn } from '@vanilla-extract/sprinkles';
 
 const space = {
@@ -92,6 +93,10 @@ const colorStyles = createAtomicStyles({
     background: colors,
     // etc.
   },
+});
+
+globalStyle(`html, body`, {
+  fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
 });
 
 export const atoms = createAtomsFn(

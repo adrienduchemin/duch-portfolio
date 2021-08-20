@@ -3,15 +3,11 @@ import lgVideo from 'lightgallery/plugins/video';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 
+import Box from '@components/Box';
+import GalleryItem from '@components/GalleryItem';
 import LightGalleryItem from '@components/LightGalleryItem';
 import { IGalleryItem } from '@interfaces/GalleryItem';
-
-import Box from './Box';
-import styles from './Gallery.module.css';
-import GalleryItem from './GalleryItem';
-
-import 'lightgallery/css/lightgallery.css';
-import 'lightgallery/css/lg-video.css';
+import { atoms } from '@styles/sprinkles.css';
 
 const LightGallery = dynamic(() => import('lightgallery/react'), {
   ssr: false,
@@ -42,7 +38,9 @@ export default function Gallery({ items }: GalleryProps): JSX.Element {
       <LightGallery
         plugins={[lgHash, lgVideo]}
         customSlideName
-        elementClassNames={styles.lightGallery}
+        elementClassNames={atoms({
+          display: 'contents',
+        })}
       >
         {items.map((item) => (
           <LightGalleryItem {...item} key={item.id}>
