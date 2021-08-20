@@ -40,6 +40,7 @@ export default function FullPage({
       afterLoad={afterLoad}
       scrollOverflow
       lazyLoading={false}
+      slidesNavigation
       render={({ fullpageApi }) => (
         <ReactFullpage.Wrapper>
           <Box className="section">

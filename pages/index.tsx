@@ -49,7 +49,7 @@ async function getHome(): Promise<IHome> {
 
 async function getGallery(): Promise<IGallery> {
   // const galleryItems = await client.getMultiple('galleryItem');
-  const galleryItems = await getGalleryItemsFixture(50);
+  const galleryItems = await getGalleryItemsFixture(80);
   const types = [
     ...new Set(
       galleryItems

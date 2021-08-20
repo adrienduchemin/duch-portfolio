@@ -99,6 +99,10 @@ globalStyle(`html, body`, {
   fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
 });
 
+globalStyle(`.fp-slidesNav.fp-bottom`, {
+  textAlign: 'center',
+});
+
 export const atoms = createAtomsFn(
   responsiveStyles,
   colorStyles,

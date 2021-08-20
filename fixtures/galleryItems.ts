@@ -12,9 +12,9 @@ function generateGalleryItems(numberOfItems: number): IGalleryItem[] {
   const galleryItems: IGalleryItem[] = [];
 
   for (let i = 1; i < numberOfItems; i++) {
-    const isVideo = Math.random() < 0.2;
+    const isVideo = Math.random() < 0.3;
     const type =
-      Math.random() < 0.5 ? 'danse' : Math.random() < 0.5 ? 'acting' : 'book';
+      Math.random() < 0.4 ? 'danse' : Math.random() < 0.5 ? 'acting' : 'book';
 
     galleryItems.push({
       data: {
