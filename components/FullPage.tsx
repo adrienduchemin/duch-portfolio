@@ -6,18 +6,18 @@ import Box from '@components/Box';
 import Gallery from '@components/Gallery';
 import Home from '@components/Home';
 import { IBio } from '@interfaces/Bio';
-import { IGalleryItem } from '@interfaces/GalleryItem';
+import { IGallery } from '@interfaces/Gallery';
 import { IHome } from '@interfaces/Home';
 
 interface FullPageProps {
   bio: IBio;
   home: IHome;
-  galleryItems: IGalleryItem[];
+  gallery: IGallery;
 }
 export default function FullPage({
   bio,
   home,
-  galleryItems,
+  gallery,
 }: FullPageProps): JSX.Element {
   const onLeave = useCallback(
     (origin: Item, destination: Item, direction: string) => {
@@ -42,13 +42,36 @@ export default function FullPage({
       lazyLoading={false}
       render={({ fullpageApi }) => (
         <ReactFullpage.Wrapper>
-          <Box id="home" className="section">
+          <Box className="section" data-anchor="home">
             <Home home={home} fullpage={fullpageApi} />
           </Box>
-          <Box id="gallery" className="section">
-            <Gallery items={galleryItems} />
+          <Box className="section" data-anchor="gallery">
+            <Box className="slide" data-anchor="danse">
+              <Gallery
+                items={gallery.items.filter(
+                  (galleryItem) =>
+                    galleryItem.data.type === null ||
+                    galleryItem.data.type === 'danse',
+                )}
+                type="danse"
+              />
+            </Box>
+            {gallery.types.map((galleryType) => (
+              <Box
+                className="slide"
+                data-anchor={galleryType}
+                key={galleryType}
+              >
+                <Gallery
+                  items={gallery.items.filter(
+                    (galleryItem) => galleryItem.data.type === galleryType,
+                  )}
+                  type={galleryType}
+                />
+              </Box>
+            ))}
           </Box>
-          <Box id="bio" className="section">
+          <Box className="section" data-anchor="bio">
             <Bio bio={bio} />
           </Box>
         </ReactFullpage.Wrapper>

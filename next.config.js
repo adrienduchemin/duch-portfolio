@@ -33,7 +33,6 @@ module.exports = {
               },
             },
           ],
-      // [MiniCssExtractPlugin.loader, 'css-loader'],
     });
 
     config.plugins.push(new VanillaExtractPlugin());

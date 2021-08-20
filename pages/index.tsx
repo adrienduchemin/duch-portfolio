@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next';
 
 import FullPage from '@components/FullPage';
 import { IBio } from '@interfaces/Bio';
-import { IGalleryItem } from '@interfaces/GalleryItem';
+import { IGallery } from '@interfaces/Gallery';
 import { IHome } from '@interfaces/Home';
 
 import { getBioFixture } from '../fixtures/bio';
@@ -12,7 +12,7 @@ import { getHomeFixture } from '../fixtures/home';
 interface IndexProps {
   bio: IBio;
   home: IHome;
-  galleryItems: IGalleryItem[];
+  gallery: IGallery;
 }
 
 export default function Index(props: IndexProps): JSX.Element {
@@ -20,17 +20,17 @@ export default function Index(props: IndexProps): JSX.Element {
 }
 
 export const getStaticProps: GetStaticProps<IndexProps> = async () => {
-  const [bio, home, galleryItems] = await Promise.all([
+  const [bio, home, gallery] = await Promise.all([
     getBio(),
     getHome(),
-    getGalleryItems(),
+    getGallery(),
   ]);
 
   return {
     props: {
       bio,
       home,
-      galleryItems,
+      gallery,
     },
   };
 };
@@ -47,8 +47,24 @@ async function getHome(): Promise<IHome> {
   return getHomeFixture(); // for now until prismic back
 }
 
-async function getGalleryItems(): Promise<IGalleryItem[]> {
-  if (process.env.OFFLINE === 'true') return getGalleryItemsFixture();
-  // return client.getMultiple('galleryItem');
-  return getGalleryItemsFixture(); // for now until prismic back
+async function getGallery(): Promise<IGallery> {
+  // const galleryItems = await client.getMultiple('galleryItem');
+  const galleryItems = await getGalleryItemsFixture(50);
+  const types = [
+    ...new Set(
+      galleryItems
+        .filter(
+          (galleryItem) =>
+            galleryItem.data.type !== null && galleryItem.data.type !== 'danse',
+        )
+        .map((galleryItem) => galleryItem.data.type),
+    ),
+  ];
+
+  const gallery: IGallery = {
+    items: galleryItems,
+    types: types as string[],
+  };
+
+  return gallery; // for now until prismic back
 }

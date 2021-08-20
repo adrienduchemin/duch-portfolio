@@ -1,7 +1,6 @@
 import { IHome } from '../interfaces/Home';
 
 export async function getHomeFixture(): Promise<IHome> {
-  // return client.getSingle('bio');
   return new Promise((resolve) => {
     resolve({
       data: {

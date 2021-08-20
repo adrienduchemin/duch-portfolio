@@ -14,14 +14,17 @@ export default function LightGalleryItem({
   children,
 }: LightGalleryItemProps): JSX.Element {
   const withVideo = useMemo(() => hasVideo(video), [video]);
-  const videoParams = useMemo(() => getVideoParams(video), [video]);
+  const videoParams = useMemo(
+    () => (withVideo ? getVideoParams(video) : undefined),
+    [video, withVideo],
+  );
 
   return (
     <Box
       as="a"
       data-slide-name={id}
       href={withVideo ? undefined : image.url}
-      data-video={withVideo ? videoParams : undefined}
+      data-video={videoParams}
       data-poster={withVideo ? image.url : undefined}
     >
       {children}
@@ -35,5 +38,6 @@ function hasVideo(video: IGalleryItemData['video']): boolean {
 
 function getVideoParams(video: IGalleryItemData['video']): string {
   // JSON parse and stringify instead of this shit
-  return `{"source": [{"src":"${video.url}", "type":"video/mp4"}], "attributes": {"preload": true, "controls": true}}`;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return `{"source": [{"src":"${video.url!}", "type":"video/mp4"}], "attributes": {"preload": true, "controls": true}}`;
 }

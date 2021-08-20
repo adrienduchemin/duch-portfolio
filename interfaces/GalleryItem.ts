@@ -8,12 +8,11 @@ export interface IGalleryItem {
 
 export interface IGalleryItemData {
   title: string | null;
+  type: string | 'danse' | null;
   image: Image & {
     mobile: Image;
   };
-  video:
-    | Record<string, never>
-    | {
-        url: string; // pour l'instant on ne prend que les mp4
-      };
+  video: {
+    url?: string; // pour l'instant on ne prend que les mp4
+  };
 }

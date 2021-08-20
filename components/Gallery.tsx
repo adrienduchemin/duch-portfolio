@@ -15,12 +15,13 @@ const LightGallery = dynamic(() => import('lightgallery/react'), {
 
 interface GalleryProps {
   items: IGalleryItem[];
+  type: string;
 }
 
-export default function Gallery({ items }: GalleryProps): JSX.Element {
+export default function Gallery({ items, type }: GalleryProps): JSX.Element {
   useEffect(() => {
-    console.log({ items });
-  }, [items]);
+    console.log({ items, type });
+  }, [items, type]);
 
   return (
     <Box
@@ -41,6 +42,7 @@ export default function Gallery({ items }: GalleryProps): JSX.Element {
         elementClassNames={atoms({
           display: 'contents',
         })}
+        galleryId={type}
       >
         {items.map((item) => (
           <LightGalleryItem {...item} key={item.id}>
