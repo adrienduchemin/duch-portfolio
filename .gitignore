@@ -16,6 +16,7 @@
 /build
 
 # misc
+/.vscode
 .DS_Store
 *.pem
 
@@ -29,3 +30,6 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+
+# vercel
+.vercel

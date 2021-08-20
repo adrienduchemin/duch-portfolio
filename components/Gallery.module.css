@@ -1,29 +1,3 @@
-.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto;
-}
-
 .lightGallery {
   display: contents;
 }
-
-.picture,
-.img {
-  width: 100%;
-  object-fit: contain;
-  display: block;
-}
-
-.img {
-  cursor: pointer;
-  content-visibility: auto;
-}
-
-.lightGallerySub {
-  color: white;
-}
-
-/* .lg-item .lg-sub-html {
-  background: rgba(0, 0, 0, 0.8);
-} */

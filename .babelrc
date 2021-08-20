@@ -9,5 +9,8 @@
       }
     ]
   ],
-  "plugins": ["@babel/plugin-transform-typescript"]
+  "plugins": [
+    "@babel/plugin-transform-typescript",
+    "@vanilla-extract/babel-plugin"
+  ]
 }

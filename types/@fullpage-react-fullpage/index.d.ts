@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 declare module '@fullpage/react-fullpage' {
-  type Item = {
+  export type Item = {
     anchor: number | string;
     index: number;
     item: HTMLElement;
