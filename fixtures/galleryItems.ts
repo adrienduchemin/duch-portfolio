@@ -37,9 +37,15 @@ function generateGalleryItems(numberOfItems: number): IGalleryItem[] {
         },
       },
       id: `${isVideo ? 'video' : 'photo'}-${i}`,
-      updatedAt: new Date('01/12/2021').toISOString(),
+      updatedAt: randomDate(new Date(2019, 0, 1), new Date()).toISOString(),
     });
   }
 
   return galleryItems;
+}
+
+function randomDate(start: Date, end: Date) {
+  return new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime()),
+  );
 }

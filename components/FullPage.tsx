@@ -2,7 +2,6 @@ import ReactFullpage, { Item } from '@fullpage/react-fullpage';
 import { useCallback } from 'react';
 
 import Bio from '@components/Bio';
-import Box from '@components/Box';
 import Gallery from '@components/Gallery';
 import Home from '@components/Home';
 import { IBio } from '@interfaces/Bio';
@@ -19,16 +18,20 @@ export default function FullPage({
   home,
   gallery,
 }: FullPageProps): JSX.Element {
-  const onLeave = useCallback(
-    (origin: Item, destination: Item, direction: string) => {
-      console.log('Leaving', { origin, destination, direction });
+  const afterLoad = useCallback(
+    (_origin: Item, destination: Item, _direction: string) => {
+      if (destination.index === 1) {
+        // trigger modal
+      }
     },
     [],
   );
 
-  const afterLoad = useCallback(
-    (origin: Item, destination: Item, direction: string) => {
-      console.log('After load', { origin, destination, direction });
+  const afterSlideLoad = useCallback(
+    (section: Item, _origin: Item, _destination: Item, _direction: string) => {
+      if (section.index === 1) {
+        // trigger modal
+      }
     },
     [],
   );
@@ -36,41 +39,51 @@ export default function FullPage({
   return (
     <ReactFullpage
       licenseKey="YOUR_KEY_HERE"
-      onLeave={onLeave}
       afterLoad={afterLoad}
+      afterSlideLoad={afterSlideLoad}
       scrollOverflow
       lazyLoading={false}
       slidesNavigation
       render={({ fullpageApi }) => (
         <ReactFullpage.Wrapper>
-          <Box className="section">
+          <div className="section">
             <Home home={home} fullpage={fullpageApi} />
-          </Box>
-          <Box className="section">
-            <Box className="slide">
+          </div>
+          <div className="section">
+            <div className="slide">
               <Gallery
-                items={gallery.items.filter(
-                  (galleryItem) =>
-                    galleryItem.data.type === null ||
-                    galleryItem.data.type === 'danse',
-                )}
+                items={gallery.items
+                  .filter(
+                    (galleryItem) =>
+                      galleryItem.data.type === null ||
+                      galleryItem.data.type === 'danse',
+                  )
+                  .sort(
+                    (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt), // peut etre a inverser ?
+                  )}
                 type="danse"
               />
-            </Box>
+            </div>
             {gallery.types.map((galleryType) => (
-              <Box className="slide" key={galleryType}>
+              <div className="slide" key={galleryType}>
                 <Gallery
-                  items={gallery.items.filter(
-                    (galleryItem) => galleryItem.data.type === galleryType,
-                  )}
+                  items={gallery.items
+                    .filter(
+                      (galleryItem) => galleryItem.data.type === galleryType,
+                    )
+                    .sort(
+                      (a, b) =>
+                        new Date(b.updatedAt).getTime() -
+                        new Date(a.updatedAt).getTime(), // peut etre a inverser ?
+                    )}
                   type={galleryType}
                 />
-              </Box>
+              </div>
             ))}
-          </Box>
-          <Box className="section">
+          </div>
+          <div className="section">
             <Bio bio={bio} />
-          </Box>
+          </div>
         </ReactFullpage.Wrapper>
       )}
     />

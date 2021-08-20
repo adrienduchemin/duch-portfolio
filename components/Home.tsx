@@ -2,8 +2,7 @@ import { fullpageApi } from '@fullpage/react-fullpage';
 import { useCallback, useEffect } from 'react';
 
 import { IHome } from '@interfaces/Home';
-
-import Box from './Box';
+import { atoms } from '@styles/sprinkles.css';
 
 interface HomeProps {
   home: IHome;
@@ -16,15 +15,26 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
   }, [home]);
 
   return (
-    <Box
-      atoms={{
+    <div
+      className={atoms({
+        textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
-      }}
+      })}
     >
-      <p>home</p>
+      <p>Laïs Beunardeau</p>
+      <p>{home.data.description}</p>
+      <br />
+      <br />
+      <br />
+      <a href={home.data.instagram.url} target="_blank" rel="noreferrer">
+        Insta
+      </a>
+      <br />
+      <br />
+      <br />
       <Button fullpage={fullpage} />
-    </Box>
+    </div>
   );
 }
 
@@ -38,16 +48,16 @@ function Button({ fullpage }: ButtonProps): JSX.Element {
   }, [fullpage]);
 
   return (
-    <Box
-      as="button"
+    <button
+      type="button"
       onClick={moveSectionDown}
-      atoms={{
+      className={atoms({
         padding: 'medium',
         cursor: 'pointer',
-      }}
-      style={{ fontFamily: 'inherit' }}
+        fontFamily: 'inherit',
+      })}
     >
       Click me to move down
-    </Box>
+    </button>
   );
 }

@@ -3,7 +3,6 @@ import lgVideo from 'lightgallery/plugins/video';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 
-import Box from '@components/Box';
 import GalleryItem from '@components/GalleryItem';
 import LightGalleryItem from '@components/LightGalleryItem';
 import { IGalleryItem } from '@interfaces/GalleryItem';
@@ -20,12 +19,13 @@ interface GalleryProps {
 
 export default function Gallery({ items, type }: GalleryProps): JSX.Element {
   useEffect(() => {
+    // voir pourquoi ce composant est autant appelé dans les logs ??
     console.log({ items, type });
   }, [items, type]);
 
   return (
-    <Box
-      atoms={{
+    <div
+      className={atoms({
         margin: 'auto',
         display: 'grid',
         // gridGap: '2px',
@@ -34,7 +34,7 @@ export default function Gallery({ items, type }: GalleryProps): JSX.Element {
           tablet: 'medium',
           desktop: 'large',
         },
-      }}
+      })}
     >
       <LightGallery
         plugins={[lgHash, lgVideo]}
@@ -50,6 +50,6 @@ export default function Gallery({ items, type }: GalleryProps): JSX.Element {
           </LightGalleryItem>
         ))}
       </LightGallery>
-    </Box>
+    </div>
   );
 }

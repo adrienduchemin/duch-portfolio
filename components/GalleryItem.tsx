@@ -1,6 +1,5 @@
 import { IGalleryItemData } from '@interfaces/GalleryItem';
 
-import Box from './Box';
 import LazyImage from './LazyImage';
 import LazySource from './LazySource';
 
@@ -10,20 +9,21 @@ interface GalleryItemProps {
 
 export default function GalleryItem({ image }: GalleryItemProps): JSX.Element {
   return (
-    <Box as="picture">
+    <picture>
       <LazySource media="(min-width: 800px)" dataSrcset={image.mobile.url} />
       <LazySource media="(min-width: 1200px)" dataSrcset={image.url} />
       <LazyImage
-        atoms={{
+        atom={{
           width: '100%',
           objectFit: 'scale-down',
           display: 'block',
           cursor: 'pointer',
         }}
-        dataSrc={image.url} // not needed ?
-        src="/lowquality.jpg" // not needed ?
+        dataSrc={image.url}
+        // src="/card.svg" // this is causing the scrolling bug so let's wait for now
+        src="/lowquality.jpg"
         alt={image.alt ?? ''}
       />
-    </Box>
+    </picture>
   );
 }

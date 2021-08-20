@@ -10,6 +10,6 @@ interface IHomeData {
     mobile: Image;
   };
   instagram: {
-    url?: string;
+    url: string;
   };
 }

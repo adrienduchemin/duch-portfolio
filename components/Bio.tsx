@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
+import LazyImage from '@components/LazyImage';
 import { IBio } from '@interfaces/Bio';
-
-import Box from './Box';
+import { atoms } from '@styles/sprinkles.css';
 
 interface BioProps {
   bio: IBio;
@@ -14,8 +14,9 @@ export default function Bio({ bio }: BioProps): JSX.Element {
   }, [bio]);
 
   return (
-    <Box
-      atoms={{
+    <div
+      className={atoms({
+        textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
         padding: {
@@ -23,9 +24,25 @@ export default function Bio({ bio }: BioProps): JSX.Element {
           tablet: 'small',
           desktop: 'large',
         },
-      }}
+      })}
     >
-      <p>bio</p>
-    </Box>
+      <LazyImage
+        atom={{
+          verticalAlign: 'middle',
+          display: 'block',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          width: '150px',
+          height: 'small',
+          borderRadius: '50%',
+        }}
+        dataSrc={bio.data.image.url}
+        alt={bio.data.image.alt ?? ''}
+        src="/card.svg"
+        width="150px"
+        height="150px"
+      />
+      <p>{bio.data.description}</p>
+    </div>
   );
 }

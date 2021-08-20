@@ -2,20 +2,23 @@ import { useEffect } from 'react';
 
 import { lazyLoadInstance } from '@utils/lazyload';
 
-import { Atoms } from '../styles/sprinkles.css';
-import Box from './Box';
+import { atoms, Atoms } from '../styles/sprinkles.css';
 
 interface LazyImageProps {
   alt: string;
   dataSrc: string;
-  atoms?: Atoms;
+  width?: number | string;
+  height?: number | string;
+  atom?: Atoms;
   src?: string;
 }
 
 export default function LazyImage({
   alt,
-  atoms,
+  atom,
   dataSrc,
+  width,
+  height,
   src,
 }: LazyImageProps): JSX.Element {
   useEffect(() => {
@@ -24,15 +27,16 @@ export default function LazyImage({
   // regarder la console de https://www.andreaverlicchi.eu/vanilla-lazyload/demos/async.html
 
   return (
-    <Box
-      as="img"
-      atoms={atoms}
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      className={`lazy ${atoms({
+        ...atom,
+      })}`}
       alt={alt}
-      className="lazy"
-      data-src={dataSrc} // should i put this ? It looks like its getting downloaded at the start
-      src={src} // placeholder until the loading finishes : disable it and just reserve the space ?
-      // width={width}
-      // height={height}
+      data-src={dataSrc}
+      src={src}
+      width={width}
+      height={height}
     />
   );
 }

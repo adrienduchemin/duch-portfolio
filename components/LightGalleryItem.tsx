@@ -2,8 +2,6 @@ import { useMemo } from 'react';
 
 import { IGalleryItem, IGalleryItemData } from '@interfaces/GalleryItem';
 
-import Box from './Box';
-
 interface LightGalleryItemProps extends IGalleryItem {
   children: JSX.Element;
 }
@@ -20,15 +18,15 @@ export default function LightGalleryItem({
   );
 
   return (
-    <Box
-      as="a"
+    // eslint-disable-next-line jsx-a11y/anchor-is-valid
+    <a
       data-slide-name={id}
       href={withVideo ? undefined : image.url}
       data-video={videoParams}
       data-poster={withVideo ? image.url : undefined}
     >
       {children}
-    </Box>
+    </a>
   );
 }
 

@@ -30,9 +30,11 @@ const responsiveStyles = createAtomicStyles({
   },
   defaultCondition: 'mobile',
   properties: {
+    borderRadius: ['50%'],
     cursor: ['pointer'],
     display: ['none', 'flex', 'block', 'inline', 'grid', 'contents'],
     height,
+    fontFamily: ['inherit'],
     margin,
     flexDirection: ['row', 'column'],
     justifyContent: [
@@ -47,10 +49,14 @@ const responsiveStyles = createAtomicStyles({
     alignItems: ['stretch', 'flex-start', 'center', 'flex-end'],
     paddingTop: space,
     paddingBottom: space,
+    marginLeft: ['auto'],
+    marginRight: ['auto'],
     paddingLeft: space,
     paddingRight: space,
     gridTemplateColumns: repeat,
-    width: ['100%'],
+    verticalAlign: ['middle'],
+    width: ['100%', '150px'],
+    textAlign: ['center'],
   },
   shorthands: {
     padding: ['paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight'],
