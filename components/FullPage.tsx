@@ -42,11 +42,11 @@ export default function FullPage({
       lazyLoading={false}
       render={({ fullpageApi }) => (
         <ReactFullpage.Wrapper>
-          <Box className="section" data-anchor="home">
+          <Box className="section">
             <Home home={home} fullpage={fullpageApi} />
           </Box>
-          <Box className="section" data-anchor="gallery">
-            <Box className="slide" data-anchor="danse">
+          <Box className="section">
+            <Box className="slide">
               <Gallery
                 items={gallery.items.filter(
                   (galleryItem) =>
@@ -57,11 +57,7 @@ export default function FullPage({
               />
             </Box>
             {gallery.types.map((galleryType) => (
-              <Box
-                className="slide"
-                data-anchor={galleryType}
-                key={galleryType}
-              >
+              <Box className="slide" key={galleryType}>
                 <Gallery
                   items={gallery.items.filter(
                     (galleryItem) => galleryItem.data.type === galleryType,
@@ -71,7 +67,7 @@ export default function FullPage({
               </Box>
             ))}
           </Box>
-          <Box className="section" data-anchor="bio">
+          <Box className="section">
             <Bio bio={bio} />
           </Box>
         </ReactFullpage.Wrapper>

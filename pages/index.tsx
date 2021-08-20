@@ -66,5 +66,5 @@ async function getGallery(): Promise<IGallery> {
     types: types as string[],
   };
 
-  return gallery; // for now until prismic back
+  return gallery;
 }
