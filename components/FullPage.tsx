@@ -1,5 +1,5 @@
 import ReactFullpage, { Item } from '@fullpage/react-fullpage';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import Bio from '@components/Bio';
 import Gallery from '@components/Gallery';
@@ -18,10 +18,16 @@ export default function FullPage({
   home,
   gallery,
 }: FullPageProps): JSX.Element {
+  const [isGallery, setIsGallery] = useState(false);
+  const [isSlide, setIsSlide] = useState(false);
+
   const afterLoad = useCallback(
     (_origin: Item, destination: Item, _direction: string) => {
       if (destination.index === 1) {
+        setIsGallery(true);
         // trigger modal
+      } else {
+        setIsGallery(false);
       }
     },
     [],
@@ -30,7 +36,10 @@ export default function FullPage({
   const afterSlideLoad = useCallback(
     (section: Item, _origin: Item, _destination: Item, _direction: string) => {
       if (section.index === 1) {
+        setIsSlide(true);
         // trigger modal
+      } else {
+        setIsSlide(false);
       }
     },
     [],
@@ -59,9 +68,10 @@ export default function FullPage({
                       galleryItem.data.type === 'danse',
                   )
                   .sort(
-                    (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt), // peut etre a inverser ?
+                    (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
                   )}
                 type="danse"
+                onMount={isGallery || isSlide}
               />
             </div>
             {gallery.types.map((galleryType) => (
@@ -73,10 +83,10 @@ export default function FullPage({
                     )
                     .sort(
                       (a, b) =>
-                        new Date(b.updatedAt).getTime() -
-                        new Date(a.updatedAt).getTime(), // peut etre a inverser ?
+                        Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
                     )}
                   type={galleryType}
+                  onMount={isGallery || isSlide}
                 />
               </div>
             ))}

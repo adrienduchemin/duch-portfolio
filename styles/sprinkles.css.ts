@@ -10,10 +10,13 @@ const space = {
 
 const height = {
   small: '150px',
+  cent: '100%',
+  centvh: '100vh',
 };
 
 const margin = {
   auto: '0 auto',
+  none: 0,
 };
 
 const repeat = {
@@ -34,6 +37,7 @@ const responsiveStyles = createAtomicStyles({
     cursor: ['pointer'],
     display: ['none', 'flex', 'block', 'inline', 'grid', 'contents'],
     height,
+    fontWeight: ['bold'],
     fontFamily: ['inherit'],
     margin,
     flexDirection: ['row', 'column'],
@@ -57,6 +61,19 @@ const responsiveStyles = createAtomicStyles({
     verticalAlign: ['middle'],
     width: ['100%', '150px'],
     textAlign: ['center'],
+    transform: [
+      'scale(0.8)',
+      'scale(1.8)',
+      'scale(1)',
+      'translate(-50%, -50%)',
+    ],
+    filter: ['blur(10px)'],
+    opacity: [0, 1],
+    visibility: ['hidden', 'visible'],
+    position: ['fixed', 'absolute'],
+    zIndex: [999],
+    top: ['50%'],
+    left: ['50%'],
   },
   shorthands: {
     padding: ['paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight'],
@@ -80,12 +97,14 @@ const galleryStyles = createAtomicStyles({
 });
 
 const colors = {
+  white: 'white',
   'blue-50': '#eff6ff',
   'blue-100': '#dbeafe',
   'blue-200': '#bfdbfe',
   'gray-700': '#374151',
   'gray-800': '#1f2937',
   'gray-900': '#111827',
+  overlay: 'rgba(0, 0, 0, 0.65)',
 };
 
 const colorStyles = createAtomicStyles({
@@ -99,6 +118,10 @@ const colorStyles = createAtomicStyles({
     background: colors,
     // etc.
   },
+});
+
+globalStyle(`*`, {
+  transition: 'all 0.25s ease-out',
 });
 
 globalStyle(`html, body`, {
