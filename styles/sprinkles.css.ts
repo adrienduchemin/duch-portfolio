@@ -10,6 +10,7 @@ const space = {
 };
 
 const height = {
+  xs: '50px',
   small: '150px',
   medium: '80%',
   cent: '100%',
@@ -72,7 +73,7 @@ const responsiveStyles = createAtomicStyles({
       'space-around',
       'space-between',
     ],
-    objectFit: ['scale-down', 'cover'],
+    objectFit: ['scale-down', 'cover', 'fill'],
     alignItems: ['stretch', 'flex-start', 'center', 'flex-end'],
     alignSelf: ['center'],
     paddingTop: space,
@@ -84,7 +85,7 @@ const responsiveStyles = createAtomicStyles({
     paddingRight: space,
     gridTemplateColumns: repeat,
     verticalAlign: ['middle'],
-    width: ['100%', '150px', 'auto', '100vw'],
+    width: ['100%', '50px', '150px', 'auto', '100vw'],
     textAlign: ['center'],
     transform: [
       'scale(0)',
@@ -162,12 +163,8 @@ globalStyle(`html, body`, {
 });
 
 globalStyle(`html.modal-active, body.modal-active`, {
-  minHeight: '100%',
-  height: '100%',
-});
-
-globalStyle(`.fp-slidesNav.fp-bottom`, {
-  textAlign: 'center',
+  // minHeight: '100%',
+  // height: '100%',
 });
 
 globalStyle(`.iScrollVerticalScrollbar`, {

@@ -34,7 +34,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
           className={atoms({
             height: 'cent',
             width: '100%',
-            objectFit: 'cover',
+            objectFit: 'fill', // ou cover si elle prefere cropper a droite
           })}
         >
           <source src={home.data.background.url} type="video/mp4" />
@@ -54,34 +54,36 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
         <div
           className={atoms({
             display: 'flex',
-            justifyContent: 'center',
             flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center',
-            height: 'medium',
+            textAlign: 'center',
+            height: 'cent',
             width: '100%',
+            color: 'white',
             zIndex: 1,
           })}
         >
-          <div
-            className={atoms({
-              zIndex: 1,
-              height: 'small',
-              color: 'white',
-            })}
-          >
-            <p>Laïs Beunardeau</p>
-            <p>{home.data.description}</p>
-            <br />
-            <br />
-            <br />
-            <a href={home.data.instagram.url} target="_blank" rel="noreferrer">
-              Insta
-            </a>
-            <br />
-            <br />
-            <br />
-            <Button fullpage={fullpage} />
-          </div>
+          <p>Laïs Beunardeau</p>
+          <p>{home.data.description}</p>
+          <br />
+          <br />
+          <br />
+          <a href={home.data.instagram.url} target="_blank" rel="noreferrer">
+            {/* eslint-disable-next-line @next/next/no-img-element  */}
+            <img
+              src="/instagram.svg"
+              alt="Instagram"
+              className={atoms({
+                width: '50px',
+                height: 'xs',
+              })}
+            />
+          </a>
+          <br />
+          <br />
+          <br />
+          <Button fullpage={fullpage} />
         </div>
       </div>
     </>

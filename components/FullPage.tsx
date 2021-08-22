@@ -46,7 +46,6 @@ export default function FullPage({
       scrollOverflow
       // scrollOverflowReset
       lazyLoading={false}
-      slidesNavigation
       render={({ fullpageApi }) => (
         <ReactFullpage.Wrapper>
           <div className="section">
