@@ -71,7 +71,7 @@ export default function FullPage({
                     (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
                   )}
                 type="danse"
-                onMount={isGallery || isSlide}
+                isVisible={isGallery || isSlide}
               />
             </div>
             {gallery.types.map((galleryType) => (
@@ -86,7 +86,7 @@ export default function FullPage({
                         Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
                     )}
                   type={galleryType}
-                  onMount={isGallery || isSlide}
+                  isVisible={isGallery || isSlide}
                 />
               </div>
             ))}
