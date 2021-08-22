@@ -59,8 +59,15 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
             zIndex: 5,
           })}
         >
-          <p>Laïs Beunardeau</p>
+          <svg height="20" width="120">
+            <text x="0" y="15" fill="white">
+              Laïs Beunardeau
+            </text>
+          </svg>
           <p>{home.data.description}</p>
+          <br />
+          <br />
+          <br />
           <br />
           <br />
           <br />
@@ -75,6 +82,9 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
               })}
             />
           </a>
+          <br />
+          <br />
+          <br />
           <br />
           <br />
           <br />

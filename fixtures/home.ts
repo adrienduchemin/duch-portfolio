@@ -4,7 +4,7 @@ export async function getHomeFixture(): Promise<IHome> {
   return new Promise((resolve) => {
     resolve({
       data: {
-        description: 'Professional dancer',
+        description: 'Danseuse',
         background: {
           url: '/video.mp4',
         },
