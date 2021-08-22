@@ -18,6 +18,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
     <>
       <video
         data-autoplay
+        playsInline
         muted
         loop
         className={atoms({
