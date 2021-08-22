@@ -11,6 +11,7 @@ const space = {
 
 const height = {
   xs: '50px',
+  sm: '100px',
   small: '150px',
   medium: '80%',
   cent: '100%',
@@ -37,7 +38,9 @@ const responsiveStyles = createAtomicStyles({
   },
   defaultCondition: 'mobile',
   properties: {
-    borderRadius: ['50%', '3px'],
+    border: [`solid`],
+    borderColor: ['white'],
+    borderRadius: ['50%', '3px', '100px'],
     cursor: ['pointer'],
     display: [
       'none',
@@ -59,8 +62,8 @@ const responsiveStyles = createAtomicStyles({
     strokeWidth: ['2px'],
     strokeDasharray: [778],
     strokeDashoffset: [778],
-    fontSize: ['25px'],
-    lineHeight: ['25px'],
+    fontSize: [0, '25px'],
+    lineHeight: [0, '25px'],
     fontWeight: ['bold', 300],
     fontFamily: ['inherit'],
     margin,
@@ -78,14 +81,15 @@ const responsiveStyles = createAtomicStyles({
     alignSelf: ['center'],
     paddingTop: space,
     paddingBottom: space,
-    marginLeft: ['auto'],
+    marginLeft: ['auto', '-50px'],
     marginBottom: ['15px'],
     marginRight: ['auto'],
+    marginTop: ['-50px'],
     paddingLeft: space,
     paddingRight: space,
     gridTemplateColumns: repeat,
     verticalAlign: ['middle'],
-    width: ['100%', '50px', '150px', 'auto', '100vw'],
+    width: ['100%', '50px', '150px', 'auto', '100vw', '100px'],
     textAlign: ['center'],
     transform: [
       'scale(0)',
@@ -100,14 +104,16 @@ const responsiveStyles = createAtomicStyles({
     opacity: [0, 1, 0.6],
     visibility: ['hidden', 'visible'],
     position: ['fixed', 'absolute', 'relative'],
-    zIndex: [3, 4, 5, -9, -10, -1, 0, 1, 999],
+    zIndex: [3, 4, 5, 6, -9, -10, -1, 0, 1, 999],
     top: ['50%', 0],
     left: ['50%', 0],
     overflow: ['hidden'],
     backgroundPosition: ['center center'],
-    backgroundSize: ['100% 100%', 'contain'],
+    backgroundSize: ['100% 100%', 'contain', '0 auto'],
+    backgroundImage: ["url('/arrow.svg')"],
+    backgroundRepeat: ['no-repeat'],
     right: [0],
-    bottom: [0],
+    bottom: [0, '20px'],
   },
   shorthands: {
     padding: ['paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight'],
@@ -250,6 +256,30 @@ const modalContentFadeOut = keyframes({
     top: '-20px',
   },
 });
+
+const pulse = keyframes({
+  '0%': {
+    opacity: 0,
+    backgroundPosition: 'center top',
+    backgroundSize: '0 auto',
+  },
+  '10%': {
+    opacity: 0,
+  },
+  '50%': {
+    opacity: 1,
+    backgroundSize: '75% auto',
+  },
+  '90%': {
+    opacity: 0,
+  },
+  '100%': {
+    opacity: 0,
+    backgroundPosition: 'center bottom',
+    backgroundSize: '0 auto',
+  },
+});
+
 export const animation1 = style({
   animation: `${quickScaleDown} 0s 0.5s linear forwards`,
 });
@@ -284,4 +314,15 @@ export const animation8 = style({
 
 export const animation9 = style({
   animation: `${sketchOut} 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards`,
+});
+
+export const animationArrow = style({
+  animation: `${pulse} 1.5s 0s infinite normal ease forwards`,
+  transition: 'all 0.4s ease',
+  backgroundSize: '0 auto',
+  backgroundRepeat: 'no-repeat',
+  backgroundImage: "url('/arrow.svg')",
+  ':hover': {
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+  },
 });

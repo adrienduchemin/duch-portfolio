@@ -2,7 +2,7 @@ import { fullpageApi } from '@fullpage/react-fullpage';
 import { useCallback, useEffect } from 'react';
 
 import { IHome } from '@interfaces/Home';
-import { atoms } from '@styles/sprinkles.css';
+import { animationArrow, atoms } from '@styles/sprinkles.css';
 
 interface HomeProps {
   home: IHome;
@@ -67,10 +67,6 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
           <p>{home.data.description}</p>
           <br />
           <br />
-          <br />
-          <br />
-          <br />
-          <br />
           <a href={home.data.instagram.url} target="_blank" rel="noreferrer">
             {/* eslint-disable-next-line @next/next/no-img-element  */}
             <img
@@ -82,39 +78,57 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
               })}
             />
           </a>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <Button fullpage={fullpage} />
         </div>
+        <Arrow fullpage={fullpage} />
       </div>
     </>
   );
 }
 
-interface ButtonProps {
+interface ArrowProps {
   fullpage: fullpageApi;
 }
 
-function Button({ fullpage }: ButtonProps): JSX.Element {
+function Arrow({ fullpage }: ArrowProps): JSX.Element {
   const moveSectionDown = useCallback(() => {
     fullpage.moveSectionDown();
   }, [fullpage]);
 
   return (
-    <button
-      type="button"
-      onClick={moveSectionDown}
+    <p
       className={atoms({
-        padding: 'medium',
-        cursor: 'pointer',
-        fontFamily: 'inherit',
+        margin: 'none',
+        borderColor: 'white',
+        borderRadius: '100px',
+        border: 'solid',
+        position: 'absolute',
+        zIndex: 6,
+        left: '50%',
+        bottom: '20px',
+        width: '100px',
+        height: 'sm',
+        marginLeft: '-50px',
+        marginTop: '-50px',
       })}
     >
-      Click me to move down
-    </button>
+      <a
+        href="#more"
+        onClick={moveSectionDown}
+        className={`${atoms({
+          display: 'block',
+          opacity: 0,
+          borderRadius: '100px',
+          lineHeight: 0,
+          fontSize: 0,
+          color: 'transparent',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          width: '100%',
+          height: 'cent',
+        })} ${animationArrow}`}
+      >
+        More
+      </a>
+    </p>
   );
 }
