@@ -11,8 +11,10 @@ const space = {
 
 const height = {
   small: '150px',
+  medium: '80%',
   cent: '100%',
   centvh: '100vh',
+  auto: 'auto',
 };
 
 const margin = {
@@ -48,7 +50,10 @@ const responsiveStyles = createAtomicStyles({
       'table-cell',
     ],
     height,
+    minWidth: ['100%'],
     minHeight: ['100%'],
+    maxWidth: ['100%'],
+    maxHeight: ['100%', '100vh'],
     stroke: ['#fff'],
     strokeWidth: ['2px'],
     strokeDasharray: [778],
@@ -67,8 +72,9 @@ const responsiveStyles = createAtomicStyles({
       'space-around',
       'space-between',
     ],
-    objectFit: ['scale-down'],
+    objectFit: ['scale-down', 'cover'],
     alignItems: ['stretch', 'flex-start', 'center', 'flex-end'],
+    alignSelf: ['center'],
     paddingTop: space,
     paddingBottom: space,
     marginLeft: ['auto'],
@@ -78,7 +84,7 @@ const responsiveStyles = createAtomicStyles({
     paddingRight: space,
     gridTemplateColumns: repeat,
     verticalAlign: ['middle'],
-    width: ['100%', '150px'],
+    width: ['100%', '150px', 'auto', '100vw'],
     textAlign: ['center'],
     transform: [
       'scale(0)',
@@ -86,14 +92,18 @@ const responsiveStyles = createAtomicStyles({
       'scale(1.8)',
       'scale(1)',
       'translate(-50%, -50%)',
+      'translateX(-50%) translateY(-50%)',
     ],
     filter: ['blur(10px)'],
-    opacity: [0, 1],
+    opacity: [0, 1, 0.6],
     visibility: ['hidden', 'visible'],
     position: ['fixed', 'absolute', 'relative'],
-    zIndex: [0, 1, 999],
+    zIndex: [-9, -10, -1, 0, 1, 999],
     top: ['50%', 0],
     left: ['50%', 0],
+    overflow: ['hidden'],
+    right: [0],
+    bottom: [0],
   },
   shorthands: {
     padding: ['paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight'],
@@ -124,7 +134,7 @@ const colors = {
   'gray-700': '#374151',
   'gray-800': '#1f2937',
   'gray-900': '#111827',
-  overlay: 'rgba(0, 0, 0, 0.8)',
+  overlay: 'rgba(0, 0, 0, 0.5)',
   zero: 'rgba(0, 0, 0, 0)',
   transparent: 'transparent',
 };

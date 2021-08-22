@@ -6,16 +6,7 @@ export async function getHomeFixture(): Promise<IHome> {
       data: {
         description: 'Professional dancer',
         background: {
-          mobile: {
-            dimensions: { width: 900, height: 720 },
-            alt: 'background',
-            copyright: null,
-            url: '/danse.jpg',
-          },
-          dimensions: { width: 900, height: 720 },
-          alt: 'background',
-          copyright: null,
-          url: '/danse.jpg',
+          url: '/video.mp4',
         },
         instagram: {
           url: 'https://www.instagram.com/drien1993',
