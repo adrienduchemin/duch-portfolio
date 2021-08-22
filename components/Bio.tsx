@@ -36,7 +36,7 @@ export default function Bio({ bio }: BioProps): JSX.Element {
           height: 'small',
           borderRadius: '50%',
         }}
-        dataSrc={bio.data.image.url}
+        dataSrc={bio.data.image.url} // what is this for
         alt={bio.data.image.alt ?? ''}
         src="/card.svg"
         width="150px"

@@ -33,10 +33,10 @@ export default function LazyImage({
         ...atom,
       })}`}
       alt={alt}
-      data-src={dataSrc}
-      src={src}
-      width={width}
-      height={height}
+      data-src={dataSrc} // what is this for ?
+      src={src} // important ?
+      width={width} // important ?
+      height={height} // important ?
     />
   );
 }

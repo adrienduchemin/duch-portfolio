@@ -19,7 +19,7 @@ export default function GalleryItem({ image }: GalleryItemProps): JSX.Element {
           display: 'block',
           cursor: 'pointer',
         }}
-        dataSrc={image.url}
+        dataSrc={image.url} // what is this for
         // src="/card.svg" // this is causing the scrolling bug so let's wait for now
         src="/lowquality.jpg"
         alt={image.alt ?? ''}

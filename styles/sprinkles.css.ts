@@ -48,6 +48,7 @@ const responsiveStyles = createAtomicStyles({
       'table-cell',
     ],
     height,
+    minHeight: ['100%'],
     stroke: ['#fff'],
     strokeWidth: ['2px'],
     strokeDasharray: [778],
@@ -90,7 +91,7 @@ const responsiveStyles = createAtomicStyles({
     opacity: [0, 1],
     visibility: ['hidden', 'visible'],
     position: ['fixed', 'absolute', 'relative'],
-    zIndex: [1, 999],
+    zIndex: [0, 1, 999],
     top: ['50%', 0],
     left: ['50%', 0],
   },
@@ -150,12 +151,17 @@ globalStyle(`html, body`, {
   fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
 });
 
+globalStyle(`html.modal-active, body.modal-active`, {
+  minHeight: '100%',
+  height: '100%',
+});
+
 globalStyle(`.fp-slidesNav.fp-bottom`, {
   textAlign: 'center',
 });
 
-globalStyle(`html.modal-active, body.modal-active`, {
-  overflow: 'hidden',
+globalStyle(`.iScrollVerticalScrollbar`, {
+  display: 'none',
 });
 
 export const atoms = createAtomsFn(

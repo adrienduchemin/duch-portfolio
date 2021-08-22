@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next';
 
 import FullPage from '@components/FullPage';
 import { IBio } from '@interfaces/Bio';
-import { IGallery } from '@interfaces/Gallery';
+import { IGallery, IGalleryItemsByType } from '@interfaces/Gallery';
 import { IHome } from '@interfaces/Home';
 
 import { getBioFixture } from '../fixtures/bio';
@@ -50,20 +50,48 @@ async function getHome(): Promise<IHome> {
 async function getGallery(): Promise<IGallery> {
   // const galleryItems = await client.getMultiple('galleryItem');
   const galleryItems = await getGalleryItemsFixture(80);
-  const types = [
-    ...new Set(
-      galleryItems
-        .filter(
-          (galleryItem) =>
-            galleryItem.data.type !== null && galleryItem.data.type !== 'danse',
+
+  const galleryItemsByTypes = galleryItems.reduce<IGalleryItemsByType[]>(
+    (galleryItemsTypes, galleryItem) => {
+      if (
+        !galleryItemsTypes.some(
+          (galleryItemsType) => galleryItemsType.type === galleryItem.data.type,
         )
-        .map((galleryItem) => galleryItem.data.type),
+      ) {
+        galleryItemsTypes.push({
+          type: galleryItem.data.type,
+          items: [galleryItem],
+        });
+      } else {
+        galleryItemsTypes
+          .find(
+            (galleryItemsType) =>
+              galleryItemsType.type === galleryItem.data.type,
+          )
+          ?.items.push(galleryItem);
+      }
+      return galleryItemsTypes;
+    },
+    [],
+  );
+
+  const danseIndex = galleryItemsByTypes.splice(
+    galleryItemsByTypes.findIndex(
+      (galleryItemsByType) => galleryItemsByType.type === 'danse',
     ),
-  ];
+    1,
+  )[0];
+
+  danseIndex && galleryItemsByTypes.splice(0, 0, danseIndex);
+
+  for (const galleryItemsByType of galleryItemsByTypes) {
+    galleryItemsByType.items.sort(
+      (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
+    );
+  }
 
   const gallery: IGallery = {
-    items: galleryItems,
-    types: types as string[],
+    items: galleryItemsByTypes,
   };
 
   return gallery;

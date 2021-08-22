@@ -18,29 +18,22 @@ export default function FullPage({
   home,
   gallery,
 }: FullPageProps): JSX.Element {
-  const [isGallery, setIsGallery] = useState(false);
-  const [isSlide, setIsSlide] = useState(false);
+  const [indexVisible, setIndexVisible] = useState(-1);
 
-  const afterLoad = useCallback(
+  const onLeave = useCallback(
     (_origin: Item, destination: Item, _direction: string) => {
       if (destination.index === 1) {
-        setIsGallery(true);
-        // trigger modal
+        setIndexVisible(0);
       } else {
-        setIsGallery(false);
+        setIndexVisible(-1);
       }
     },
     [],
   );
 
-  const afterSlideLoad = useCallback(
-    (section: Item, _origin: Item, _destination: Item, _direction: string) => {
-      if (section.index === 1) {
-        setIsSlide(true);
-        // trigger modal
-      } else {
-        setIsSlide(false);
-      }
+  const onSlideLeave = useCallback(
+    (_section: Item, _origin: Item, destination: Item, _direction: string) => {
+      setIndexVisible(destination.index);
     },
     [],
   );
@@ -48,9 +41,10 @@ export default function FullPage({
   return (
     <ReactFullpage
       licenseKey="YOUR_KEY_HERE"
-      afterLoad={afterLoad}
-      afterSlideLoad={afterSlideLoad}
+      onLeave={onLeave}
+      onSlideLeave={onSlideLeave}
       scrollOverflow
+      // scrollOverflowReset
       lazyLoading={false}
       slidesNavigation
       render={({ fullpageApi }) => (
@@ -59,34 +53,12 @@ export default function FullPage({
             <Home home={home} fullpage={fullpageApi} />
           </div>
           <div className="section">
-            <div className="slide">
-              <Gallery
-                items={gallery.items
-                  .filter(
-                    (galleryItem) =>
-                      galleryItem.data.type === null ||
-                      galleryItem.data.type === 'danse',
-                  )
-                  .sort(
-                    (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
-                  )}
-                type="danse"
-                isVisible={isGallery || isSlide}
-              />
-            </div>
-            {gallery.types.map((galleryType) => (
-              <div className="slide" key={galleryType}>
+            {gallery.items.map((galleryItemsByType, index) => (
+              <div className="slide" key={galleryItemsByType.type}>
                 <Gallery
-                  items={gallery.items
-                    .filter(
-                      (galleryItem) => galleryItem.data.type === galleryType,
-                    )
-                    .sort(
-                      (a, b) =>
-                        Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
-                    )}
-                  type={galleryType}
-                  isVisible={isGallery || isSlide}
+                  items={galleryItemsByType.items}
+                  type={galleryItemsByType.type}
+                  isVisible={indexVisible === index}
                 />
               </div>
             ))}

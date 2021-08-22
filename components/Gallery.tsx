@@ -37,7 +37,6 @@ export default function Gallery({
   const [isModalClosed, setIsModalClosed] = useState(false);
 
   useEffect(() => {
-    // voir pourquoi ce composant est autant appelé dans les logs ??
     console.log({ items, type });
   }, [items, type]);
 

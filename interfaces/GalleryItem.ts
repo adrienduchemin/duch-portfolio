@@ -8,7 +8,7 @@ export interface IGalleryItem {
 
 export interface IGalleryItemData {
   title: string | null;
-  type: string | 'danse' | null;
+  type: string;
   image: Image & {
     mobile: Image;
   };
