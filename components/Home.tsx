@@ -16,39 +16,34 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
 
   return (
     <>
-      <div
+      <video
+        data-autoplay
+        muted
+        loop
         className={atoms({
-          left: 0,
+          position: 'absolute',
+          right: 0,
+          bottom: 0,
           top: 0,
-          zIndex: -1,
-          position: 'fixed',
           width: '100%',
-          height: 'centvh',
+          height: 'cent',
+          backgroundPosition: 'center center',
+          backgroundSize: 'contain',
+          objectFit: 'cover', // a tester avec fill plutot
+          zIndex: 3,
         })}
       >
-        <video
-          onFocus={(e) => e.target.play()}
-          autoPlay
-          muted
-          loop
-          className={atoms({
-            height: 'cent',
-            width: '100%',
-            objectFit: 'fill', // ou cover si elle prefere cropper a droite
-          })}
-        >
-          <source src={home.data.background.url} type="video/mp4" />
-        </video>
-      </div>
+        <source src={home.data.background.url} type="video/mp4" />
+      </video>
       <div
         className={atoms({
+          zIndex: 4,
           left: 0,
           top: 0,
-          zIndex: 0,
-          position: 'fixed',
           width: '100%',
           height: 'centvh',
           background: 'overlay',
+          position: 'fixed',
         })}
       >
         <div
@@ -61,7 +56,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
             height: 'cent',
             width: '100%',
             color: 'white',
-            zIndex: 1,
+            zIndex: 5,
           })}
         >
           <p>Laïs Beunardeau</p>

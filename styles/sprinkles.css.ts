@@ -94,15 +94,18 @@ const responsiveStyles = createAtomicStyles({
       'scale(1)',
       'translate(-50%, -50%)',
       'translateX(-50%) translateY(-50%)',
+      'translate3d(0, 0, 0)',
     ],
     filter: ['blur(10px)'],
     opacity: [0, 1, 0.6],
     visibility: ['hidden', 'visible'],
     position: ['fixed', 'absolute', 'relative'],
-    zIndex: [-9, -10, -1, 0, 1, 999],
+    zIndex: [3, 4, 5, -9, -10, -1, 0, 1, 999],
     top: ['50%', 0],
     left: ['50%', 0],
     overflow: ['hidden'],
+    backgroundPosition: ['center center'],
+    backgroundSize: ['100% 100%', 'contain'],
     right: [0],
     bottom: [0],
   },
@@ -162,13 +165,13 @@ globalStyle(`html, body`, {
   fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
 });
 
+globalStyle(`.iScrollVerticalScrollbar`, {
+  display: 'none',
+});
+
 globalStyle(`html.modal-active, body.modal-active`, {
   // minHeight: '100%',
   // height: '100%',
-});
-
-globalStyle(`.iScrollVerticalScrollbar`, {
-  display: 'none',
 });
 
 export const atoms = createAtomsFn(
