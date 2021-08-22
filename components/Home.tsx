@@ -2,7 +2,7 @@ import { fullpageApi } from '@fullpage/react-fullpage';
 import { useCallback, useEffect } from 'react';
 
 import { IHome } from '@interfaces/Home';
-import { animationArrow, atoms } from '@styles/sprinkles.css';
+import { animation10, animationArrow, atoms } from '@styles/sprinkles.css';
 
 interface HomeProps {
   home: IHome;
@@ -41,9 +41,9 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
           left: 0,
           top: 0,
           width: '100%',
-          height: 'centvh',
+          height: 'cent',
           background: 'overlay',
-          position: 'fixed',
+          position: 'absolute',
         })}
       >
         <div
@@ -73,7 +73,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
               src="/instagram.svg"
               alt="Instagram"
               className={atoms({
-                width: '50px',
+                width: '60px',
                 height: 'xs',
               })}
             />
@@ -95,40 +95,37 @@ function Arrow({ fullpage }: ArrowProps): JSX.Element {
   }, [fullpage]);
 
   return (
-    <p
-      className={atoms({
-        margin: 'none',
-        borderColor: 'white',
-        borderRadius: '100px',
-        border: 'solid',
-        position: 'absolute',
-        zIndex: 6,
-        left: '50%',
-        bottom: '20px',
-        width: '100px',
-        height: 'sm',
-        marginLeft: '-50px',
-        marginTop: '-50px',
-      })}
-    >
-      <a
-        href="#more"
+    <>
+      <div
         onClick={moveSectionDown}
+        onKeyPress={moveSectionDown}
+        tabIndex={0}
+        role="button"
         className={`${atoms({
-          display: 'block',
-          opacity: 0,
-          borderRadius: '100px',
-          lineHeight: 0,
-          fontSize: 0,
-          color: 'transparent',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          width: '100%',
-          height: 'cent',
-        })} ${animationArrow}`}
+          zIndex: 6,
+          cursor: 'pointer',
+          width: '60px',
+          height: 'xs',
+          borderColor: 'white',
+          borderRadius: '60px',
+          border: 'solid',
+          position: 'absolute',
+          bottom: '20px',
+          left: '50%',
+          margin: 'none',
+          marginLeft: '-30px',
+          marginTop: '-30px',
+        })} ${animation10}`}
       >
-        More
-      </a>
-    </p>
+        <div
+          className={`${atoms({
+            margin: 'auto',
+            marginTop: '10px',
+            width: '30px',
+            height: 'xxs',
+          })} ${animationArrow}`}
+        />
+      </div>
+    </>
   );
 }
