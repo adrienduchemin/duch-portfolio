@@ -6,7 +6,7 @@ export async function getHomeFixture(): Promise<IHome> {
       data: {
         description: 'Danseuse',
         background: {
-          url: '/video.mp4', // video de basse qualite qui se charge vite
+          url: '/danse.mp4', // video de basse qualite qui se charge vite
         },
         instagram: {
           url: 'https://www.instagram.com/drien1993',

@@ -10,7 +10,7 @@ export async function getBioFixture(): Promise<IBio> {
           dimensions: { width: 900, height: 720 },
           alt: 'portrait',
           copyright: null,
-          url: '/danse.jpg',
+          url: '/profile.jpg',
         },
       },
     });

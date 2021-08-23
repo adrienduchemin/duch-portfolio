@@ -4,7 +4,11 @@ import { useCallback, useEffect } from 'react';
 import LazySource from '@components/LazySource';
 import LazyVideo from '@components/LazyVideo';
 import { IHome } from '@interfaces/Home';
-import { animation10, animationArrow, atoms } from '@styles/sprinkles.css';
+import {
+  animationArrow,
+  animationBounceBox,
+  atoms,
+} from '@styles/sprinkles.css';
 
 interface HomeProps {
   home: IHome;
@@ -22,6 +26,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
         autoplay
         muted
         loop
+        /* video de basse qualité */
         dataSrc={home.data.background.url}
         atom={{
           position: 'absolute',
@@ -32,7 +37,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
           height: 'cent',
           backgroundPosition: 'center center',
           backgroundSize: 'contain',
-          objectFit: 'cover', // a tester avec fill plutot
+          objectFit: 'cover', // a tester avec fill selon la video
           zIndex: 3,
         }}
       >
@@ -118,7 +123,7 @@ function Arrow({ fullpage }: ArrowProps): JSX.Element {
           margin: 'none',
           marginLeft: '-30px',
           marginTop: '-30px',
-        })} ${animation10}`}
+        })} ${animationBounceBox}`}
       >
         <div
           className={`${atoms({

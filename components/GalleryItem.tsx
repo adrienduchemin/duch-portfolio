@@ -10,8 +10,10 @@ interface GalleryItemProps {
 export default function GalleryItem({ image }: GalleryItemProps): JSX.Element {
   return (
     <picture>
-      <LazySource media="(min-width: 800px)" dataSrcset={image.mobile.url} />
-      <LazySource media="(min-width: 1200px)" dataSrcset={image.url} />
+      {/* desktop > 1024  */}
+      <LazySource media="(min-width: 1024px)" dataSrcset={image.desktop.url} />
+      {/* tablet 768 < x <= 1024 */}
+      <LazySource media="(min-width: 600px)" dataSrcset={image.tablet.url} />
       <LazyImage
         atom={{
           width: '100%',
@@ -19,9 +21,10 @@ export default function GalleryItem({ image }: GalleryItemProps): JSX.Element {
           display: 'block',
           cursor: 'pointer',
         }}
-        dataSrc={image.url} // what is this for
-        // src="/card.svg" // this is causing the scrolling bug so let's wait for now
-        src="/lowquality.jpg"
+        /* mobile <= 768 */
+        dataSrc={image.mobile.url}
+        /* placeholder */
+        src="/card.svg"
         alt={image.alt ?? ''}
       />
     </picture>

@@ -21,16 +21,28 @@ function generateGalleryItems(numberOfItems: number): IGalleryItem[] {
         title: `${isVideo ? 'Video' : 'Photo'} ${i}`,
         type,
         image: {
-          mobile: {
-            dimensions: { width: 900, height: 720 },
+          desktop: {
+            dimensions: { width: 680, height: 500 }, // a titre indicatif
             alt: 'dancer',
             copyright: 'Duch Photography',
-            url: isVideo ? '/chat.png' : '/danse.jpg',
+            url: '/chat-desktop.jpg',
           },
-          dimensions: { width: 900, height: 720 },
+          tablet: {
+            dimensions: { width: 340, height: 340 }, // a titre indicatif
+            alt: 'dancer',
+            copyright: 'Duch Photography',
+            url: '/chat-tablet.jpg',
+          },
+          mobile: {
+            dimensions: { width: 300, height: 300 }, // a titre indicatif
+            alt: 'dancer',
+            copyright: 'Duch Photography',
+            url: '/chat-mobile.jpg',
+          },
+          dimensions: { width: 1440, height: 700 }, // pas utiles: appelées dans le slider en full
           alt: 'dancer',
           copyright: 'Duch Photography',
-          url: isVideo ? '/chat.png' : '/danse.jpg',
+          url: isVideo ? '/chat.jpeg' : '/chat.png',
         },
         video: {
           ...(isVideo ? { url: '/video.mp4' } : {}),
