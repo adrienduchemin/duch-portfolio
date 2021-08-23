@@ -10,13 +10,14 @@ const space = {
 };
 
 const height = {
-  xxs: '40px',
+  xxs: '30px',
   xs: '60px',
   sm: '100px',
   small: '150px',
   medium: '80%',
   cent: '100%',
   centvh: '100vh',
+  avh: '70vh',
   auto: 'auto',
 };
 
@@ -40,7 +41,7 @@ const responsiveStyles = createAtomicStyles({
   defaultCondition: 'mobile',
   properties: {
     border: [`solid`],
-    borderColor: ['white'],
+    borderColor: ['white', 'black'],
     borderRadius: ['50%', '3px', '100px', '60px'],
     cursor: ['pointer'],
     display: [
@@ -85,12 +86,12 @@ const responsiveStyles = createAtomicStyles({
     marginLeft: ['auto', '-30px'],
     marginBottom: ['15px'],
     marginRight: ['auto'],
-    marginTop: ['-30px', '10px'],
+    marginTop: ['-30px', '30px', '10px'],
     paddingLeft: space,
     paddingRight: space,
     gridTemplateColumns: repeat,
     verticalAlign: ['middle'],
-    width: ['100%', '60px', '150px', 'auto', '100vw', '100px', '40px'],
+    width: ['100%', '60px', '150px', 'auto', '100vw', '100px', '30px'],
     textAlign: ['center'],
     transform: [
       'scale(0)',
@@ -104,17 +105,17 @@ const responsiveStyles = createAtomicStyles({
     filter: ['blur(10px)'],
     opacity: [0, 1, 0.6],
     visibility: ['hidden', 'visible'],
-    position: ['fixed', 'absolute', 'relative'],
+    position: ['fixed', 'absolute', 'relative', 'sticky'],
     zIndex: [3, 4, 5, 6, -9, -10, -1, 0, 1, 999],
-    top: ['50%', 0],
-    left: ['50%', 0],
+    top: ['50%', '50vh', '20px', 0],
+    left: ['50%', '50vh', '20px', 0],
+    bottom: [0, '20px'],
+    right: [0, '20px'],
     overflow: ['hidden'],
     backgroundPosition: ['center center'],
     backgroundSize: ['100% 100%', 'contain', '0 auto'],
     backgroundImage: ["url('/arrow.svg')"],
     backgroundRepeat: ['no-repeat'],
-    right: [0],
-    bottom: [0, '20px'],
   },
   shorthands: {
     padding: ['paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight'],
@@ -138,6 +139,7 @@ const galleryStyles = createAtomicStyles({
 });
 
 const colors = {
+  black: 'black',
   white: 'white',
   'blue-50': '#eff6ff',
   'blue-100': '#dbeafe',
@@ -184,7 +186,7 @@ export const atoms = createAtomsFn(
 );
 export type Atoms = Parameters<typeof atoms>[number];
 
-const bounce = keyframes({
+const bounceBottom = keyframes({
   '0%, 20%, 50%, 80%, 100%': {
     transform: 'translateY(0)',
   },
@@ -196,6 +198,54 @@ const bounce = keyframes({
   },
 });
 
-export const animationBounceArrow = style({
-  animation: `${bounce} 2s infinite`,
+const bounceTop = keyframes({
+  '0%, 20%, 50%, 80%, 100%': {
+    transform: 'translateY(0)',
+  },
+  '40%': {
+    transform: 'translateY(+20px)',
+  },
+  '60%': {
+    transform: 'translateY(+10px)',
+  },
+});
+
+const bounceLeft = keyframes({
+  '0%, 20%, 50%, 80%, 100%': {
+    transform: 'translateX(0)',
+  },
+  '40%': {
+    transform: 'translateX(+20px)',
+  },
+  '60%': {
+    transform: 'translateX(+10px)',
+  },
+});
+
+const bounceRight = keyframes({
+  '0%, 20%, 50%, 80%, 100%': {
+    transform: 'translateX(0)',
+  },
+  '40%': {
+    transform: 'translateX(-20px)',
+  },
+  '60%': {
+    transform: 'translateX(-10px)',
+  },
+});
+
+export const animationBounceArrowBottom = style({
+  animation: `${bounceBottom} 2s infinite`,
+});
+
+export const animationBounceArrowTop = style({
+  animation: `${bounceTop} 2s infinite`,
+});
+
+export const animationBounceArrowLeft = style({
+  animation: `${bounceLeft} 2s infinite`,
+});
+
+export const animationBounceArrowRight = style({
+  animation: `${bounceRight} 2s infinite`,
 });

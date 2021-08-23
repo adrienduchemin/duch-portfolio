@@ -1,12 +1,12 @@
 import { fullpageApi } from '@fullpage/react-fullpage';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import ArrowSVG from '@assets/svg/arrow.svg';
-import InstagramSVG from '@assets/svg/instagram.svg';
+import Instagram from '@assets/svg/instagram.svg';
+import Arrow from '@components/Arrow';
 import LazySource from '@components/LazySource';
 import LazyVideo from '@components/LazyVideo';
 import { IHome } from '@interfaces/Home';
-import { animationBounceArrow, atoms } from '@styles/sprinkles.css';
+import { atoms } from '@styles/sprinkles.css';
 
 interface HomeProps {
   home: IHome;
@@ -51,87 +51,42 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
           background: 'overlay',
           position: 'absolute',
         })}
-      >
-        <div
-          className={atoms({
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            textAlign: 'center',
-            height: 'cent',
-            width: '100%',
-            color: 'white',
-            zIndex: 5,
-          })}
-        >
-          <svg height="20" width="120">
-            <text x="0" y="15" fill="white">
-              Laïs Beunardeau
-            </text>
-          </svg>
-          <p>{home.data.description}</p>
-          <br />
-          <br />
-          <a href={home.data.instagram.url} target="_blank" rel="noreferrer">
-            <InstagramSVG
-              className={`${atoms({
-                color: 'white',
-                width: '60px',
-                height: 'xs',
-              })}`}
-            />
-          </a>
-        </div>
-        <Arrow fullpage={fullpage} />
-      </div>
-    </>
-  );
-}
-
-interface ArrowProps {
-  fullpage: fullpageApi;
-}
-
-function Arrow({ fullpage }: ArrowProps): JSX.Element {
-  const moveSectionDown = useCallback(() => {
-    fullpage.moveSectionDown();
-  }, [fullpage]);
-
-  return (
-    <>
+      />
       <div
-        onClick={moveSectionDown}
-        onKeyPress={moveSectionDown}
-        tabIndex={0}
-        role="button"
-        className={`${atoms({
-          zIndex: 6,
-          cursor: 'pointer',
-          width: '60px',
-          height: 'xs',
-          borderColor: 'white',
-          borderRadius: '60px',
-          border: 'solid',
+        className={atoms({
+          left: 0,
+          top: 0,
           position: 'absolute',
-          bottom: '20px',
-          left: '50%',
-          margin: 'none',
-          marginLeft: '-30px',
-          marginTop: '-30px',
           display: 'flex',
+          flexDirection: 'column',
+          textAlign: 'center',
           justifyContent: 'center',
           alignItems: 'center',
-        })} ${animationBounceArrow}`}
+          height: 'cent',
+          width: '100%',
+          color: 'white',
+          zIndex: 5,
+        })}
       >
-        <ArrowSVG
-          className={`${atoms({
-            color: 'white',
-            width: '40px',
-            height: 'xxs',
-          })}`}
-        />
+        <svg height="20" width="120">
+          <text x="0" y="15" fill="white">
+            Laïs Beunardeau
+          </text>
+        </svg>
+        <p>{home.data.description}</p>
+        <br />
+        <br />
+        <a href={home.data.instagram.url} target="_blank" rel="noreferrer">
+          <Instagram
+            className={`${atoms({
+              color: 'white',
+              width: '60px',
+              height: 'xs',
+            })}`}
+          />
+        </a>
       </div>
+      <Arrow fullpage={fullpage} pos="bottom" />
     </>
   );
 }

@@ -22,6 +22,7 @@ export default function FullPage({
       licenseKey="YOUR_KEY_HERE"
       scrollOverflow
       lazyLoading={false}
+      controlArrows={false}
       render={({ fullpageApi }) => (
         <ReactFullpage.Wrapper>
           <div className="section">
@@ -33,6 +34,7 @@ export default function FullPage({
                 <Gallery
                   items={galleryItemsByType.items}
                   type={galleryItemsByType.type}
+                  fullpage={fullpageApi}
                 />
               </div>
             ))}
