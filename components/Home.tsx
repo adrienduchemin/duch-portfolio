@@ -1,6 +1,8 @@
 import { fullpageApi } from '@fullpage/react-fullpage';
 import { useCallback, useEffect } from 'react';
 
+import LazySource from '@components/LazySource';
+import LazyVideo from '@components/LazyVideo';
 import { IHome } from '@interfaces/Home';
 import { animation10, animationArrow, atoms } from '@styles/sprinkles.css';
 
@@ -16,12 +18,12 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
 
   return (
     <>
-      <video
-        data-autoplay
-        playsInline
+      <LazyVideo
+        autoplay
         muted
         loop
-        className={atoms({
+        dataSrc={home.data.background.url}
+        atom={{
           position: 'absolute',
           right: 0,
           bottom: 0,
@@ -32,10 +34,10 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
           backgroundSize: 'contain',
           objectFit: 'cover', // a tester avec fill plutot
           zIndex: 3,
-        })}
+        }}
       >
-        <source src={home.data.background.url} type="video/mp4" />
-      </video>
+        <LazySource dataSrc={home.data.background.url} type="video/mp4" />
+      </LazyVideo>
       <div
         className={atoms({
           zIndex: 4,

@@ -77,7 +77,7 @@ const responsiveStyles = createAtomicStyles({
       'space-around',
       'space-between',
     ],
-    objectFit: ['scale-down', 'cover', 'fill'],
+    objectFit: ['scale-down', 'cover', 'fill', 'contain'],
     alignItems: ['stretch', 'flex-start', 'center', 'flex-end'],
     alignSelf: ['center'],
     paddingTop: space,

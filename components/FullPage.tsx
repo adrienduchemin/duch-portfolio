@@ -1,5 +1,4 @@
-import ReactFullpage, { Item } from '@fullpage/react-fullpage';
-import { useCallback, useState } from 'react';
+import ReactFullpage from '@fullpage/react-fullpage';
 
 import Bio from '@components/Bio';
 import Gallery from '@components/Gallery';
@@ -18,33 +17,10 @@ export default function FullPage({
   home,
   gallery,
 }: FullPageProps): JSX.Element {
-  const [indexVisible, setIndexVisible] = useState(-1);
-
-  const onLeave = useCallback(
-    (_origin: Item, destination: Item, _direction: string) => {
-      if (destination.index === 1) {
-        setIndexVisible(0);
-      } else {
-        setIndexVisible(-1);
-      }
-    },
-    [],
-  );
-
-  const onSlideLeave = useCallback(
-    (_section: Item, _origin: Item, destination: Item, _direction: string) => {
-      setIndexVisible(destination.index);
-    },
-    [],
-  );
-
   return (
     <ReactFullpage
       licenseKey="YOUR_KEY_HERE"
-      onLeave={onLeave}
-      onSlideLeave={onSlideLeave}
       scrollOverflow
-      // scrollOverflowReset
       lazyLoading={false}
       render={({ fullpageApi }) => (
         <ReactFullpage.Wrapper>
@@ -52,12 +28,11 @@ export default function FullPage({
             <Home home={home} fullpage={fullpageApi} />
           </div>
           <div className="section">
-            {gallery.items.map((galleryItemsByType, index) => (
+            {gallery.items.map((galleryItemsByType) => (
               <div className="slide" key={galleryItemsByType.type}>
                 <Gallery
                   items={galleryItemsByType.items}
                   type={galleryItemsByType.type}
-                  isVisible={indexVisible === index}
                 />
               </div>
             ))}
