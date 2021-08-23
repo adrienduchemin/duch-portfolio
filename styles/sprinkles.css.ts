@@ -160,6 +160,7 @@ const colorStyles = createAtomicStyles({
     color: colors,
     background: colors,
     backgroundColor: colors,
+    fill: colors,
     // etc.
   },
 });

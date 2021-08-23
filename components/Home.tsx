@@ -76,6 +76,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
           <a href={home.data.instagram.url} target="_blank" rel="noreferrer">
             <InstagramSVG
               className={`${atoms({
+                color: 'white',
                 width: '60px',
                 height: 'xs',
               })}`}
@@ -125,6 +126,7 @@ function Arrow({ fullpage }: ArrowProps): JSX.Element {
       >
         <ArrowSVG
           className={`${atoms({
+            color: 'white',
             width: '40px',
             height: 'xxs',
           })}`}
