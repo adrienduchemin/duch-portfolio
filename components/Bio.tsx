@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import LazyImage from '@components/LazyImage';
 import { IBio } from '@interfaces/Bio';
 import { atoms } from '@styles/sprinkles.css';
+import { whitePixel } from '@utils/constants';
 
 interface BioProps {
   bio: IBio;
@@ -40,7 +41,7 @@ export default function Bio({ bio }: BioProps): JSX.Element {
         dataSrc={bio.data.image.url}
         alt={bio.data.image.alt ?? ''}
         /* placeholder */
-        src="/card.svg"
+        src={whitePixel}
         width="150px"
         height="150px"
       />

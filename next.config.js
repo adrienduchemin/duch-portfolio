@@ -3,13 +3,20 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const {
   getGlobalCssLoader,
 } = require('next/dist/build/webpack/config/blocks/css/loaders');
+const path = require('path');
 
 module.exports = {
   reactStrictMode: true,
   webpack5: true,
   webpack: (config, { dev, isServer }) => {
     config.module.rules.push({
-      test: /\.css$/i,
+      test: /\.(svg)$/,
+      include: path.resolve(__dirname, 'assets/svg'),
+      loader: 'svg-react-loader',
+    });
+
+    config.module.rules.push({
+      test: /\.css$/,
       sideEffects: true,
       use: dev
         ? getGlobalCssLoader(

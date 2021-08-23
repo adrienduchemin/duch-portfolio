@@ -1,4 +1,5 @@
 import { IGalleryItemData } from '@interfaces/GalleryItem';
+import { whitePixel } from '@utils/constants';
 
 import LazyImage from './LazyImage';
 import LazySource from './LazySource';
@@ -24,7 +25,7 @@ export default function GalleryItem({ image }: GalleryItemProps): JSX.Element {
         /* mobile <= 768 */
         dataSrc={image.mobile.url}
         /* placeholder */
-        src="/card.svg"
+        src={whitePixel}
         alt={image.alt ?? ''}
       />
     </picture>

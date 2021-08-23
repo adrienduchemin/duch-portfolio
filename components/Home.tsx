@@ -1,14 +1,12 @@
 import { fullpageApi } from '@fullpage/react-fullpage';
 import { useCallback, useEffect } from 'react';
 
+import ArrowSVG from '@assets/svg/arrow.svg';
+import InstagramSVG from '@assets/svg/instagram.svg';
 import LazySource from '@components/LazySource';
 import LazyVideo from '@components/LazyVideo';
 import { IHome } from '@interfaces/Home';
-import {
-  animationArrow,
-  animationBounceBox,
-  atoms,
-} from '@styles/sprinkles.css';
+import { animationBounceArrow, atoms } from '@styles/sprinkles.css';
 
 interface HomeProps {
   home: IHome;
@@ -76,14 +74,11 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
           <br />
           <br />
           <a href={home.data.instagram.url} target="_blank" rel="noreferrer">
-            {/* eslint-disable-next-line @next/next/no-img-element  */}
-            <img
-              src="/instagram.svg"
-              alt="Instagram"
-              className={atoms({
+            <InstagramSVG
+              className={`${atoms({
                 width: '60px',
                 height: 'xs',
-              })}
+              })}`}
             />
           </a>
         </div>
@@ -123,15 +118,16 @@ function Arrow({ fullpage }: ArrowProps): JSX.Element {
           margin: 'none',
           marginLeft: '-30px',
           marginTop: '-30px',
-        })} ${animationBounceBox}`}
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        })} ${animationBounceArrow}`}
       >
-        <div
+        <ArrowSVG
           className={`${atoms({
-            margin: 'auto',
-            marginTop: '10px',
-            width: '30px',
+            width: '40px',
             height: 'xxs',
-          })} ${animationArrow}`}
+          })}`}
         />
       </div>
     </>
