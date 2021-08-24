@@ -1,4 +1,5 @@
 import { globalStyle, keyframes, style } from '@vanilla-extract/css';
+import { calc } from '@vanilla-extract/css-utils';
 import { createAtomicStyles, createAtomsFn } from '@vanilla-extract/sprinkles';
 
 const space = {
@@ -248,4 +249,24 @@ export const animationBounceArrowLeft = style({
 
 export const animationBounceArrowRight = style({
   animation: `${bounceRight} 2s infinite`,
+});
+
+export const arrowPositionBottom = style({
+  top: calc('100%').subtract('60px').subtract('20px').toString(),
+  left: '50%',
+});
+
+export const arrowPositionTop = style({
+  top: '20px',
+  left: '50%',
+});
+
+export const arrowPositionLeft = style({
+  top: '50%',
+  left: '20px',
+});
+
+export const arrowPositionRight = style({
+  top: '50%',
+  right: '20px',
 });

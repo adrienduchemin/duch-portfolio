@@ -10,6 +10,10 @@ import {
   animationBounceArrowLeft,
   animationBounceArrowRight,
   animationBounceArrowTop,
+  arrowPositionBottom,
+  arrowPositionLeft,
+  arrowPositionRight,
+  arrowPositionTop,
   atoms,
 } from '@styles/sprinkles.css';
 
@@ -60,26 +64,13 @@ export default function Arrow({
       className={`${atoms({
         zIndex: 6,
         cursor: 'pointer',
-        width: '60px',
-        height: 'xs',
+        width: '60px', // a faire responsive en fonction de la taille d'ecran (pareil les 30px partout)
+        height: 'xs', // a faire responsive en fonction de la taille d'ecran (pareil les 30px partout)
         borderColor: color ?? 'white',
         borderRadius: '60px',
         border: 'solid',
         position: 'absolute',
-        bottom: pos === 'bottom' ? '20px' : undefined,
-        left:
-          pos === 'bottom' || pos === 'top'
-            ? '50%'
-            : pos === 'left'
-            ? '20px'
-            : undefined,
-        top:
-          pos === 'left' || pos === 'right'
-            ? '50vh'
-            : pos === 'top'
-            ? '20px'
-            : undefined,
-        right: pos === 'right' ? '20px' : undefined,
+        overflow: 'hidden',
         margin: 'none',
         marginLeft: pos === 'bottom' || pos === 'top' ? '-30px' : undefined,
         marginTop: pos === 'right' || pos === 'left' ? '-30px' : undefined,
@@ -88,12 +79,12 @@ export default function Arrow({
         alignItems: 'center',
       })} ${
         pos === 'bottom'
-          ? animationBounceArrowBottom
+          ? `${animationBounceArrowBottom} ${arrowPositionBottom}`
           : pos === 'top'
-          ? animationBounceArrowTop
+          ? `${animationBounceArrowTop} ${arrowPositionTop}`
           : pos === 'left'
-          ? animationBounceArrowLeft
-          : animationBounceArrowRight
+          ? `${animationBounceArrowLeft} ${arrowPositionLeft}`
+          : `${animationBounceArrowRight} ${arrowPositionRight}`
       }`}
       // il faut bouncer en fonction de là ou est la direction
     >

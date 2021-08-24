@@ -1,4 +1,5 @@
 import ReactFullpage from '@fullpage/react-fullpage';
+import dynamic from 'next/dynamic';
 
 import Bio from '@components/Bio';
 import Gallery from '@components/Gallery';
@@ -7,11 +8,16 @@ import { IBio } from '@interfaces/Bio';
 import { IGallery } from '@interfaces/Gallery';
 import { IHome } from '@interfaces/Home';
 
+const Arrow = dynamic(() => import('@components/Arrow'), {
+  ssr: false,
+});
+
 interface FullPageProps {
   bio: IBio;
   home: IHome;
   gallery: IGallery;
 }
+
 export default function FullPage({
   bio,
   home,
@@ -38,6 +44,8 @@ export default function FullPage({
                 />
               </div>
             ))}
+            <Arrow fullpage={fullpageApi} pos="right" color="black" />
+            <Arrow fullpage={fullpageApi} pos="left" color="black" />
           </div>
           <div className="section">
             <Bio bio={bio} />

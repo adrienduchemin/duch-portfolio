@@ -4,11 +4,14 @@ import lgVideo from 'lightgallery/plugins/video';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 
-import Arrow from '@components/Arrow';
 import GalleryItem from '@components/GalleryItem';
 import LightGalleryItem from '@components/LightGalleryItem';
 import { IGalleryItem } from '@interfaces/GalleryItem';
 import { atoms } from '@styles/sprinkles.css';
+
+const Arrow = dynamic(() => import('@components/Arrow'), {
+  ssr: false,
+});
 
 const LightGallery = dynamic(() => import('lightgallery/react'), {
   ssr: false,
@@ -33,67 +36,42 @@ export default function Gallery({
     <>
       <div
         className={atoms({
-          // position: 'relative',
+          height: 'cent', // pas forcement utilisé ?
         })}
       >
+        <div className={atoms({ textAlign: 'center' })}>
+          {type.charAt(0).toUpperCase() + type.slice(1)}
+        </div>
         <div
           className={atoms({
-            height: 'cent',
+            display: 'grid',
+            // gridGap: '2px',
+            gridColumns: {
+              mobile: 'small',
+              tablet: 'medium',
+              desktop: 'large',
+            },
           })}
         >
-          <div className={atoms({ textAlign: 'center' })}>
-            {type.charAt(0).toUpperCase() + type.slice(1)}
-          </div>
-          <div
-            className={atoms({
-              display: 'grid',
-              // gridGap: '2px',
-              gridColumns: {
-                mobile: 'small',
-                tablet: 'medium',
-                desktop: 'large',
-              },
+          <LightGallery
+            plugins={[lgHash, lgVideo]}
+            customSlideName
+            elementClassNames={atoms({
+              position: 'fixed',
+              display: 'contents',
             })}
+            galleryId={type}
           >
-            <LightGallery
-              plugins={[lgHash, lgVideo]}
-              customSlideName
-              elementClassNames={atoms({
-                position: 'fixed',
-                display: 'contents',
-              })}
-              galleryId={type}
-            >
-              {items.map((item) => (
-                <LightGalleryItem {...item} key={item.id}>
-                  <GalleryItem image={item.data.image} key={item.id} />
-                </LightGalleryItem>
-              ))}
-            </LightGallery>
-          </div>
+            {items.map((item) => (
+              <LightGalleryItem {...item} key={item.id}>
+                <GalleryItem image={item.data.image} key={item.id} />
+              </LightGalleryItem>
+            ))}
+          </LightGallery>
         </div>
-        {/* <div
-          className={atoms({
-            left: 0,
-            top: 0,
-            position: 'absolute',
-            width: '100%',
-            height: 'centvh',
-          })}
-        > */}
+        {/* A deplacer dans Fullpage avec les autres si elle la veut sur l'ecran sans scroll */}
         <Arrow fullpage={fullpage} pos="bottom" color="black" />
-        {/* </div> */}
       </div>
-      {/* <div
-        className={atoms({
-          height: 'centvh',
-          width: '100%',
-        })}
-      >
-        <Arrow fullpage={fullpage} pos="bottom" />
-      </div> */}
-      {/* <Arrow fullpage={fullpage} pos="right" />
-       <Arrow fullpage={fullpage} pos="left" />  */}
     </>
   );
 }

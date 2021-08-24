@@ -1,12 +1,16 @@
 import { fullpageApi } from '@fullpage/react-fullpage';
+import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 
 import Instagram from '@assets/svg/instagram.svg';
-import Arrow from '@components/Arrow';
 import LazySource from '@components/LazySource';
 import LazyVideo from '@components/LazyVideo';
 import { IHome } from '@interfaces/Home';
 import { atoms } from '@styles/sprinkles.css';
+
+const Arrow = dynamic(() => import('@components/Arrow'), {
+  ssr: false,
+});
 
 interface HomeProps {
   home: IHome;
@@ -24,6 +28,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
         autoplay
         muted
         loop
+        playsInline
         /* video de basse qualité */
         dataSrc={home.data.background.url}
         atom={{
@@ -34,8 +39,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
           width: '100%',
           height: 'cent',
           backgroundPosition: 'center center',
-          backgroundSize: 'contain',
-          objectFit: 'cover', // a tester avec fill selon la video
+          objectFit: 'cover',
           zIndex: 3,
         }}
       >

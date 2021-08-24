@@ -8,6 +8,7 @@ interface LazyVideoProps {
   atom?: Atoms;
   autoplay?: boolean;
   controls?: boolean;
+  playsInline?: boolean;
   muted?: boolean;
   loop?: boolean;
   width?: number | string;
@@ -28,6 +29,7 @@ export default function LazyVideo({
   muted,
   loop,
   poster,
+  playsInline,
 }: LazyVideoProps): JSX.Element {
   useEffect(() => {
     lazyLoadInstance?.update();
@@ -40,6 +42,7 @@ export default function LazyVideo({
       className={`lazy ${atoms({
         ...atom,
       })}`}
+      playsInline={playsInline}
       controls={controls}
       muted={muted}
       loop={loop}
