@@ -11,6 +11,7 @@ const space = {
 };
 
 const height = {
+  xxxs: '15px',
   xxs: '30px',
   xs: '60px',
   sm: '100px',
@@ -43,7 +44,7 @@ const responsiveStyles = createAtomicStyles({
   properties: {
     border: [`solid`],
     borderColor: ['white', 'black'],
-    borderRadius: ['50%', '3px', '100px', '60px'],
+    borderRadius: ['50%', '3px', '100px', '30px'],
     cursor: ['pointer'],
     display: [
       'none',
@@ -84,15 +85,15 @@ const responsiveStyles = createAtomicStyles({
     alignSelf: ['center'],
     paddingTop: space,
     paddingBottom: space,
-    marginLeft: ['auto', '-30px'],
+    marginLeft: ['auto', '-15px'],
     marginBottom: ['15px'],
     marginRight: ['auto'],
-    marginTop: ['-30px', '30px', '10px'],
+    marginTop: ['-15px', '30px', '10px'],
     paddingLeft: space,
     paddingRight: space,
     gridTemplateColumns: repeat,
     verticalAlign: ['middle'],
-    width: ['100%', '60px', '150px', 'auto', '100vw', '100px', '30px'],
+    width: ['100%', '60px', '150px', 'auto', '100vw', '100px', '30px', '15px'],
     textAlign: ['center'],
     transform: [
       'scale(0)',
@@ -117,6 +118,7 @@ const responsiveStyles = createAtomicStyles({
     backgroundSize: ['100% 100%', 'contain', '0 auto'],
     backgroundImage: ["url('/arrow.svg')"],
     backgroundRepeat: ['no-repeat'],
+    gridGap: ['2px'],
   },
   shorthands: {
     padding: ['paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight'],
@@ -252,21 +254,21 @@ export const animationBounceArrowRight = style({
 });
 
 export const arrowPositionBottom = style({
-  top: calc('100%').subtract('60px').subtract('20px').toString(),
+  top: calc('100%').subtract('30px').subtract('5px').toString(),
   left: '50%',
 });
 
 export const arrowPositionTop = style({
-  top: '20px',
+  top: '5px',
   left: '50%',
 });
 
 export const arrowPositionLeft = style({
   top: '50%',
-  left: '20px',
+  left: '5px',
 });
 
 export const arrowPositionRight = style({
   top: '50%',
-  right: '20px',
+  right: '5px',
 });

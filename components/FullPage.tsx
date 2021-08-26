@@ -40,12 +40,11 @@ export default function FullPage({
                 <Gallery
                   items={galleryItemsByType.items}
                   type={galleryItemsByType.type}
-                  fullpage={fullpageApi}
                 />
               </div>
             ))}
-            <Arrow fullpage={fullpageApi} pos="right" color="black" />
-            <Arrow fullpage={fullpageApi} pos="left" color="black" />
+            <Arrow fullpage={fullpageApi} pos="right" />
+            <Arrow fullpage={fullpageApi} pos="left" />
           </div>
           <div className="section">
             <Bio bio={bio} />
