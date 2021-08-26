@@ -14,6 +14,7 @@ import {
   arrowPositionLeft,
   arrowPositionRight,
   arrowPositionTop,
+  arrowStyle,
   atoms,
 } from '@styles/sprinkles.css';
 
@@ -49,7 +50,7 @@ export default function Arrow({
     () =>
       atoms({
         color: color ?? 'white',
-        width: '30px',
+        width: '15px',
         height: 'xxs',
       }),
     [color],
@@ -64,20 +65,20 @@ export default function Arrow({
       className={`${atoms({
         zIndex: 6,
         cursor: 'pointer',
-        width: '60px', // a faire responsive en fonction de la taille d'ecran (pareil les 30px partout)
-        height: 'xs', // a faire responsive en fonction de la taille d'ecran (pareil les 30px partout)
+        width: '30px', // a faire responsive en fonction de la taille d'ecran (pareil les 30px partout)
+        height: 'xxs', // a faire responsive en fonction de la taille d'ecran (pareil les 30px partout)
         borderColor: color ?? 'white',
-        borderRadius: '60px',
+        borderRadius: '30px',
         border: 'solid',
         position: 'absolute',
         overflow: 'hidden',
         margin: 'none',
-        marginLeft: pos === 'bottom' || pos === 'top' ? '-30px' : undefined,
-        marginTop: pos === 'right' || pos === 'left' ? '-30px' : undefined,
+        marginLeft: pos === 'bottom' || pos === 'top' ? '-15px' : undefined,
+        marginTop: pos === 'right' || pos === 'left' ? '-15px' : undefined,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-      })} ${
+      })}  ${arrowStyle} ${
         pos === 'bottom'
           ? `${animationBounceArrowBottom} ${arrowPositionBottom}`
           : pos === 'top'
