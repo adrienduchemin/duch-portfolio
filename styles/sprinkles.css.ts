@@ -20,6 +20,8 @@ const height = {
   cent: '100%',
   centvh: '100vh',
   avh: '70vh',
+  half: '50%',
+  almost: '95%',
   auto: 'auto',
 };
 
@@ -44,7 +46,7 @@ const responsiveStyles = createAtomicStyles({
   properties: {
     border: [`solid`],
     borderColor: ['white', 'black'],
-    borderRadius: ['50%', '3px', '100px', '30px'],
+    borderRadius: ['50%', '3px', '10px', '100px', '30px'],
     cursor: ['pointer'],
     display: [
       'none',
@@ -93,10 +95,23 @@ const responsiveStyles = createAtomicStyles({
     paddingRight: space,
     gridTemplateColumns: repeat,
     verticalAlign: ['middle'],
-    width: ['100%', '60px', '150px', 'auto', '100vw', '100px', '30px', '15px'],
+    width: [
+      '100%',
+      '95%',
+      '70%',
+      '60px',
+      '150px',
+      'auto',
+      '100vw',
+      '100px',
+      '30px',
+      '15px',
+    ],
     textAlign: ['center'],
     transform: [
+      'rotate(0)',
       'scale(0)',
+      'rotate(32deg)',
       'scale(0.8)',
       'scale(1.8)',
       'scale(1)',
@@ -109,10 +124,10 @@ const responsiveStyles = createAtomicStyles({
     visibility: ['hidden', 'visible'],
     position: ['fixed', 'absolute', 'relative', 'sticky'],
     zIndex: [3, 4, 5, 6, -9, -10, -1, 0, 1, 999],
-    top: ['50%', '50vh', '20px', 0],
-    left: ['50%', '50vh', '20px', 0],
-    bottom: [0, '20px'],
-    right: [0, '20px'],
+    top: ['50%', '50vh', '20px', 0, '0vh'],
+    left: ['50%', '50vh', '20px', 0, '0vw'],
+    bottom: [0, '20px', '-100vw'],
+    right: [0, '20px', '-100vh'],
     overflow: ['hidden'],
     backgroundPosition: ['center center'],
     backgroundSize: ['100% 100%', 'contain', '0 auto'],
@@ -151,6 +166,7 @@ const colors = {
   'gray-800': '#1f2937',
   'gray-900': '#111827',
   overlay: 'rgba(0, 0, 0, 0.5)',
+  overlayModal: 'rgba(0, 0, 0, 0.8)',
   zero: 'rgba(0, 0, 0, 0)',
   transparent: 'transparent',
 };
@@ -235,6 +251,10 @@ const bounceRight = keyframes({
   '60%': {
     transform: 'translateX(-10px)',
   },
+});
+
+export const animationModal = style({
+  transition: '0.64s ease-in-out',
 });
 
 export const animationBounceArrowBottom = style({
