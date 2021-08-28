@@ -33,8 +33,7 @@ export default function LazyVideo({
 }: LazyVideoProps): JSX.Element {
   useEffect(() => {
     lazyLoadInstance?.update();
-  }); // il devrait surement y avoir un tableau de dependences pour eviter de le rerender a chaque fois
-  // regarder la console de https://www.andreaverlicchi.eu/vanilla-lazyload/demos/async.html
+  }, []);
 
   return (
     // eslint-disable-next-line jsx-a11y/media-has-caption

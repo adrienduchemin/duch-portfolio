@@ -182,6 +182,10 @@ globalStyle(`.iScrollVerticalScrollbar`, {
   display: 'none',
 });
 
+globalStyle(`img:not([src]):not([srcset])`, {
+  visibility: 'hidden',
+});
+
 export const atoms = createAtomsFn(
   responsiveStyles,
   colorStyles,

@@ -23,43 +23,42 @@ export default function Gallery({ items, type }: GalleryProps): JSX.Element {
   }, [items, type]);
 
   return (
-    <>
+    <div
+      className={atoms({
+        height: 'cent', // pas forcement utilisé ?
+      })}
+    >
+      <div className={atoms({ textAlign: 'center' })}>
+        {type.charAt(0).toUpperCase() + type.slice(1)}
+      </div>
       <div
         className={atoms({
-          height: 'cent', // pas forcement utilisé ?
+          display: 'grid',
+          gridGap: '2px',
+          gridColumns: {
+            mobile: 'small',
+            tablet: 'medium',
+            desktop: 'large',
+          },
         })}
       >
-        <div className={atoms({ textAlign: 'center' })}>
-          {type.charAt(0).toUpperCase() + type.slice(1)}
-        </div>
-        <div
-          className={atoms({
-            display: 'grid',
-            gridGap: '2px',
-            gridColumns: {
-              mobile: 'small',
-              tablet: 'medium',
-              desktop: 'large',
-            },
+        <LightGallery
+          plugins={[lgHash, lgVideo]}
+          customSlideName
+          elementClassNames={atoms({
+            position: 'fixed',
+            display: 'contents',
           })}
+          galleryId={type}
+          autoplayFirstVideo={false}
         >
-          <LightGallery
-            plugins={[lgHash, lgVideo]}
-            customSlideName
-            elementClassNames={atoms({
-              position: 'fixed',
-              display: 'contents',
-            })}
-            galleryId={type}
-          >
-            {items.map((item) => (
-              <LightGalleryItem {...item} key={item.id}>
-                <GalleryItem image={item.data.image} key={item.id} />
-              </LightGalleryItem>
-            ))}
-          </LightGallery>
-        </div>
+          {items.map((item) => (
+            <LightGalleryItem {...item} key={item.id}>
+              <GalleryItem image={item.data.image} key={item.id} />
+            </LightGalleryItem>
+          ))}
+        </LightGallery>
       </div>
-    </>
+    </div>
   );
 }

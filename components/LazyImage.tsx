@@ -23,12 +23,12 @@ export default function LazyImage({
 }: LazyImageProps): JSX.Element {
   useEffect(() => {
     lazyLoadInstance?.update();
-  }); // il devrait surement y avoir un tableau de dependences pour eviter de le rerender a chaque fois
-  // regarder la console de https://www.andreaverlicchi.eu/vanilla-lazyload/demos/async.html
+  }, []);
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
+      data-lazy-function="foo"
       className={`lazy ${atoms({
         ...atom,
       })}`}

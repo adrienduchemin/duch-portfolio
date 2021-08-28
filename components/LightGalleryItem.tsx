@@ -19,14 +19,15 @@ export default function LightGalleryItem({
 
   return (
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
-    <a
+    <div
+      className="item"
       data-slide-name={id}
-      href={withVideo ? undefined : image.url}
+      data-src={withVideo ? undefined : image.url}
       data-video={videoParams}
       data-poster={withVideo ? image.url : undefined}
     >
       {children}
-    </a>
+    </div>
   );
 }
 
