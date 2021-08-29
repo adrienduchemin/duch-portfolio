@@ -23,11 +23,7 @@ export default function Gallery({ items, type }: GalleryProps): JSX.Element {
   }, [items, type]);
 
   return (
-    <div
-      className={atoms({
-        height: 'cent', // pas forcement utilisé ?
-      })}
-    >
+    <>
       <div className={atoms({ textAlign: 'center' })}>
         {type.charAt(0).toUpperCase() + type.slice(1)}
       </div>
@@ -46,7 +42,6 @@ export default function Gallery({ items, type }: GalleryProps): JSX.Element {
           plugins={[lgHash, lgVideo]}
           customSlideName
           elementClassNames={atoms({
-            position: 'fixed',
             display: 'contents',
           })}
           galleryId={type}
@@ -59,6 +54,6 @@ export default function Gallery({ items, type }: GalleryProps): JSX.Element {
           ))}
         </LightGallery>
       </div>
-    </div>
+    </>
   );
 }

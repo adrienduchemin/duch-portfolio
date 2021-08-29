@@ -186,6 +186,10 @@ globalStyle(`img:not([src]):not([srcset])`, {
   visibility: 'hidden',
 });
 
+globalStyle(`img:-moz-loading`, {
+  visibility: 'hidden',
+});
+
 export const atoms = createAtomsFn(
   responsiveStyles,
   colorStyles,

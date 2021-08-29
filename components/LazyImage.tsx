@@ -28,15 +28,14 @@ export default function LazyImage({
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      data-lazy-function="foo"
       className={`lazy ${atoms({
         ...atom,
       })}`}
       alt={alt}
-      data-src={dataSrc} // what is this for ?
-      src={src} // important ?
-      width={width} // important ?
-      height={height} // important ?
+      data-src={dataSrc}
+      src={src}
+      width={width}
+      height={height}
     />
   );
 }

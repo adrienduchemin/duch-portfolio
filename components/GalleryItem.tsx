@@ -18,15 +18,15 @@ export default function GalleryItem({ image }: GalleryItemProps): JSX.Element {
       <LazyImage
         atom={{
           width: '100%',
-          objectFit: 'scale-down', // a tester avec d'autres selon les nouvelles dimensions choisies par Lais
-          display: 'block',
-          cursor: 'pointer',
+          objectFit: 'scale-down',
+          display: 'block', // normalement pas utile si je met le placeholder
         }}
         /* mobile <= 768 */
         dataSrc={image.mobile.url}
         /* placeholder */
         src={whitePixel}
         alt={image.alt ?? ''}
+        // supposé metre width et height ici aussi mais que mettre ?
       />
     </picture>
   );

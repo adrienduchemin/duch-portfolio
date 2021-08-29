@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { IGalleryItem, IGalleryItemData } from '@interfaces/GalleryItem';
+import { atoms } from '@styles/sprinkles.css';
 
 interface LightGalleryItemProps extends IGalleryItem {
   children: JSX.Element;
@@ -20,7 +21,9 @@ export default function LightGalleryItem({
   return (
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
     <div
-      className="item"
+      className={`item ${atoms({
+        cursor: 'pointer',
+      })}`}
       data-slide-name={id}
       data-src={withVideo ? undefined : image.url}
       data-video={videoParams}
