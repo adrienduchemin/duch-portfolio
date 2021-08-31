@@ -105,7 +105,7 @@ const responsiveStyles = createAtomicStyles({
       'translate3d(0, 0, 0)',
     ],
     filter: ['blur(10px)'],
-    opacity: [0, 1, 0.6],
+    opacity: [0, 1, 0.7],
     visibility: ['hidden', 'visible'],
     position: ['fixed', 'absolute', 'relative', 'sticky'],
     zIndex: [3, 4, 5, 6, -9, -10, -1, 0, 1, 999],

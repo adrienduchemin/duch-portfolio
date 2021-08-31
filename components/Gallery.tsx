@@ -29,6 +29,7 @@ export default function Gallery({ items, type }: GalleryProps): JSX.Element {
       </div>
       <div
         className={atoms({
+          background: 'overlay',
           display: 'grid',
           gridGap: '2px',
           gridColumns: {
