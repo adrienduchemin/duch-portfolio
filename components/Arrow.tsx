@@ -63,7 +63,7 @@ export default function Arrow({
       tabIndex={0}
       role="button"
       className={`${atoms({
-        zIndex: 6,
+        zIndex: 1,
         cursor: 'pointer',
         width: '30px', // a faire responsive en fonction de la taille d'ecran (pareil les 30px partout)
         height: 'xxs', // a faire responsive en fonction de la taille d'ecran (pareil les 30px partout)

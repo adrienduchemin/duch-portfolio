@@ -40,24 +40,14 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
           height: 'cent',
           backgroundPosition: 'center center',
           objectFit: 'cover',
-          zIndex: 3,
+          zIndex: -1,
         }}
       >
         <LazySource dataSrc={home.data.background.url} type="video/mp4" />
       </LazyVideo>
       <div
         className={atoms({
-          zIndex: 4,
-          left: 0,
-          top: 0,
-          width: '100%',
-          height: 'cent',
           background: 'overlay',
-          position: 'absolute',
-        })}
-      />
-      <div
-        className={atoms({
           left: 0,
           top: 0,
           position: 'absolute',
@@ -69,7 +59,6 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
           height: 'cent',
           width: '100%',
           color: 'white',
-          zIndex: 5,
         })}
       >
         <svg height="20" width="120">

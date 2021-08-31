@@ -190,6 +190,18 @@ globalStyle(`img:-moz-loading`, {
   visibility: 'hidden',
 });
 
+globalStyle(`img.lazy`, {
+  opacity: 0,
+});
+
+globalStyle(`img:not(.initial)`, {
+  transition: 'opacity 1.5s',
+});
+
+globalStyle(`img.initial, img.loaded, img.error`, {
+  opacity: 1,
+});
+
 export const atoms = createAtomsFn(
   responsiveStyles,
   colorStyles,
