@@ -23,11 +23,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
   }, [home]);
 
   return (
-    <div
-      className={atoms({
-        height: 'centvh',
-      })}
-    >
+    <>
       <LazyVideo
         autoplay
         muted
@@ -95,6 +91,6 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
         </a>
       </div>
       <Arrow fullpage={fullpage} pos="bottom" />
-    </div>
+    </>
   );
 }
