@@ -1,16 +1,16 @@
-import lgHash from 'lightgallery/plugins/hash';
-import lgVideo from 'lightgallery/plugins/video';
-import dynamic from 'next/dynamic';
+// import lgHash from 'lightgallery/plugins/hash';
+// import lgVideo from 'lightgallery/plugins/video';
+// import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 
 import GalleryItem from '@components/GalleryItem';
-import LightGalleryItem from '@components/LightGalleryItem';
+// import LightGalleryItem from '@components/LightGalleryItem';
 import { IGalleryItem } from '@interfaces/GalleryItem';
 import { atoms } from '@styles/sprinkles.css';
 
-const LightGallery = dynamic(() => import('lightgallery/react'), {
-  ssr: false,
-});
+// const LightGallery = dynamic(() => import('lightgallery/react'), {
+//   ssr: false,
+// });
 
 interface GalleryProps {
   items: IGalleryItem[];
@@ -38,7 +38,7 @@ export default function Gallery({ items, type }: GalleryProps): JSX.Element {
           },
         })}
       >
-        <LightGallery
+        {/* <LightGallery
           plugins={[lgHash, lgVideo]}
           customSlideName
           elementClassNames={atoms({
@@ -46,13 +46,13 @@ export default function Gallery({ items, type }: GalleryProps): JSX.Element {
           })}
           galleryId={type}
           autoplayFirstVideo={false}
-        >
-          {items.map((item) => (
-            <LightGalleryItem {...item} key={item.id}>
-              <GalleryItem image={item.data.image} key={item.id} />
-            </LightGalleryItem>
-          ))}
-        </LightGallery>
+        > */}
+        {items.map((item) => (
+          // <LightGalleryItem {...item} key={item.id}>
+          <GalleryItem image={item.data.image} key={item.id} />
+          // </LightGalleryItem>
+        ))}
+        {/* </LightGallery> */}
       </div>
     </>
   );

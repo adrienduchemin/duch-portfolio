@@ -22,16 +22,16 @@ function generateGalleryItems(numberOfItems: number): IGalleryItem[] {
         type,
         image: {
           desktop: {
-            dimensions: { width: 680, height: 500 }, // a titre indicatif
+            dimensions: { width: 500, height: 500 }, // a titre indicatif
             alt: 'dancer',
             copyright: 'Duch Photography',
-            url: '/chat-desktop.jpg',
+            url: '/chat-mobile.jpg',
           },
           tablet: {
-            dimensions: { width: 340, height: 340 }, // a titre indicatif
+            dimensions: { width: 400, height: 400 }, // a titre indicatif
             alt: 'dancer',
             copyright: 'Duch Photography',
-            url: '/chat-tablet.jpg',
+            url: '/chat-mobile.jpg',
           },
           mobile: {
             dimensions: { width: 300, height: 300 }, // a titre indicatif
@@ -42,7 +42,7 @@ function generateGalleryItems(numberOfItems: number): IGalleryItem[] {
           dimensions: { width: 1440, height: 700 }, // pas utiles: appelées dans le slider en full
           alt: 'dancer',
           copyright: 'Duch Photography',
-          url: isVideo ? '/chat.jpeg' : '/chat.png',
+          url: isVideo ? '/chat.png' : '/chat.jpeg',
         },
         video: {
           ...(isVideo ? { url: '/video.mp4' } : {}),
