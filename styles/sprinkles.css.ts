@@ -11,7 +11,7 @@ const space = {
 };
 
 const height = {
-  xxxs: '15px',
+  xxxs: '16px',
   xxs: '30px',
   xs: '60px',
   sm: '100px',
@@ -85,15 +85,15 @@ const responsiveStyles = createAtomicStyles({
     alignSelf: ['center'],
     paddingTop: space,
     paddingBottom: space,
-    marginLeft: ['auto', '-15px'],
+    marginLeft: ['auto', '-8px'],
     marginBottom: ['15px'],
     marginRight: ['auto'],
-    marginTop: ['-15px', '30px', '10px'],
+    marginTop: ['-8px', '30px', '10px'],
     paddingLeft: space,
     paddingRight: space,
     gridTemplateColumns: repeat,
     verticalAlign: ['middle'],
-    width: ['100%', '60px', '150px', 'auto', '100vw', '100px', '30px', '15px'],
+    width: ['100%', '60px', '150px', 'auto', '100vw', '100px', '30px', '16px'],
     textAlign: ['center'],
     transform: [
       'scale(0)',
@@ -210,91 +210,75 @@ export const atoms = createAtomsFn(
 export type Atoms = Parameters<typeof atoms>[number];
 
 const bounceBottom = keyframes({
-  '0%, 20%, 50%, 80%, 100%': {
+  '0%': {
     transform: 'translateY(0)',
   },
-  '40%': {
-    transform: 'translateY(-20px)',
-  },
-  '60%': {
-    transform: 'translateY(-10px)',
+  '100%': {
+    transform: 'translateY(10px)',
   },
 });
 
 const bounceTop = keyframes({
-  '0%, 20%, 50%, 80%, 100%': {
+  '0%': {
     transform: 'translateY(0)',
   },
-  '40%': {
-    transform: 'translateY(+20px)',
-  },
-  '60%': {
-    transform: 'translateY(+10px)',
+  '100%': {
+    transform: 'translateY(-10px)',
   },
 });
 
 const bounceLeft = keyframes({
-  '0%, 20%, 50%, 80%, 100%': {
+  '0%': {
     transform: 'translateX(0)',
   },
-  '40%': {
-    transform: 'translateX(+20px)',
-  },
-  '60%': {
-    transform: 'translateX(+10px)',
-  },
-});
-
-const bounceRight = keyframes({
-  '0%, 20%, 50%, 80%, 100%': {
-    transform: 'translateX(0)',
-  },
-  '40%': {
-    transform: 'translateX(-20px)',
-  },
-  '60%': {
+  '100%': {
     transform: 'translateX(-10px)',
   },
 });
 
+const bounceRight = keyframes({
+  '0%': {
+    transform: 'translateX(0)',
+  },
+  '100%': {
+    transform: 'translateX(+10px)',
+  },
+});
+
 export const animationBounceArrowBottom = style({
-  animation: `${bounceBottom} 2s infinite`,
+  // animation: `${bounceBottom} 2s infinite`,
+  animation: `${bounceBottom} 0.4s ease 0s alternate infinite`,
 });
 
 export const animationBounceArrowTop = style({
-  animation: `${bounceTop} 2s infinite`,
+  animation: `${bounceTop} 0.4s ease 0s alternate infinite`,
 });
 
 export const animationBounceArrowLeft = style({
-  animation: `${bounceLeft} 2s infinite`,
+  animation: `${bounceLeft} 0.4s ease 0s alternate infinite`,
 });
 
 export const animationBounceArrowRight = style({
-  animation: `${bounceRight} 2s infinite`,
+  animation: `${bounceRight} 0.4s ease 0s alternate infinite`,
 });
 
 export const arrowPositionBottom = style({
-  top: calc('100%').subtract('30px').subtract('5px').toString(),
+  top: calc('100%').subtract('16px').subtract('30px').toString(),
+  // bottom: '30px',
   left: '50%',
 });
 
 export const arrowPositionTop = style({
-  top: '5px',
+  top: '30px',
   left: '50%',
 });
 
 export const arrowPositionLeft = style({
   top: '50%',
-  left: '5px',
+  left: '15px',
 });
 
 export const arrowPositionRight = style({
   top: '50%',
-  right: '5px',
-});
-
-export const arrowStyle = style({
-  ':hover': {
-    opacity: '0.6',
-  },
+  right: '15px',
 });

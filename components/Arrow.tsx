@@ -1,5 +1,5 @@
 import { fullpageApi } from '@fullpage/react-fullpage';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 
 import ArrowBottom from '@assets/svg/arrow-bottom.svg';
 import ArrowLeft from '@assets/svg/arrow-left.svg';
@@ -14,21 +14,15 @@ import {
   arrowPositionLeft,
   arrowPositionRight,
   arrowPositionTop,
-  arrowStyle,
   atoms,
 } from '@styles/sprinkles.css';
 
 interface ArrowProps {
   fullpage: fullpageApi;
   pos: 'bottom' | 'left' | 'right' | 'top';
-  color?: 'black';
 }
 
-export default function Arrow({
-  fullpage,
-  pos,
-  color,
-}: ArrowProps): JSX.Element {
+export default function Arrow({ fullpage, pos }: ArrowProps): JSX.Element {
   const move = useCallback(() => {
     switch (pos) {
       case 'bottom':
@@ -46,16 +40,6 @@ export default function Arrow({
     }
   }, [fullpage, pos]);
 
-  const className = useMemo(
-    () =>
-      atoms({
-        color: color ?? 'white',
-        width: '15px',
-        height: 'xxs',
-      }),
-    [color],
-  );
-
   return (
     <div
       onClick={move}
@@ -65,20 +49,15 @@ export default function Arrow({
       className={`${atoms({
         zIndex: 1,
         cursor: 'pointer',
-        width: '30px', // a faire responsive en fonction de la taille d'ecran (pareil les 30px partout)
-        height: 'xxs', // a faire responsive en fonction de la taille d'ecran (pareil les 30px partout)
-        borderColor: color ?? 'white',
-        borderRadius: '30px',
-        border: 'solid',
         position: 'absolute',
-        overflow: 'hidden',
+        marginLeft: pos === 'bottom' || pos === 'top' ? '-8px' : undefined,
+        marginTop: pos === 'right' || pos === 'left' ? '-8px' : undefined,
         margin: 'none',
-        marginLeft: pos === 'bottom' || pos === 'top' ? '-15px' : undefined,
-        marginTop: pos === 'right' || pos === 'left' ? '-15px' : undefined,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      })}  ${arrowStyle} ${
+        padding: 'none',
+        width: '16px',
+        height: 'xxxs',
+        color: 'white',
+      })} ${
         pos === 'bottom'
           ? `${animationBounceArrowBottom} ${arrowPositionBottom}`
           : pos === 'top'
@@ -87,12 +66,11 @@ export default function Arrow({
           ? `${animationBounceArrowLeft} ${arrowPositionLeft}`
           : `${animationBounceArrowRight} ${arrowPositionRight}`
       }`}
-      // il faut bouncer en fonction de là ou est la direction
     >
-      {pos === 'left' && <ArrowLeft className={className} />}
-      {pos === 'right' && <ArrowRight className={className} />}
-      {pos === 'bottom' && <ArrowBottom className={className} />}
-      {pos === 'top' && <ArrowTop className={className} />}
+      {pos === 'left' && <ArrowLeft />}
+      {pos === 'right' && <ArrowRight />}
+      {pos === 'bottom' && <ArrowBottom />}
+      {pos === 'top' && <ArrowTop />}
     </div>
   );
 }
