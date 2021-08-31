@@ -1,16 +1,13 @@
 import { GetStaticProps } from 'next';
 
 import FullPage from '@components/FullPage';
-import { IBio } from '@interfaces/Bio';
 import { IGallery, IGalleryItemsByType } from '@interfaces/Gallery';
 import { IHome } from '@interfaces/Home';
 
-import { getBioFixture } from '../fixtures/bio';
 import { getGalleryItemsFixture } from '../fixtures/galleryItems';
 import { getHomeFixture } from '../fixtures/home';
 
 interface IndexProps {
-  bio: IBio;
   home: IHome;
   gallery: IGallery;
 }
@@ -20,26 +17,15 @@ export default function Index(props: IndexProps): JSX.Element {
 }
 
 export const getStaticProps: GetStaticProps<IndexProps> = async () => {
-  const [bio, home, gallery] = await Promise.all([
-    getBio(),
-    getHome(),
-    getGallery(),
-  ]);
+  const [home, gallery] = await Promise.all([getHome(), getGallery()]);
 
   return {
     props: {
-      bio,
       home,
       gallery,
     },
   };
 };
-
-async function getBio(): Promise<IBio> {
-  if (process.env.OFFLINE === 'true') return getBioFixture();
-  // return client.getSingle('bio');
-  return getBioFixture(); // for now until prismic back
-}
 
 async function getHome(): Promise<IHome> {
   if (process.env.OFFLINE === 'true') return getHomeFixture();
