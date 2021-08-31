@@ -18,7 +18,7 @@ export default function GalleryItem({ image }: GalleryItemProps): JSX.Element {
       <LazyImage
         atom={{
           width: '100%',
-          objectFit: 'scale-down',
+          // objectFit: 'fill', // not usefull for now
           display: 'block',
         }}
         /* mobile <= 768 */
