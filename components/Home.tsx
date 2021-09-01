@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 
 import Instagram from '@assets/svg/instagram.svg';
+import Youtube from '@assets/svg/youtube.svg';
 import LazySource from '@components/LazySource';
 import LazyVideo from '@components/LazyVideo';
 import { IHome } from '@interfaces/Home';
@@ -69,15 +70,32 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
         <p>{home.data.description}</p>
         <br />
         <br />
-        <a href={home.data.instagram.url} target="_blank" rel="noreferrer">
-          <Instagram
-            className={`${atoms({
-              color: 'white',
-              width: '60px',
-              height: 'xs',
-            })}`}
-          />
-        </a>
+        <div
+          className={atoms({
+            display: 'flex',
+            flexDirection: 'row',
+          })}
+        >
+          <a href={home.data.instagram.url} target="_blank" rel="noreferrer">
+            <Instagram
+              className={`${atoms({
+                color: 'white',
+                width: '30px',
+                height: 'xs',
+                marginRight: '15px',
+              })}`}
+            />
+          </a>{' '}
+          <a href={home.data.youtube.url} target="_blank" rel="noreferrer">
+            <Youtube
+              className={`${atoms({
+                color: 'white',
+                width: '30px',
+                height: 'xs',
+              })}`}
+            />
+          </a>
+        </div>
       </div>
       <Arrow fullpage={fullpage} pos="bottom" />
     </>

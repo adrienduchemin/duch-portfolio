@@ -50,6 +50,8 @@ export default function Gallery({ items, type }: GalleryProps): JSX.Element {
           controls={false}
           download={false}
           allowMediaOverlap
+          // showCloseIcon={false}
+          // addClass={} // utiliser ca plutot que les globalStyles ?
         >
           {items.map((item) => (
             <LightGalleryItem {...item} key={item.id}>

@@ -10,4 +10,7 @@ interface IHomeData {
   instagram: {
     url: string;
   };
+  youtube: {
+    url: string;
+  };
 }

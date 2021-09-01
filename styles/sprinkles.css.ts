@@ -13,7 +13,7 @@ const space = {
 const height = {
   xxxs: '16px',
   xxs: '30px',
-  xs: '60px',
+  xs: '30px',
   sm: '100px',
   small: '150px',
   medium: '80%',
@@ -87,7 +87,7 @@ const responsiveStyles = createAtomicStyles({
     paddingBottom: space,
     marginLeft: ['auto', '-8px'],
     marginBottom: ['15px'],
-    marginRight: ['auto'],
+    marginRight: ['auto', '15px'],
     marginTop: ['-8px', '30px', '10px'],
     paddingLeft: space,
     paddingRight: space,
@@ -202,13 +202,12 @@ globalStyle(`img.initial, img.loaded, img.error`, {
   opacity: 1,
 });
 
-// on peut aussi rajouter la toolbar en transparent : .lg-media-overlap .lg-toolbar
-globalStyle(`.lg-media-overlap .lg-sub-html`, {
-  background: 'rgba(0, 0, 0, 0.3)',
+globalStyle(`.lg-backdrop`, {
+  background: 'rgba(0, 0, 0, 0.5)',
 });
 
-globalStyle(`.lg-css3.lg-use-css3 .lg-item`, {
-  backfaceVisibility: 'visible',
+globalStyle(`.lg-media-overlap .lg-sub-html`, {
+  background: 'rgba(0, 0, 0, 0.3)',
 });
 
 export const atoms = createAtomsFn(
