@@ -19,6 +19,11 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
           rel="stylesheet"
           href="lightgallery/css/lg-video.css"
         />
+        <link
+          type="text/css"
+          rel="stylesheet"
+          href="lightgallery/css/lg-zoom.css"
+        />
         <script src="/picturefill.min.js" async />
       </Head>
       <Component {...pageProps} />

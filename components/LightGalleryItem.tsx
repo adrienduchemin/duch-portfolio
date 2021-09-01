@@ -1,15 +1,18 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { IGalleryItem, IGalleryItemData } from '@interfaces/GalleryItem';
 import { atoms } from '@styles/sprinkles.css';
 
 interface LightGalleryItemProps extends IGalleryItem {
   children: JSX.Element;
+  isCurrent: boolean; // can do something with this
+  hasVideoStarted: boolean;
 }
 
 export default function LightGalleryItem({
   data: { image, video, title },
   id,
+  hasVideoStarted,
   children,
 }: LightGalleryItemProps): JSX.Element {
   const withVideo = useMemo(() => hasVideo(video), [video]);
@@ -17,6 +20,20 @@ export default function LightGalleryItem({
     () => (withVideo ? getVideoParams(video) : undefined),
     [video, withVideo],
   );
+
+  const caption = useMemo(
+    () =>
+      `${title ? `<h4>${title}</h4>` : ''}${
+        image.copyright ? `<p>© ${image.copyright}</p>` : ''
+      }`,
+    [image.copyright, title],
+  );
+
+  useEffect(() => {
+    if (hasVideoStarted) {
+      // delete caption from css or smooth transition
+    }
+  }, [hasVideoStarted]);
 
   return (
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
@@ -28,9 +45,7 @@ export default function LightGalleryItem({
       data-src={withVideo ? undefined : image.url}
       data-video={videoParams}
       data-poster={withVideo ? image.url : undefined}
-      data-sub-html={`${title ? `<h4>${title}</h4>` : ''}${
-        image.copyright ? `<p>© ${image.copyright}</p>` : ''
-      }`}
+      data-sub-html={caption}
     >
       {children}
     </div>
