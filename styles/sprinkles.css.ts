@@ -202,6 +202,15 @@ globalStyle(`img.initial, img.loaded, img.error`, {
   opacity: 1,
 });
 
+// on peut aussi rajouter la toolbar en transparent : .lg-media-overlap .lg-toolbar
+globalStyle(`.lg-media-overlap .lg-sub-html`, {
+  background: 'rgba(0, 0, 0, 0.3)',
+});
+
+globalStyle(`.lg-css3.lg-use-css3 .lg-item`, {
+  backfaceVisibility: 'visible',
+});
+
 export const atoms = createAtomsFn(
   responsiveStyles,
   colorStyles,

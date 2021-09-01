@@ -47,6 +47,9 @@ export default function Gallery({ items, type }: GalleryProps): JSX.Element {
           })}
           galleryId={type}
           autoplayFirstVideo={false}
+          controls={false}
+          download={false}
+          allowMediaOverlap
         >
           {items.map((item) => (
             <LightGalleryItem {...item} key={item.id}>

@@ -8,7 +8,7 @@ interface LightGalleryItemProps extends IGalleryItem {
 }
 
 export default function LightGalleryItem({
-  data: { image, video },
+  data: { image, video, title },
   id,
   children,
 }: LightGalleryItemProps): JSX.Element {
@@ -28,6 +28,9 @@ export default function LightGalleryItem({
       data-src={withVideo ? undefined : image.url}
       data-video={videoParams}
       data-poster={withVideo ? image.url : undefined}
+      data-sub-html={`${title ? `<h4>${title}</h4>` : ''}${
+        image.copyright ? `<p>© ${image.copyright}</p>` : ''
+      }`}
     >
       {children}
     </div>
