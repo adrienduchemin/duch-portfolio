@@ -70,6 +70,15 @@ async function getGallery(): Promise<IGallery> {
 
   danseIndex && galleryItemsByTypes.splice(0, 0, danseIndex);
 
+  const bookIndex = galleryItemsByTypes.splice(
+    galleryItemsByTypes.findIndex(
+      (galleryItemsByType) => galleryItemsByType.type === 'book',
+    ),
+    1,
+  )[0];
+
+  bookIndex && galleryItemsByTypes.splice(2, 0, bookIndex);
+
   for (const galleryItemsByType of galleryItemsByTypes) {
     galleryItemsByType.items.sort(
       (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),

@@ -34,6 +34,7 @@ export default function FullPage({
             {gallery.items.map((galleryItemsByType) => (
               <div className="slide" key={galleryItemsByType.type}>
                 <Gallery
+                  fullpage={fullpageApi}
                   items={galleryItemsByType.items}
                   type={galleryItemsByType.type}
                 />

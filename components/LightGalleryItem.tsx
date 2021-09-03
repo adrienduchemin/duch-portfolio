@@ -6,13 +6,12 @@ import { atoms } from '@styles/sprinkles.css';
 interface LightGalleryItemProps extends IGalleryItem {
   children: JSX.Element;
   isCurrent: boolean; // can do something with this
-  hasVideoStarted: boolean;
 }
 
 export default function LightGalleryItem({
   data: { image, video, title },
   id,
-  hasVideoStarted,
+  isCurrent,
   children,
 }: LightGalleryItemProps): JSX.Element {
   const withVideo = useMemo(() => hasVideo(video), [video]);
@@ -30,10 +29,12 @@ export default function LightGalleryItem({
   );
 
   useEffect(() => {
-    if (hasVideoStarted) {
-      // delete caption from css or smooth transition
+    if (isCurrent && withVideo) {
+      // delete caption from css or smooth transition ?
+    } else if (withVideo) {
+      // remove the added class or do nothing if it was a transition
     }
-  }, [hasVideoStarted]);
+  }, [isCurrent, withVideo]);
 
   return (
     // eslint-disable-next-line jsx-a11y/anchor-is-valid

@@ -1,3 +1,4 @@
+import { fullpageApi } from '@fullpage/react-fullpage';
 import { AfterAppendSubHtmlDetail } from 'lightgallery/lg-events';
 import lgHash from 'lightgallery/plugins/hash';
 import lgVideo from 'lightgallery/plugins/video';
@@ -17,27 +18,34 @@ const LightGallery = dynamic(() => import('lightgallery/react'), {
 interface GalleryProps {
   items: IGalleryItem[];
   type: string;
+  fullpage: fullpageApi;
 }
 
-export default function Gallery({ items, type }: GalleryProps): JSX.Element {
-  const [currentLightGalleryItem, setCurrentLightGalleryItem] = useState(-1);
-  const [hasVideoStarted, setHasVideoStarted] = useState(false);
+export default function Gallery({
+  items,
+  type,
+  fullpage,
+}: GalleryProps): JSX.Element {
+  const [currentLightGalleryItemIndex, setCurrentLightGalleryItemIndex] =
+    useState(-1);
 
   useEffect(() => {
     console.log({ items, type });
   }, [items, type]);
 
-  const onBeforeSlide = useCallback(
-    (detail: AfterAppendSubHtmlDetail) => {
-      hasVideoStarted && setHasVideoStarted(false);
-      setCurrentLightGalleryItem(detail.index);
-    },
-    [hasVideoStarted],
-  );
-
-  const onPosterClick = useCallback(() => {
-    setHasVideoStarted(true);
+  const onBeforeSlide = useCallback((detail: AfterAppendSubHtmlDetail) => {
+    setCurrentLightGalleryItemIndex(detail.index);
   }, []);
+
+  const onAfterOpen = useCallback(() => {
+    fullpage.setKeyboardScrolling(false);
+    fullpage.setAllowScrolling(false);
+  }, [fullpage]);
+
+  const onAfterClose = useCallback(() => {
+    fullpage.setKeyboardScrolling(true);
+    fullpage.setAllowScrolling(true);
+  }, [fullpage]);
 
   return (
     <>
@@ -66,20 +74,18 @@ export default function Gallery({ items, type }: GalleryProps): JSX.Element {
           autoplayFirstVideo={false}
           controls={false}
           download={false}
-          allowMediaOverlap
+          gotoNextSlideOnVideoEnd={false}
+          // allowMediaOverlap
           actualSize={false}
-          onPosterClick={onPosterClick}
           onBeforeSlide={onBeforeSlide}
-          // showCloseIcon={false}
+          onAfterOpen={onAfterOpen}
+          onAfterClose={onAfterClose}
           // addClass={} // utiliser ca plutot que les globalStyles ?
         >
           {items.map((item, index) => (
             <LightGalleryItem
               {...item}
-              hasVideoStarted={
-                index === currentLightGalleryItem && hasVideoStarted
-              }
-              isCurrent={index === currentLightGalleryItem}
+              isCurrent={index === currentLightGalleryItemIndex}
               key={item.id}
             >
               <GalleryItem image={item.data.image} key={item.id} />
