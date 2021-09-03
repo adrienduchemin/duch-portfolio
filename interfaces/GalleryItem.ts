@@ -15,6 +15,8 @@ export interface IGalleryItemData {
     desktop: Image;
   };
   video: {
+    // eslint-disable-next-line camelcase
+    link_type?: 'Media' | 'Web'; // video perso | youtube
     url?: string; // pour l'instant on ne prend que les mp4
   };
 }

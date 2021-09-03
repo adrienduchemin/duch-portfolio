@@ -45,7 +45,14 @@ function generateGalleryItems(numberOfItems: number): IGalleryItem[] {
           url: isVideo ? '/chat.png' : '/chat.jpeg',
         },
         video: {
-          ...(isVideo ? { url: '/video.mp4' } : {}),
+          ...(isVideo
+            ? Math.random() < 0.2
+              ? {
+                  url: 'https://www.youtube.com/watch?v=MGLFsxznv3U',
+                  link_type: 'Web',
+                }
+              : { url: '/video.mp4', link_type: 'Media' }
+            : {}),
         },
       },
       id: `${isVideo ? 'video' : 'photo'}-${i}`,

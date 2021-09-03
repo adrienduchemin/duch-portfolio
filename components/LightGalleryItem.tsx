@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { IGalleryItem, IGalleryItemData } from '@interfaces/GalleryItem';
 import { atoms } from '@styles/sprinkles.css';
@@ -11,10 +11,10 @@ interface LightGalleryItemProps extends IGalleryItem {
 export default function LightGalleryItem({
   data: { image, video, title },
   id,
-  isCurrent,
   children,
 }: LightGalleryItemProps): JSX.Element {
   const withVideo = useMemo(() => hasVideo(video), [video]);
+  const withYoutube = useMemo(() => isYoutube(video), [video]);
   const videoParams = useMemo(
     () => (withVideo ? getVideoParams(video) : undefined),
     [video, withVideo],
@@ -28,13 +28,13 @@ export default function LightGalleryItem({
     [image.copyright, title],
   );
 
-  useEffect(() => {
-    if (isCurrent && withVideo) {
-      // delete caption from css or smooth transition ?
-    } else if (withVideo) {
-      // remove the added class or do nothing if it was a transition
-    }
-  }, [isCurrent, withVideo]);
+  // useEffect(() => {
+  //   if (isCurrent && withVideo) {
+  //     // delete caption from css or smooth transition ?
+  //   } else if (withVideo) {
+  //     // remove the added class or do nothing if it was a transition
+  //   }
+  // }, [isCurrent, withVideo]);
 
   return (
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
@@ -43,9 +43,13 @@ export default function LightGalleryItem({
         cursor: 'pointer',
       })}`}
       data-slide-name={id}
-      data-src={withVideo ? undefined : image.url}
-      data-video={videoParams}
-      data-poster={withVideo ? image.url : undefined}
+      data-src={withVideo ? (withYoutube ? video.url : undefined) : image.url}
+      data-video={
+        withVideo ? (withYoutube ? undefined : videoParams) : undefined
+      }
+      data-poster={
+        withVideo ? (withYoutube ? undefined : image.url) : undefined
+      }
       data-sub-html={caption}
     >
       {children}
@@ -55,6 +59,10 @@ export default function LightGalleryItem({
 
 function hasVideo(video: IGalleryItemData['video']): boolean {
   return video.url !== undefined;
+}
+
+function isYoutube(video: IGalleryItemData['video']): boolean {
+  return video.link_type === 'Web';
 }
 
 function getVideoParams(video: IGalleryItemData['video']): string {
