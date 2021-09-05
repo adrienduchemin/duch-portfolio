@@ -1,6 +1,5 @@
 import { fullpageApi } from '@fullpage/react-fullpage';
 import dynamic from 'next/dynamic';
-import { useEffect } from 'react';
 
 import Instagram from '@assets/svg/instagram.svg';
 import Youtube from '@assets/svg/youtube.svg';
@@ -18,11 +17,10 @@ interface HomeProps {
   fullpage: fullpageApi;
 }
 
-export default function Home({ home, fullpage }: HomeProps): JSX.Element {
-  useEffect(() => {
-    console.log({ home });
-  }, [home]);
-
+export default function Home({
+  home: { background, description, instagram, youtube },
+  fullpage,
+}: HomeProps): JSX.Element {
   return (
     <>
       <LazyVideo
@@ -31,7 +29,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
         loop
         playsInline
         /* video de basse qualité */
-        dataSrc={home.data.background.url}
+        dataSrc={background.url}
         atom={{
           position: 'absolute',
           right: 0,
@@ -44,7 +42,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
           zIndex: -1,
         }}
       >
-        <LazySource dataSrc={home.data.background.url} type="video/mp4" />
+        <LazySource dataSrc={background.url} type="video/mp4" />
       </LazyVideo>
       <div
         className={atoms({
@@ -67,7 +65,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
             Laïs Beunardeau
           </text>
         </svg>
-        <p>{home.data.description}</p>
+        <p>{description}</p>
         <br />
         <br />
         <div
@@ -76,7 +74,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
             flexDirection: 'row',
           })}
         >
-          <a href={home.data.instagram.url} target="_blank" rel="noreferrer">
+          <a href={instagram.url} target="_blank" rel="noreferrer">
             <Instagram
               className={`${atoms({
                 color: 'white',
@@ -86,7 +84,7 @@ export default function Home({ home, fullpage }: HomeProps): JSX.Element {
               })}`}
             />
           </a>{' '}
-          <a href={home.data.youtube.url} target="_blank" rel="noreferrer">
+          <a href={youtube.url} target="_blank" rel="noreferrer">
             <Youtube
               className={`${atoms({
                 color: 'white',

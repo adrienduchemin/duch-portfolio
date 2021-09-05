@@ -1,15 +1,23 @@
+import Prismic from '@prismicio/client';
+import { Document } from '@prismicio/client/types/documents';
 import { GetStaticProps } from 'next';
 
 import FullPage from '@components/FullPage';
-import { IGallery, IGalleryItemsByType } from '@interfaces/Gallery';
-import { IHome } from '@interfaces/Home';
+import {
+  IGallery,
+  IPrismicGalleryData,
+  IPrismicMedia,
+} from '@interfaces/Gallery';
+import { IHome, IPrismicHomeData } from '@interfaces/Home';
+import { IMedia, IPrismicMediaData } from '@interfaces/Media';
+import { client } from '@utils/prismic';
 
-import { getGalleryItemsFixture } from '../fixtures/galleryItems';
+import { getGalleriesFixture } from '../fixtures/galleries';
 import { getHomeFixture } from '../fixtures/home';
 
 interface IndexProps {
   home: IHome;
-  gallery: IGallery;
+  galleries: IGallery[];
 }
 
 export default function Index(props: IndexProps): JSX.Element {
@@ -17,77 +25,79 @@ export default function Index(props: IndexProps): JSX.Element {
 }
 
 export const getStaticProps: GetStaticProps<IndexProps> = async () => {
-  const [home, gallery] = await Promise.all([getHome(), getGallery()]);
+  const [home, galleries] = await Promise.all([getHome(), getGalleries()]);
 
   return {
     props: {
       home,
-      gallery,
+      galleries,
     },
   };
 };
 
 async function getHome(): Promise<IHome> {
   if (process.env.OFFLINE === 'true') return getHomeFixture();
-  // return client.getSingle('home');
-  return getHomeFixture(); // for now until prismic back
+  const prismicHome = await client.getSingle('home', {});
+  const data = prismicHome.data as IPrismicHomeData;
+
+  return {
+    ...data,
+    description: data.description[0]?.text ?? '',
+  };
 }
 
-async function getGallery(): Promise<IGallery> {
-  // const galleryItems = await client.getMultiple('galleryItem');
-  const galleryItems = await getGalleryItemsFixture(80);
-
-  const galleryItemsByTypes = galleryItems.reduce<IGalleryItemsByType[]>(
-    (galleryItemsTypes, galleryItem) => {
-      if (
-        !galleryItemsTypes.some(
-          (galleryItemsType) => galleryItemsType.type === galleryItem.data.type,
-        )
-      ) {
-        galleryItemsTypes.push({
-          type: galleryItem.data.type,
-          items: [galleryItem],
-        });
-      } else {
-        galleryItemsTypes
-          .find(
-            (galleryItemsType) =>
-              galleryItemsType.type === galleryItem.data.type,
-          )
-          ?.items.push(galleryItem);
-      }
-      return galleryItemsTypes;
-    },
-    [],
-  );
-
-  const danseIndex = galleryItemsByTypes.splice(
-    galleryItemsByTypes.findIndex(
-      (galleryItemsByType) => galleryItemsByType.type === 'danse',
-    ),
-    1,
-  )[0];
-
-  danseIndex && galleryItemsByTypes.splice(0, 0, danseIndex);
-
-  const bookIndex = galleryItemsByTypes.splice(
-    galleryItemsByTypes.findIndex(
-      (galleryItemsByType) => galleryItemsByType.type === 'book',
-    ),
-    1,
-  )[0];
-
-  bookIndex && galleryItemsByTypes.splice(2, 0, bookIndex);
-
-  for (const galleryItemsByType of galleryItemsByTypes) {
-    galleryItemsByType.items.sort(
-      (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
-    );
+async function getGalleries(): Promise<IGallery[]> {
+  if (process.env.OFFLINE === 'true') {
+    return getGalleriesFixture(80);
   }
 
-  const gallery: IGallery = {
-    items: galleryItemsByTypes,
-  };
+  const prismicGalleries = await client.query(
+    Prismic.Predicates.at('document.type', 'gallery'),
+  );
 
-  return gallery;
+  const galleries = await Promise.all(
+    prismicGalleries.results.map(async (prismicGallery) =>
+      getGallery(prismicGallery),
+    ),
+  );
+
+  galleries.sort((a, b) => a.position - b.position);
+
+  return galleries;
+}
+
+async function getGallery(document: Document): Promise<IGallery> {
+  const data = document.data as IPrismicGalleryData;
+
+  const newMedias = await Promise.all(
+    data.medias.map(async (media) => getMedia(media)),
+  );
+
+  const medias = newMedias.filter((newMedia) => newMedia) as IMedia[];
+  medias.sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
+
+  return {
+    medias,
+    name: document.uid!,
+    position: data.position,
+  };
+}
+
+async function getMedia(media: IPrismicMedia): Promise<IMedia | undefined> {
+  if (!media.media.id) {
+    return undefined;
+  }
+
+  const prismicMedia = await client.getByID(media.media.id, {
+    lang: 'fr-fr',
+  });
+
+  const data = prismicMedia.data as IPrismicMediaData;
+
+  return {
+    id: prismicMedia.id,
+    ...data,
+    title: data.title?.[0]?.text ?? null,
+    updatedAt: prismicMedia.last_publication_date!,
+  };
 }

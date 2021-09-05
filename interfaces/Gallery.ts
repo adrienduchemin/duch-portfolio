@@ -1,10 +1,20 @@
-import { IGalleryItem } from '@interfaces/GalleryItem';
+import { IMedia } from '@interfaces/Media';
 
 export interface IGallery {
-  items: IGalleryItemsByType[];
+  name: string;
+  medias: IMedia[];
+  position: number;
 }
 
-export interface IGalleryItemsByType {
-  type: string;
-  items: IGalleryItem[];
+export interface IPrismicGalleryData {
+  medias: IPrismicMedia[];
+  position: number;
+}
+
+export interface IPrismicMedia {
+  media: {
+    id: string;
+    // eslint-disable-next-line camelcase
+    last_publication_date: string;
+  };
 }

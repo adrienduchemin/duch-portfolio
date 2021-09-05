@@ -1,15 +1,17 @@
 import { useMemo } from 'react';
 
-import { IGalleryItem, IGalleryItemData } from '@interfaces/GalleryItem';
+import { IMedia } from '@interfaces/Media';
 import { atoms } from '@styles/sprinkles.css';
 
-interface LightGalleryItemProps extends IGalleryItem {
+interface LightGalleryItemProps extends IMedia {
   children: JSX.Element;
   isCurrent: boolean; // can do something with this
 }
 
 export default function LightGalleryItem({
-  data: { image, video, title },
+  photo,
+  video,
+  title,
   id,
   children,
 }: LightGalleryItemProps): JSX.Element {
@@ -23,18 +25,10 @@ export default function LightGalleryItem({
   const caption = useMemo(
     () =>
       `${title ? `<h4>${title}</h4>` : ''}${
-        image.copyright ? `<p>© ${image.copyright}</p>` : ''
+        photo.copyright ? `<p>© ${photo.copyright}</p>` : ''
       }`,
-    [image.copyright, title],
+    [photo.copyright, title],
   );
-
-  // useEffect(() => {
-  //   if (isCurrent && withVideo) {
-  //     // delete caption from css or smooth transition ?
-  //   } else if (withVideo) {
-  //     // remove the added class or do nothing if it was a transition
-  //   }
-  // }, [isCurrent, withVideo]);
 
   return (
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
@@ -43,12 +37,12 @@ export default function LightGalleryItem({
         cursor: 'pointer',
       })}`}
       data-slide-name={id}
-      data-src={withVideo ? (withYoutube ? video.url : undefined) : image.url}
+      data-src={withVideo ? (withYoutube ? video.url : undefined) : photo.url}
       data-video={
         withVideo ? (withYoutube ? undefined : videoParams) : undefined
       }
       data-poster={
-        withVideo ? (withYoutube ? undefined : image.url) : undefined
+        withVideo ? (withYoutube ? undefined : photo.url) : undefined
       }
       data-sub-html={caption}
     >
@@ -57,15 +51,15 @@ export default function LightGalleryItem({
   );
 }
 
-function hasVideo(video: IGalleryItemData['video']): boolean {
+function hasVideo(video: IMedia['video']): boolean {
   return video.url !== undefined;
 }
 
-function isYoutube(video: IGalleryItemData['video']): boolean {
+function isYoutube(video: IMedia['video']): boolean {
   return video.link_type === 'Web';
 }
 
-function getVideoParams(video: IGalleryItemData['video']): string {
+function getVideoParams(video: IMedia['video']): string {
   // JSON parse and stringify instead of this shit
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return `{"source": [{"src":"${video.url!}", "type":"video/mp4"}], "attributes": {"preload": true, "controls": true}}`;

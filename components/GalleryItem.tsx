@@ -1,20 +1,22 @@
-import { IGalleryItemData } from '@interfaces/GalleryItem';
+import { IMedia } from '@interfaces/Media';
 import { whitePixel } from '@utils/constants';
 
 import LazyImage from './LazyImage';
 import LazySource from './LazySource';
 
 interface GalleryItemProps {
-  image: IGalleryItemData['image'];
+  photo: IMedia['photo'];
 }
 
-export default function GalleryItem({ image }: GalleryItemProps): JSX.Element {
+export default function GalleryItem({
+  photo: { alt, galleryDesktop, galleryMobile, galleryTablet },
+}: GalleryItemProps): JSX.Element {
   return (
     <picture>
       {/* desktop > 1024  */}
-      <LazySource media="(min-width: 1024px)" dataSrcset={image.desktop.url} />
+      <LazySource media="(min-width: 1024px)" dataSrcset={galleryDesktop.url} />
       {/* tablet 768 < x <= 1024 */}
-      <LazySource media="(min-width: 600px)" dataSrcset={image.tablet.url} />
+      <LazySource media="(min-width: 600px)" dataSrcset={galleryTablet.url} />
       <LazyImage
         atom={{
           width: '100%',
@@ -22,10 +24,10 @@ export default function GalleryItem({ image }: GalleryItemProps): JSX.Element {
           display: 'block',
         }}
         /* mobile <= 768 */
-        dataSrc={image.mobile.url}
+        dataSrc={galleryMobile.url}
         /* placeholder */
         src={whitePixel}
-        alt={image.alt ?? ''}
+        alt={alt ?? ''}
       />
     </picture>
   );

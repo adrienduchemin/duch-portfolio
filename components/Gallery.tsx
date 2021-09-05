@@ -4,11 +4,11 @@ import lgHash from 'lightgallery/plugins/hash';
 import lgVideo from 'lightgallery/plugins/video';
 import lgZoom from 'lightgallery/plugins/zoom';
 import dynamic from 'next/dynamic';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import GalleryItem from '@components/GalleryItem';
 import LightGalleryItem from '@components/LightGalleryItem';
-import { IGalleryItem } from '@interfaces/GalleryItem';
+import { IGallery } from '@interfaces/Gallery';
 import { atoms } from '@styles/sprinkles.css';
 
 const LightGallery = dynamic(() => import('lightgallery/react'), {
@@ -16,22 +16,16 @@ const LightGallery = dynamic(() => import('lightgallery/react'), {
 });
 
 interface GalleryProps {
-  items: IGalleryItem[];
-  type: string;
+  gallery: IGallery;
   fullpage: fullpageApi;
 }
 
 export default function Gallery({
-  items,
-  type,
+  gallery: { name, medias },
   fullpage,
 }: GalleryProps): JSX.Element {
   const [currentLightGalleryItemIndex, setCurrentLightGalleryItemIndex] =
     useState(-1);
-
-  useEffect(() => {
-    console.log({ items, type });
-  }, [items, type]);
 
   const onBeforeSlide = useCallback((detail: AfterAppendSubHtmlDetail) => {
     setCurrentLightGalleryItemIndex(detail.index);
@@ -48,13 +42,17 @@ export default function Gallery({
   }, [fullpage]);
 
   return (
-    <>
-      <div className={atoms({ textAlign: 'center' })}>
-        {type.charAt(0).toUpperCase() + type.slice(1)}
+    <div
+      className={atoms({
+        background: 'overlay',
+        height: 'cent',
+      })}
+    >
+      <div className={atoms({ textAlign: 'center', color: 'white' })}>
+        {name.charAt(0).toUpperCase() + name.slice(1)}
       </div>
       <div
         className={atoms({
-          background: 'overlay',
           display: 'grid',
           gridGap: '2px',
           gridColumns: {
@@ -70,29 +68,29 @@ export default function Gallery({
           elementClassNames={atoms({
             display: 'contents',
           })}
-          galleryId={type}
+          galleryId={name}
           autoplayFirstVideo={false}
           controls={false}
           download={false}
           gotoNextSlideOnVideoEnd={false}
-          // allowMediaOverlap
+          loop
           actualSize={false}
           onBeforeSlide={onBeforeSlide}
           onAfterOpen={onAfterOpen}
           onAfterClose={onAfterClose}
           // addClass={} // utiliser ca plutot que les globalStyles ?
         >
-          {items.map((item, index) => (
+          {medias.map((media, index) => (
             <LightGalleryItem
-              {...item}
+              {...media}
               isCurrent={index === currentLightGalleryItemIndex}
-              key={item.id}
+              key={media.id}
             >
-              <GalleryItem image={item.data.image} key={item.id} />
+              <GalleryItem photo={media.photo} key={media.id} />
             </LightGalleryItem>
           ))}
         </LightGallery>
       </div>
-    </>
+    </div>
   );
 }

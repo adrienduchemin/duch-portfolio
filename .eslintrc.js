@@ -63,6 +63,7 @@ const importsRules = {
 };
 
 const typescriptRules = {
+  '@typescript-eslint/no-non-null-assertion': 0,
   '@typescript-eslint/consistent-type-assertions': 'warn',
   '@typescript-eslint/no-array-constructor': 'warn',
   '@typescript-eslint/no-redeclare': 'warn',

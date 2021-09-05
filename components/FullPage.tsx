@@ -12,12 +12,12 @@ const Arrow = dynamic(() => import('@components/Arrow'), {
 
 interface FullPageProps {
   home: IHome;
-  gallery: IGallery;
+  galleries: IGallery[];
 }
 
 export default function FullPage({
   home,
-  gallery,
+  galleries,
 }: FullPageProps): JSX.Element {
   return (
     <ReactFullpage
@@ -31,13 +31,9 @@ export default function FullPage({
             <Home home={home} fullpage={fullpageApi} />
           </div>
           <div className="section">
-            {gallery.items.map((galleryItemsByType) => (
-              <div className="slide" key={galleryItemsByType.type}>
-                <Gallery
-                  fullpage={fullpageApi}
-                  items={galleryItemsByType.items}
-                  type={galleryItemsByType.type}
-                />
+            {galleries.map((gallery) => (
+              <div className="slide" key={gallery.name}>
+                <Gallery fullpage={fullpageApi} gallery={gallery} />
               </div>
             ))}
             <Arrow fullpage={fullpageApi} pos="right" />
