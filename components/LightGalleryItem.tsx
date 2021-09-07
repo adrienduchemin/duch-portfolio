@@ -16,7 +16,6 @@ export default function LightGalleryItem({
   children,
 }: LightGalleryItemProps): JSX.Element {
   const withVideo = useMemo(() => hasVideo(video), [video]);
-  const withYoutube = useMemo(() => isYoutube(video), [video]);
   const videoParams = useMemo(
     () => (withVideo ? getVideoParams(video) : undefined),
     [video, withVideo],
@@ -37,13 +36,10 @@ export default function LightGalleryItem({
         cursor: 'pointer',
       })}`}
       data-slide-name={id}
-      data-src={withVideo ? (withYoutube ? video.url : undefined) : photo.url}
-      data-video={
-        withVideo ? (withYoutube ? undefined : videoParams) : undefined
-      }
-      data-poster={
-        withVideo ? (withYoutube ? undefined : photo.url) : undefined
-      }
+      // data-src={withVideo ? (withYoutube ? video.url : undefined) : photo.url}
+      data-src={!withVideo ? photo.url : undefined}
+      data-video={withVideo ? videoParams : undefined}
+      data-poster={withVideo ? photo.url : undefined}
       data-sub-html={caption}
     >
       {children}
@@ -55,12 +51,10 @@ function hasVideo(video: IMedia['video']): boolean {
   return video.url !== undefined;
 }
 
-function isYoutube(video: IMedia['video']): boolean {
-  return video.link_type === 'Web';
-}
-
 function getVideoParams(video: IMedia['video']): string {
   // JSON parse and stringify instead of this shit
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  return `{"source": [{"src":"${video.url!}", "type":"video/mp4"}], "attributes": {"preload": true, "controls": true}}`;
+  return `{"source": [{"src":"${video.url!}", "type":"video/${
+    video.link_type === 'Web' ? 'youtube' : 'mp4'
+  }"}], "attributes": {"preload": true, "controls": true}}`;
 }

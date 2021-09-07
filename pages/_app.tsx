@@ -24,7 +24,15 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
           rel="stylesheet"
           href="lightgallery/css/lg-zoom.css"
         />
+        <link
+          type="text/css"
+          href="https://unpkg.com/video.js/dist/video-js.min.css"
+          rel="stylesheet"
+        />
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script src="https://unpkg.com/video.js/dist/video.min.js" />
         <script src="/picturefill.min.js" async />
+        <script src="/youtube.min.js" async />
       </Head>
       <Component {...pageProps} />
     </>
