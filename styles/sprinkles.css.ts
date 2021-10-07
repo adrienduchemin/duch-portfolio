@@ -93,7 +93,17 @@ const responsiveStyles = createAtomicStyles({
     paddingRight: space,
     gridTemplateColumns: repeat,
     verticalAlign: ['middle'],
-    width: ['100%', '60px', '150px', 'auto', '100vw', '100px', '30px', '16px'],
+    width: [
+      '100%',
+      '60px',
+      '150px',
+      '230px',
+      'auto',
+      '100vw',
+      '100px',
+      '30px',
+      '16px',
+    ],
     textAlign: ['center'],
     transform: [
       'scale(0)',

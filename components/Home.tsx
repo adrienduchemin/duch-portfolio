@@ -1,7 +1,10 @@
+/* eslint-disable camelcase */
 import { fullpageApi } from '@fullpage/react-fullpage';
 import dynamic from 'next/dynamic';
 
+import Facebook from '@assets/svg/facebook.svg';
 import Instagram from '@assets/svg/instagram.svg';
+import Logo from '@assets/svg/logo.svg';
 import Youtube from '@assets/svg/youtube.svg';
 import LazySource from '@components/LazySource';
 import LazyVideo from '@components/LazyVideo';
@@ -18,7 +21,7 @@ interface HomeProps {
 }
 
 export default function Home({
-  home: { background, description, instagram, youtube },
+  home: { background, description, facebook, instagram, youtube },
   fullpage,
 }: HomeProps): JSX.Element {
   return (
@@ -60,11 +63,13 @@ export default function Home({
           color: 'white',
         })}
       >
-        <svg height="20" width="120">
-          <text x="0" y="15" fill="white">
-            Laïs Beunardeau
-          </text>
-        </svg>
+        <Logo
+          className={`${atoms({
+            color: 'white',
+            width: '230px',
+            marginRight: '15px',
+          })}`}
+        />
         <p>{description}</p>
         <br />
         <br />
@@ -83,9 +88,19 @@ export default function Home({
                 marginRight: '15px',
               })}`}
             />
-          </a>{' '}
+          </a>
           <a href={youtube.url} target="_blank" rel="noreferrer">
             <Youtube
+              className={`${atoms({
+                color: 'white',
+                width: '30px',
+                height: 'xs',
+                marginRight: '15px',
+              })}`}
+            />
+          </a>
+          <a href={facebook.url} target="_blank" rel="noreferrer">
+            <Facebook
               className={`${atoms({
                 color: 'white',
                 width: '30px',

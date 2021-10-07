@@ -7,6 +7,9 @@ export async function getHomeFixture(): Promise<IHome> {
       background: {
         url: '/danse.mp4', // video de basse qualite qui se charge vite
       },
+      facebook: {
+        url: 'https://www.facebook.com/100072408039106',
+      },
       instagram: {
         url: 'https://www.instagram.com/laisbeunardeau',
       },

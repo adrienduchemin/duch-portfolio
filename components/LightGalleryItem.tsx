@@ -56,5 +56,7 @@ function getVideoParams(video: IMedia['video']): string {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return `{"source": [{"src":"${video.url!}", "type":"video/${
     video.link_type === 'Web' ? 'youtube' : 'mp4'
-  }"}], "attributes": {"preload": true, "controls": true}}`;
+  }"}], "attributes": {"preload": true, "controls": true}, "techOrder": ["${
+    video.link_type === 'Web' ? 'youtube' : 'html5'
+  }"], "youtube": {"ytControls": 0}}`;
 }

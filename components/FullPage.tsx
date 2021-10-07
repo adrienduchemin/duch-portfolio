@@ -36,8 +36,8 @@ export default function FullPage({
                 <Gallery fullpage={fullpageApi} gallery={gallery} />
               </div>
             ))}
-            <Arrow fullpage={fullpageApi} pos="right" />
-            <Arrow fullpage={fullpageApi} pos="left" />
+            <Arrow fullpage={fullpageApi} pos="right" color="black" />
+            <Arrow fullpage={fullpageApi} pos="left" color="black" />
           </div>
         </ReactFullpage.Wrapper>
       )}

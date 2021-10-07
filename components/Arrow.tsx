@@ -20,9 +20,14 @@ import {
 interface ArrowProps {
   fullpage: fullpageApi;
   pos: 'bottom' | 'left' | 'right' | 'top';
+  color?: 'black' | 'white';
 }
 
-export default function Arrow({ fullpage, pos }: ArrowProps): JSX.Element {
+export default function Arrow({
+  fullpage,
+  pos,
+  color = 'white',
+}: ArrowProps): JSX.Element {
   const move = useCallback(() => {
     switch (pos) {
       case 'bottom':
@@ -56,7 +61,7 @@ export default function Arrow({ fullpage, pos }: ArrowProps): JSX.Element {
         padding: 'none',
         width: '16px',
         height: 'xxxs',
-        color: 'white',
+        color,
       })} ${
         pos === 'bottom'
           ? `${animationBounceArrowBottom} ${arrowPositionBottom}`

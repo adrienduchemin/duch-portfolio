@@ -44,7 +44,6 @@ export default function Gallery({
   return (
     <div
       className={atoms({
-        background: 'overlay',
         height: 'cent',
       })}
     >
