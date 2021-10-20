@@ -75,7 +75,12 @@ export default function Gallery({
           loop
           videojs
           // videojsOptions={{ muted: true }}
-          mobileSettings={{ showCloseIcon: true }}
+          mobileSettings={{
+            controls: false,
+            showCloseIcon: true,
+            download: false,
+            loop: true,
+          }}
           actualSize={false}
           onBeforeSlide={onBeforeSlide}
           onAfterOpen={onAfterOpen}

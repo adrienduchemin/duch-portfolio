@@ -33,6 +33,12 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <script src="https://unpkg.com/video.js/dist/video.min.js" />
         <script src="/picturefill.min.js" async />
         <script src="/youtube.min.js" async />
+        <script
+          async
+          defer
+          data-website-id="b7b30083-9b36-4db4-b66d-b840101cd709"
+          src="https://umami-alpha-pink.vercel.app/umami.js"
+        />
       </Head>
       <Component {...pageProps} />
     </>
