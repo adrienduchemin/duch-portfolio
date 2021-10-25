@@ -47,7 +47,7 @@ export default function Gallery({
         height: 'cent',
       })}
     >
-      <div className={atoms({ textAlign: 'center', color: 'white' })}>
+      <div className={atoms({ textAlign: 'center', color: 'black' })}>
         {name.charAt(0).toUpperCase() + name.slice(1)}
       </div>
       <div
@@ -72,14 +72,11 @@ export default function Gallery({
           controls={false}
           download={false}
           gotoNextSlideOnVideoEnd={false}
-          loop
+          loop={false}
           videojs
           // videojsOptions={{ muted: true }}
           mobileSettings={{
-            controls: false,
             showCloseIcon: true,
-            download: false,
-            loop: true,
           }}
           actualSize={false}
           onBeforeSlide={onBeforeSlide}
