@@ -25,6 +25,7 @@ const height = {
 
 const margin = {
   auto: '0 auto',
+  4: '0 4px',
   none: 0,
 };
 
@@ -44,7 +45,7 @@ const responsiveStyles = createAtomicStyles({
   properties: {
     border: [`solid`],
     borderColor: ['white', 'black'],
-    borderRadius: ['50%', '3px', '100px', '30px'],
+    borderRadius: ['50%', '3px', '100px', '30px', '100%'],
     cursor: ['pointer'],
     display: [
       'none',
@@ -278,6 +279,26 @@ export const animationBounceArrowLeft = style({
 
 export const animationBounceArrowRight = style({
   animation: `${bounceRight} 0.4s ease 0s alternate infinite`,
+});
+
+export const firstDotStyle = style({
+  left: calc('50%').subtract('12px').subtract('50px').toString(),
+});
+
+export const secondDotStyle = style({
+  left: calc('50%').subtract('12px').toString(),
+});
+
+export const thirdDotStyle = style({
+  left: calc('50%').subtract('12px').add('50px').toString(),
+});
+
+export const dotStyle = style({
+  top: calc('100%').subtract('16px').subtract('30px').toString(),
+});
+
+export const dotActiveStyle = style({
+  backgroundColor: 'rgba(0, 0, 0, 0.8)',
 });
 
 export const arrowPositionBottom = style({

@@ -1,14 +1,11 @@
-import ReactFullpage from '@fullpage/react-fullpage';
-import dynamic from 'next/dynamic';
+import ReactFullpage, { Item } from '@fullpage/react-fullpage';
+import { useCallback, useState } from 'react';
 
+import Dot from '@components/Dot';
 import Gallery from '@components/Gallery';
 import Home from '@components/Home';
 import { IGallery } from '@interfaces/Gallery';
 import { IHome } from '@interfaces/Home';
-
-const Arrow = dynamic(() => import('@components/Arrow'), {
-  ssr: false,
-});
 
 interface FullPageProps {
   home: IHome;
@@ -19,12 +16,22 @@ export default function FullPage({
   home,
   galleries,
 }: FullPageProps): JSX.Element {
+  const [activeSlide, setActiveSlide] = useState<number>(0);
+  const onSlideLeave = useCallback(
+    (_section: Item, _origin: Item, destination: Item, _direction: string) => {
+      setActiveSlide(destination.index);
+    },
+    [],
+  );
+
   return (
     <ReactFullpage
       licenseKey="YOUR_KEY_HERE"
       scrollOverflow
+      onSlideLeave={onSlideLeave}
       lazyLoading={false}
       controlArrows={false}
+      loopHorizontal={false}
       render={({ fullpageApi }) => (
         <ReactFullpage.Wrapper>
           <div className="section">
@@ -36,8 +43,9 @@ export default function FullPage({
                 <Gallery fullpage={fullpageApi} gallery={gallery} />
               </div>
             ))}
-            <Arrow fullpage={fullpageApi} pos="right" color="black" />
-            <Arrow fullpage={fullpageApi} pos="left" color="black" />
+            <Dot activeSlide={activeSlide} fullpage={fullpageApi} slide={0} />
+            <Dot activeSlide={activeSlide} fullpage={fullpageApi} slide={1} />
+            <Dot activeSlide={activeSlide} fullpage={fullpageApi} slide={2} />
           </div>
         </ReactFullpage.Wrapper>
       )}
