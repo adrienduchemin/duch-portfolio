@@ -23,26 +23,8 @@ function generateGalleryItems(numberOfItems: number): IGallery[] {
     const media: IMedia = {
       title: `${isVideo ? 'Video' : 'Photo'} ${i}`,
       photo: {
-        galleryLargeDesktop: {
-          dimensions: { width: 500, height: 500 }, // a titre indicatif
-          alt: 'dancer',
-          copyright: 'Duch Photography',
-          url: '/chat.jpg',
-        },
-        galleryDesktop: {
-          dimensions: { width: 500, height: 500 }, // a titre indicatif
-          alt: 'dancer',
-          copyright: 'Duch Photography',
-          url: '/chat.jpg',
-        },
-        galleryTablet: {
+        gallery: {
           dimensions: { width: 400, height: 400 }, // a titre indicatif
-          alt: 'dancer',
-          copyright: 'Duch Photography',
-          url: '/chat.jpg',
-        },
-        galleryMobile: {
-          dimensions: { width: 300, height: 300 }, // a titre indicatif
           alt: 'dancer',
           copyright: 'Duch Photography',
           url: '/chat.jpg',

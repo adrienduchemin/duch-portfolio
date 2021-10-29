@@ -7,10 +7,7 @@ export interface IMedia {
   updatedAt: string;
   title: string | null;
   photo: Photo & {
-    galleryMobile: Photo;
-    galleryTablet: Photo;
-    galleryDesktop: Photo;
-    galleryLargeDesktop: Photo;
+    gallery: Photo;
   };
   video: {
     // eslint-disable-next-line camelcase
@@ -19,12 +16,20 @@ export interface IMedia {
   };
 }
 
+export interface IOldMedia {
+  photo: Photo & {
+    gallery: Photo;
+    galleryMobile: Photo;
+    galleryTablet: Photo;
+    galleryDesktop: Photo;
+    galleryLargeDesktop: Photo;
+  };
+}
+
 export interface IPrismicMediaData {
   title: IText | null;
   photo: Photo & {
-    galleryMobile: Photo;
-    galleryTablet: Photo;
-    galleryLargeDesktop: Photo;
+    gallery: Photo;
   };
   video: {
     // eslint-disable-next-line camelcase

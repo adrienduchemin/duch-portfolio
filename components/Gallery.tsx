@@ -47,7 +47,13 @@ export default function Gallery({
         height: 'cent',
       })}
     >
-      <div className={atoms({ textAlign: 'center', color: 'black' })}>
+      <div
+        className={atoms({
+          textAlign: 'center',
+          fontSize: 'large',
+          color: 'black',
+        })}
+      >
         {name.charAt(0).toUpperCase() + name.slice(1)}
       </div>
       <div
