@@ -1,6 +1,8 @@
 import Prismic from '@prismicio/client';
 import { Document } from '@prismicio/client/types/documents';
 import { GetStaticProps } from 'next';
+import Head from 'next/head';
+import { useState } from 'react';
 
 import FullPage from '@components/FullPage';
 import {
@@ -20,8 +22,28 @@ interface IndexProps {
   galleries: IGallery[];
 }
 
+// about 200 characters
+export const initialDescription = 'Modern Jazz dancer';
+export const initialImageUrl =
+  'https://cocky-noyce-2131f3.netlify.app/logo.jpg';
+
 export default function Index(props: IndexProps): JSX.Element {
-  return <FullPage {...props} />;
+  const [description, setDescription] = useState(initialDescription);
+  const [imageUrl, setImageUrl] = useState(initialImageUrl);
+
+  return (
+    <>
+      <Head>
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={imageUrl} />
+      </Head>
+      <FullPage
+        {...props}
+        setDescription={setDescription}
+        setImageUrl={setImageUrl}
+      />
+    </>
+  );
 }
 
 export const getStaticProps: GetStaticProps<IndexProps> = async () => {

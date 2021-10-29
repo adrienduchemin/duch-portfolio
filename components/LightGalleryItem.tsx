@@ -1,11 +1,13 @@
-import { useMemo } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo } from 'react';
 
 import { IMedia } from '@interfaces/Media';
 import { atoms } from '@styles/sprinkles.css';
 
 interface LightGalleryItemProps extends IMedia {
   children: JSX.Element;
-  isCurrent: boolean; // can do something with this
+  isCurrent: boolean;
+  setDescription: Dispatch<SetStateAction<string>>;
+  setImageUrl: Dispatch<SetStateAction<string>>;
 }
 
 export default function LightGalleryItem({
@@ -13,7 +15,10 @@ export default function LightGalleryItem({
   video,
   title,
   id,
+  isCurrent,
   children,
+  setDescription,
+  setImageUrl,
 }: LightGalleryItemProps): JSX.Element {
   const withVideo = useMemo(() => hasVideo(video), [video]);
   const videoParams = useMemo(
@@ -29,14 +34,19 @@ export default function LightGalleryItem({
     [photo.copyright, title],
   );
 
+  useEffect(() => {
+    if (isCurrent) {
+      if (title) setDescription(title);
+      setImageUrl(photo.url);
+    }
+  }, [isCurrent, photo.url, setDescription, setImageUrl, title]);
+
   return (
-    // eslint-disable-next-line jsx-a11y/anchor-is-valid
     <div
       className={`item ${atoms({
         cursor: 'pointer',
       })}`}
       data-slide-name={id}
-      // data-src={withVideo ? (withYoutube ? video.url : undefined) : photo.url}
       data-src={!withVideo ? photo.url : undefined}
       data-video={withVideo ? videoParams : undefined}
       data-poster={withVideo ? photo.url : undefined}

@@ -4,12 +4,13 @@ import lgHash from 'lightgallery/plugins/hash';
 import lgVideo from 'lightgallery/plugins/video';
 import lgZoom from 'lightgallery/plugins/zoom';
 import dynamic from 'next/dynamic';
-import { useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 
 import GalleryItem from '@components/GalleryItem';
 import LightGalleryItem from '@components/LightGalleryItem';
 import { IGallery } from '@interfaces/Gallery';
 import { atoms } from '@styles/sprinkles.css';
+import { initialDescription, initialImageUrl } from 'pages';
 
 const LightGallery = dynamic(() => import('lightgallery/react'), {
   ssr: false,
@@ -18,11 +19,15 @@ const LightGallery = dynamic(() => import('lightgallery/react'), {
 interface GalleryProps {
   gallery: IGallery;
   fullpage: fullpageApi;
+  setDescription: Dispatch<SetStateAction<string>>;
+  setImageUrl: Dispatch<SetStateAction<string>>;
 }
 
 export default function Gallery({
   gallery: { name, medias },
   fullpage,
+  setDescription,
+  setImageUrl,
 }: GalleryProps): JSX.Element {
   const [currentLightGalleryItemIndex, setCurrentLightGalleryItemIndex] =
     useState(-1);
@@ -39,7 +44,10 @@ export default function Gallery({
   const onAfterClose = useCallback(() => {
     fullpage.setKeyboardScrolling(true);
     fullpage.setAllowScrolling(true);
-  }, [fullpage]);
+    setCurrentLightGalleryItemIndex(-1);
+    setDescription(initialDescription);
+    setImageUrl(initialImageUrl);
+  }, [fullpage, setDescription, setImageUrl]);
 
   return (
     <div
@@ -96,6 +104,8 @@ export default function Gallery({
               {...media}
               isCurrent={index === currentLightGalleryItemIndex}
               key={media.id}
+              setDescription={setDescription}
+              setImageUrl={setImageUrl}
             >
               <GalleryItem photo={media.photo} key={media.id} />
             </LightGalleryItem>

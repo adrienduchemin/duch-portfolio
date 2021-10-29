@@ -8,6 +8,15 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <Head>
         <title>Lais Beunardeau</title>
         <meta name="description" content="Lais Beunardeau portfolio" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:site_name" content="Lais Beunardeau" />
+        {/* bewteen 60 and 90 characters but not longer than 100 */}
+        <meta property="og:title" content="Lais Beunardeau" />
+        <meta
+          property="og:url"
+          content="https://cocky-noyce-2131f3.netlify.app"
+        />
         <link rel="icon" href="/favicon.ico" />
         <link
           type="text/css"
