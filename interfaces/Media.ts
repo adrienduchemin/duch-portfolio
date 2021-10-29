@@ -10,6 +10,7 @@ export interface IMedia {
     galleryMobile: Photo;
     galleryTablet: Photo;
     galleryDesktop: Photo;
+    galleryLargeDesktop: Photo;
   };
   video: {
     // eslint-disable-next-line camelcase
@@ -23,7 +24,7 @@ export interface IPrismicMediaData {
   photo: Photo & {
     galleryMobile: Photo;
     galleryTablet: Photo;
-    galleryDesktop: Photo;
+    galleryLargeDesktop: Photo;
   };
   video: {
     // eslint-disable-next-line camelcase

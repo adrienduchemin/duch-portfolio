@@ -58,6 +58,7 @@ export default function Gallery({
             mobile: 'small',
             tablet: 'medium',
             desktop: 'large',
+            largeDesktop: 'extraLarge',
           },
         })}
       >

@@ -9,14 +9,25 @@ interface GalleryItemProps {
 }
 
 export default function GalleryItem({
-  photo: { alt, galleryDesktop, galleryMobile, galleryTablet },
+  photo: {
+    alt,
+    galleryLargeDesktop,
+    galleryDesktop,
+    galleryMobile,
+    galleryTablet,
+  },
 }: GalleryItemProps): JSX.Element {
   return (
     <picture>
-      {/* desktop > 1024  */}
-      <LazySource media="(min-width: 1024px)" dataSrcset={galleryDesktop.url} />
-      {/* tablet 768 < x <= 1024 */}
-      <LazySource media="(min-width: 600px)" dataSrcset={galleryTablet.url} />
+      {/* large desktop > 1200  */}
+      <LazySource
+        media="(min-width: 1200px)"
+        dataSrcset={galleryLargeDesktop.url}
+      />
+      {/* desktop 992 < x <= 1200 */}
+      <LazySource media="(min-width: 992px)" dataSrcset={galleryDesktop.url} />
+      {/* tablet 768 < x <= 992 */}
+      <LazySource media="(min-width: 768px)" dataSrcset={galleryTablet.url} />
       <LazyImage
         atom={{
           width: '100%',

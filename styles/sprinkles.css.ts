@@ -33,13 +33,15 @@ const repeat = {
   small: 'repeat(2, 1fr)',
   medium: 'repeat(3, 1fr)',
   large: 'repeat(4, 1fr)',
+  extraLarge: 'repeat(5, 1fr)',
 };
 
 const responsiveStyles = createAtomicStyles({
   conditions: {
     mobile: {},
-    tablet: { '@media': 'screen and (min-width: 600px)' },
-    desktop: { '@media': 'screen and (min-width: 1024px)' },
+    tablet: { '@media': 'screen and (min-width: 768px)' },
+    desktop: { '@media': 'screen and (min-width: 992px)' },
+    largeDesktop: { '@media': 'screen and (min-width: 1200px)' },
   },
   defaultCondition: 'mobile',
   properties: {
@@ -143,8 +145,9 @@ const responsiveStyles = createAtomicStyles({
 const galleryStyles = createAtomicStyles({
   conditions: {
     mobile: {},
-    tablet: { '@media': 'screen and (min-width: 600px)' },
-    desktop: { '@media': 'screen and (min-width: 1024px)' },
+    tablet: { '@media': 'screen and (min-width: 768px)' },
+    desktop: { '@media': 'screen and (min-width: 992px)' },
+    largeDesktop: { '@media': 'screen and (min-width: 1200px)' },
   },
   defaultCondition: 'mobile',
   properties: {
