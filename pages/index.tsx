@@ -96,7 +96,6 @@ async function getGallery(document: Document): Promise<IGallery> {
   );
 
   const medias = newMedias.filter((newMedia) => newMedia) as IMedia[];
-  medias.sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
 
   return {
     medias,

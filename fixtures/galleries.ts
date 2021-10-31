@@ -58,12 +58,6 @@ function generateGalleryItems(numberOfItems: number): IGallery[] {
     medias?.push(media);
   }
 
-  galleries.forEach((gallery) => {
-    gallery.medias.sort(
-      (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
-    );
-  });
-
   return galleries;
 }
 
