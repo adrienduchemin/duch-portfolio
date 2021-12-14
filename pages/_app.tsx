@@ -13,6 +13,11 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <meta property="og:site_name" content="Lais Beunardeau" />
         {/* bewteen 60 and 90 characters but not longer than 100 */}
         <meta property="og:title" content="Lais Beunardeau" />
+        <meta property="og:description" content="Modern Jazz dancer" />
+        <meta
+          property="og:image"
+          content="https://cocky-noyce-2131f3.netlify.app/logo.jpg"
+        />
         <meta
           property="og:url"
           content="https://cocky-noyce-2131f3.netlify.app"

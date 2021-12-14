@@ -1,5 +1,5 @@
 import ReactFullpage, { Item } from '@fullpage/react-fullpage';
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import Dot from '@components/Dot';
 import Gallery from '@components/Gallery';
@@ -10,15 +10,11 @@ import { IHome } from '@interfaces/Home';
 interface FullPageProps {
   home: IHome;
   galleries: IGallery[];
-  setDescription: Dispatch<SetStateAction<string>>;
-  setImageUrl: Dispatch<SetStateAction<string>>;
 }
 
 export default function FullPage({
   home,
   galleries,
-  setImageUrl,
-  setDescription,
 }: FullPageProps): JSX.Element {
   const [activeSlide, setActiveSlide] = useState<number>(0);
   const onSlideLeave = useCallback(
@@ -44,12 +40,7 @@ export default function FullPage({
           <div className="section">
             {galleries.map((gallery) => (
               <div className="slide" key={gallery.name}>
-                <Gallery
-                  fullpage={fullpageApi}
-                  gallery={gallery}
-                  setImageUrl={setImageUrl}
-                  setDescription={setDescription}
-                />
+                <Gallery fullpage={fullpageApi} gallery={gallery} />
               </div>
             ))}
             <Dot activeSlide={activeSlide} fullpage={fullpageApi} slide={0} />

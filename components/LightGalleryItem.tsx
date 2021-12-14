@@ -1,13 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { IMedia } from '@interfaces/Media';
 import { atoms } from '@styles/sprinkles.css';
 
 interface LightGalleryItemProps extends IMedia {
   children: JSX.Element;
-  isCurrent: boolean;
-  setDescription: Dispatch<SetStateAction<string>>;
-  setImageUrl: Dispatch<SetStateAction<string>>;
 }
 
 export default function LightGalleryItem({
@@ -15,10 +12,7 @@ export default function LightGalleryItem({
   video,
   title,
   id,
-  isCurrent,
   children,
-  setDescription,
-  setImageUrl,
 }: LightGalleryItemProps): JSX.Element {
   const withVideo = useMemo(() => hasVideo(video), [video]);
   const videoParams = useMemo(
@@ -33,13 +27,6 @@ export default function LightGalleryItem({
       }`,
     [photo.copyright, title],
   );
-
-  useEffect(() => {
-    if (isCurrent) {
-      if (title) setDescription(title);
-      setImageUrl(photo.url);
-    }
-  }, [isCurrent, photo.url, setDescription, setImageUrl, title]);
 
   return (
     <div

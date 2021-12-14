@@ -21,7 +21,7 @@ interface HomeProps {
 }
 
 export default function Home({
-  home: { background, description, facebook, instagram, youtube },
+  home: { background, facebook, instagram, youtube },
   fullpage,
 }: HomeProps): JSX.Element {
   return (
@@ -49,13 +49,13 @@ export default function Home({
       </LazyVideo>
       <div
         className={atoms({
-          background: 'overlay',
-          left: 0,
-          top: 0,
-          position: 'absolute',
+          // background: 'overlay',
+          // left: 0,
+          // top: 0,
+          // position: 'absolute',
           display: 'flex',
           flexDirection: 'column',
-          textAlign: 'center',
+          rowGap: '40px',
           justifyContent: 'center',
           alignItems: 'center',
           height: 'cent',
@@ -67,25 +67,23 @@ export default function Home({
           className={`${atoms({
             color: 'white',
             width: '230px',
-            marginRight: '15px',
           })}`}
         />
-        <p>{description}</p>
-        <br />
-        <br />
         <div
           className={atoms({
             display: 'flex',
             flexDirection: 'row',
+            columnGap: '15px',
+            width: '230px',
+            justifyContent: 'center',
           })}
         >
           <a href={instagram.url} target="_blank" rel="noreferrer">
             <Instagram
               className={`${atoms({
                 color: 'white',
-                width: '30px',
+                width: '20px',
                 height: 'xs',
-                marginRight: '15px',
               })}`}
             />
           </a>
@@ -93,9 +91,8 @@ export default function Home({
             <Youtube
               className={`${atoms({
                 color: 'white',
-                width: '30px',
+                width: '20px',
                 height: 'xs',
-                marginRight: '15px',
               })}`}
             />
           </a>
@@ -103,7 +100,7 @@ export default function Home({
             <Facebook
               className={`${atoms({
                 color: 'white',
-                width: '30px',
+                width: '20px',
                 height: 'xs',
               })}`}
             />

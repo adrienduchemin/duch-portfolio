@@ -6,8 +6,10 @@ const space = {
   none: 0,
   small: '4px',
   medium: '8px',
-  large: '16px',
-  xl: '50px',
+  m: '12px',
+  large: '14px',
+  l: '16px',
+  xl: '28px',
 };
 
 const height = {
@@ -21,11 +23,13 @@ const height = {
   centvh: '100vh',
   avh: '70vh',
   auto: 'auto',
+  fit: 'fit-content',
 };
 
 const margin = {
   auto: '0 auto',
   4: '0 4px',
+  8: '0 8px',
   none: 0,
 };
 
@@ -45,9 +49,9 @@ const responsiveStyles = createAtomicStyles({
   },
   defaultCondition: 'mobile',
   properties: {
-    border: [`solid`],
+    border: ['solid', '5px solid'],
     borderColor: ['white', 'black'],
-    borderRadius: ['50%', '3px', '100px', '30px', '100%'],
+    borderRadius: ['50%', '3px', '100px', '30px', '25px', '100%'],
     cursor: ['pointer'],
     display: [
       'none',
@@ -59,7 +63,9 @@ const responsiveStyles = createAtomicStyles({
       'contents',
       'table',
       'table-cell',
+      'inline-flex',
     ],
+    whiteSpace: ['nowrap'],
     height,
     minWidth: ['100%'],
     minHeight: ['100%', '20px'],
@@ -69,12 +75,14 @@ const responsiveStyles = createAtomicStyles({
     strokeWidth: ['2px'],
     strokeDasharray: [778],
     strokeDashoffset: [778],
-    fontSize: [0, '25px', 'large'],
+    fontSize: [0, '16px', '25px', 'large'],
     lineHeight: [0, '25px'],
     fontWeight: ['bold', 300],
     fontFamily: ['inherit'],
     margin,
     flexDirection: ['row', 'column'],
+    rowGap: ['40px'],
+    columnGap: ['15px'],
     justifyContent: [
       'stretch',
       'flex-start',
@@ -82,6 +90,7 @@ const responsiveStyles = createAtomicStyles({
       'flex-end',
       'space-around',
       'space-between',
+      'space-evenly',
     ],
     objectFit: ['scale-down', 'cover', 'fill', 'contain'],
     alignItems: ['stretch', 'flex-start', 'center', 'flex-end'],
@@ -91,9 +100,10 @@ const responsiveStyles = createAtomicStyles({
     marginLeft: ['auto', '-8px'],
     marginBottom: ['15px'],
     marginRight: ['auto', '15px'],
-    marginTop: ['-8px', '30px', '10px'],
+    marginTop: ['-8px', '30px', '10px', '50px'],
     paddingLeft: space,
     paddingRight: space,
+    listStyle: ['none'],
     gridTemplateColumns: repeat,
     verticalAlign: ['middle'],
     width: [
@@ -105,9 +115,12 @@ const responsiveStyles = createAtomicStyles({
       '100vw',
       '100px',
       '30px',
+      '20px',
       '16px',
     ],
+    backdropFilter: ['blur(10px)'],
     textAlign: ['center'],
+    outline: ['none'],
     transform: [
       'scale(0)',
       'scale(0.8)',
@@ -323,4 +336,24 @@ export const arrowPositionLeft = style({
 export const arrowPositionRight = style({
   top: '50%',
   right: '15px',
+});
+
+export const menuLi = style({
+  '::before': {
+    content: ' ',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '100%',
+    width: '100%',
+    zIndex: -1,
+    transition: '0.2s',
+    borderRadius: '25px',
+  },
+  ':hover': {
+    color: 'black',
+    background: 'linear-gradient(to bottom, #e8edec, #d2d1d3)',
+    boxShadow: '0px 3px 20px 0px black',
+    transform: 'scale(1.2)',
+  },
 });
