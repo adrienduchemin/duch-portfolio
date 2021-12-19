@@ -3,12 +3,10 @@ import { IMedia } from '@interfaces/Media';
 export interface IGallery {
   name: string;
   medias: IMedia[];
-  position: number;
 }
 
 export interface IPrismicGalleryData {
   medias: IPrismicMedia[];
-  position: number;
 }
 
 export interface IPrismicMedia {

@@ -1,7 +1,5 @@
-import ReactFullpage, { Item } from '@fullpage/react-fullpage';
-import { useCallback, useState } from 'react';
+import ReactFullpage from '@fullpage/react-fullpage';
 
-import Dot from '@components/Dot';
 import Gallery from '@components/Gallery';
 import Home from '@components/Home';
 import { IGallery } from '@interfaces/Gallery';
@@ -16,19 +14,10 @@ export default function FullPage({
   home,
   galleries,
 }: FullPageProps): JSX.Element {
-  const [activeSlide, setActiveSlide] = useState<number>(0);
-  const onSlideLeave = useCallback(
-    (_section: Item, _origin: Item, destination: Item, _direction: string) => {
-      setActiveSlide(destination.index);
-    },
-    [],
-  );
-
   return (
     <ReactFullpage
       licenseKey="YOUR_KEY_HERE"
       scrollOverflow
-      onSlideLeave={onSlideLeave}
       lazyLoading={false}
       controlArrows={false}
       loopHorizontal={false}
@@ -38,14 +27,7 @@ export default function FullPage({
             <Home home={home} fullpage={fullpageApi} />
           </div>
           <div className="section">
-            {galleries.map((gallery) => (
-              <div className="slide" key={gallery.name}>
-                <Gallery fullpage={fullpageApi} gallery={gallery} />
-              </div>
-            ))}
-            <Dot activeSlide={activeSlide} fullpage={fullpageApi} slide={0} />
-            <Dot activeSlide={activeSlide} fullpage={fullpageApi} slide={1} />
-            <Dot activeSlide={activeSlide} fullpage={fullpageApi} slide={2} />
+            <Gallery fullpage={fullpageApi} galleries={galleries} />
           </div>
         </ReactFullpage.Wrapper>
       )}

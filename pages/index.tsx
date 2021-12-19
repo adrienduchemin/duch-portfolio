@@ -61,7 +61,16 @@ async function getGalleries(): Promise<IGallery[]> {
     ),
   );
 
-  galleries.sort((a, b) => a.position - b.position);
+  galleries.push({
+    name: 'video',
+    medias: galleries.reduce(
+      (medias, gallery) => [
+        ...medias,
+        ...gallery.medias.filter((media) => media.video.url !== undefined),
+      ],
+      [] as IMedia[],
+    ),
+  });
 
   return galleries;
 }
@@ -78,7 +87,6 @@ async function getGallery(document: Document): Promise<IGallery> {
   return {
     medias,
     name: document.uid!,
-    position: data.position,
   };
 }
 

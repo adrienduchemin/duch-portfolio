@@ -12,9 +12,9 @@ export async function getGalleriesFixture(
 
 function generateGalleryItems(numberOfItems: number): IGallery[] {
   const galleries: IGallery[] = [
-    { name: 'danse', position: 1, medias: [] },
-    { name: 'portrait', position: 3, medias: [] },
-    { name: 'taiwan', position: 2, medias: [] },
+    { name: 'danse', medias: [] },
+    { name: 'portrait', medias: [] },
+    { name: 'taiwan', medias: [] },
   ];
 
   for (let i = 1; i < numberOfItems; i++) {

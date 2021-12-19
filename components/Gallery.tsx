@@ -1,9 +1,9 @@
 import { fullpageApi } from '@fullpage/react-fullpage';
-import lgHash from 'lightgallery/plugins/hash';
+import { InitDetail } from 'lightgallery/lg-events';
 import lgVideo from 'lightgallery/plugins/video';
 import lgZoom from 'lightgallery/plugins/zoom';
 import dynamic from 'next/dynamic';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import GalleryItem from '@components/GalleryItem';
 import LightGalleryItem from '@components/LightGalleryItem';
@@ -15,14 +15,20 @@ const LightGallery = dynamic(() => import('lightgallery/react'), {
 });
 
 interface GalleryProps {
-  gallery: IGallery;
+  galleries: IGallery[];
   fullpage: fullpageApi;
 }
 
 export default function Gallery({
-  gallery: { name, medias },
+  galleries,
   fullpage,
 }: GalleryProps): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const lightGallery = useRef<any>(null);
+  const [currentGallery, setCurrentGallery] = useState(
+    galleries.find((g) => g.name === 'danse')!,
+  );
+
   const onAfterOpen = useCallback(() => {
     fullpage.setKeyboardScrolling(false);
     fullpage.setAllowScrolling(false);
@@ -33,21 +39,41 @@ export default function Gallery({
     fullpage.setAllowScrolling(true);
   }, [fullpage]);
 
+  const handleChangeGallery = useCallback(
+    (name: string) => {
+      setCurrentGallery(galleries.find((g) => g.name === name)!);
+    },
+    [galleries],
+  );
+
+  const onInit = useCallback((detail: InitDetail) => {
+    if (detail) {
+      lightGallery.current = detail.instance;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (lightGallery.current) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+      lightGallery.current.refresh();
+    }
+  }, [currentGallery]);
+
   return (
     <div
       className={atoms({
         height: 'cent',
       })}
     >
-      <div
-        className={atoms({
-          textAlign: 'center',
-          fontSize: 'large',
-          color: 'black',
-        })}
-      >
-        {name.charAt(0).toUpperCase() + name.slice(1)}
-      </div>
+      {galleries.map((gallery) => (
+        <button
+          type="button"
+          key={gallery.name}
+          onClick={() => handleChangeGallery(gallery.name)}
+        >
+          {gallery.name}
+        </button>
+      ))}
       <div
         className={atoms({
           display: 'grid',
@@ -61,28 +87,28 @@ export default function Gallery({
         })}
       >
         <LightGallery
-          plugins={[lgHash, lgVideo, lgZoom]} // lghash t o remove ?
-          customSlideName // to remove ?
+          plugins={[lgVideo, lgZoom]}
           elementClassNames={atoms({
             display: 'contents',
           })}
-          galleryId={name} // to remove ?
           autoplayFirstVideo={false}
           controls={false}
           download={false}
           gotoNextSlideOnVideoEnd={false}
+          // updateSlides(galleryItems, 1);
           loop={false}
           videojs
           // videojsOptions={{ muted: true }}
           mobileSettings={{
             showCloseIcon: true,
           }}
-          actualSize={false}
+          actualSize={false} // what is this ?
           onAfterOpen={onAfterOpen}
           onAfterClose={onAfterClose}
+          onInit={onInit}
           // addClass={} // utiliser ca plutot que les globalStyles ?
         >
-          {medias.map((media) => (
+          {currentGallery.medias.map((media) => (
             <LightGalleryItem {...media} key={media.id}>
               <GalleryItem photo={media.photo} key={media.id} />
             </LightGalleryItem>
