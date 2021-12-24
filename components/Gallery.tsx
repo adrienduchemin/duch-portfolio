@@ -7,6 +7,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import GalleryItem from '@components/GalleryItem';
 import LightGalleryItem from '@components/LightGalleryItem';
+import Menu from '@components/Menu';
 import { IGallery } from '@interfaces/Gallery';
 import { atoms } from '@styles/sprinkles.css';
 
@@ -39,13 +40,6 @@ export default function Gallery({
     fullpage.setAllowScrolling(true);
   }, [fullpage]);
 
-  const handleChangeGallery = useCallback(
-    (name: string) => {
-      setCurrentGallery(galleries.find((g) => g.name === name)!);
-    },
-    [galleries],
-  );
-
   const onInit = useCallback((detail: InitDetail) => {
     if (detail) {
       lightGallery.current = detail.instance;
@@ -65,15 +59,7 @@ export default function Gallery({
         height: 'cent',
       })}
     >
-      {galleries.map((gallery) => (
-        <button
-          type="button"
-          key={gallery.name}
-          onClick={() => handleChangeGallery(gallery.name)}
-        >
-          {gallery.name}
-        </button>
-      ))}
+      <Menu galleries={galleries} setCurrentGallery={setCurrentGallery} />
       <div
         className={atoms({
           display: 'grid',
