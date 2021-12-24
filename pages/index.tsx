@@ -104,7 +104,6 @@ async function getMedia(media: IPrismicMedia): Promise<IMedia | undefined> {
   return {
     id: prismicMedia.id,
     ...data,
-    title: data.title?.[0]?.text ?? null,
     updatedAt: prismicMedia.last_publication_date!,
   };
 }

@@ -21,7 +21,6 @@ function generateGalleryItems(numberOfItems: number): IGallery[] {
     const isVideo = Math.random() < 0.3;
 
     const media: IMedia = {
-      title: `${isVideo ? 'Video' : 'Photo'} ${i}`,
       photo: {
         gallery: {
           dimensions: { width: 400, height: 400 }, // a titre indicatif

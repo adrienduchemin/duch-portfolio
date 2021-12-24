@@ -1,11 +1,8 @@
-import { IText } from '@interfaces/Text';
-
 import { Photo } from './Photo';
 
 export interface IMedia {
   id: string;
   updatedAt: string;
-  title: string | null;
   photo: Photo & {
     gallery: Photo;
   };
@@ -27,7 +24,6 @@ export interface IOldMedia {
 }
 
 export interface IPrismicMediaData {
-  title: IText | null;
   photo: Photo & {
     gallery: Photo;
   };

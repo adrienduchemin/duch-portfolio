@@ -10,7 +10,6 @@ interface LightGalleryItemProps extends IMedia {
 export default function LightGalleryItem({
   photo,
   video,
-  title,
   id,
   children,
 }: LightGalleryItemProps): JSX.Element {
@@ -21,11 +20,8 @@ export default function LightGalleryItem({
   );
 
   const caption = useMemo(
-    () =>
-      `${title ? `<h4>${title}</h4>` : ''}${
-        photo.copyright ? `<p>© ${photo.copyright}</p>` : ''
-      }`,
-    [photo.copyright, title],
+    () => `<h4>© ${photo.copyright ?? 'Lais Beunardeau'}</h4>`,
+    [photo.copyright],
   );
 
   return (
