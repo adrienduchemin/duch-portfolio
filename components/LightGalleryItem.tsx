@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { IMedia } from '@interfaces/Media';
 import { atoms } from '@styles/sprinkles.css';
 
@@ -13,43 +11,29 @@ export default function LightGalleryItem({
   id,
   children,
 }: LightGalleryItemProps): JSX.Element {
-  const withVideo = useMemo(() => hasVideo(video), [video]);
-  const videoParams = useMemo(
-    () => (withVideo ? getVideoParams(video) : undefined),
-    [video, withVideo],
-  );
-
-  const caption = useMemo(
-    () => `<h4>© ${photo.copyright ?? 'Lais Beunardeau'}</h4>`,
-    [photo.copyright],
-  );
-
   return (
     <div
       className={`item ${atoms({
         cursor: 'pointer',
       })}`}
       data-slide-name={id}
-      data-src={!withVideo ? photo.url : undefined}
-      data-video={withVideo ? videoParams : undefined}
-      data-poster={withVideo ? photo.url : undefined}
-      data-sub-html={caption}
+      data-src={!video ? photo.url : undefined}
+      data-video={getVideoParams(video)}
+      data-poster={video ? photo.url : undefined}
+      data-sub-html={`<h4>© ${photo.copyright ?? 'Lais Beunardeau'}</h4>`}
     >
       {children}
     </div>
   );
 }
 
-function hasVideo(video: IMedia['video']): boolean {
-  return video.url !== undefined;
-}
+function getVideoParams(video: IMedia['video']): string | undefined {
+  if (!video) return undefined;
 
-function getVideoParams(video: IMedia['video']): string {
-  // JSON parse and stringify instead of this shit
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  return `{"source": [{"src":"${video.url!}", "type":"video/${
-    video.link_type === 'Web' ? 'youtube' : 'mp4'
+  // JSON parse and stringify instead of this
+  return `{"source": [{"src":"${video.url}", "type":"video/${
+    video.type === 'Web' ? 'youtube' : 'mp4'
   }"}], "attributes": {"preload": true, "controls": true}, "techOrder": ["${
-    video.link_type === 'Web' ? 'youtube' : 'html5'
+    video.type === 'Web' ? 'youtube' : 'html5'
   }"], "youtube": {"ytControls": 0}}`;
 }

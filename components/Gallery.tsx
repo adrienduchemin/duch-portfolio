@@ -54,11 +54,7 @@ export default function Gallery({
   }, [currentGallery]);
 
   return (
-    <div
-      className={atoms({
-        height: 'cent',
-      })}
-    >
+    <>
       <Menu galleries={galleries} setCurrentGallery={setCurrentGallery} />
       <div
         className={atoms({
@@ -96,11 +92,15 @@ export default function Gallery({
         >
           {currentGallery.medias.map((media) => (
             <LightGalleryItem {...media} key={media.id}>
-              <GalleryItem photo={media.photo} key={media.id} />
+              <GalleryItem
+                gallery={media.gallery}
+                photo={media.photo}
+                key={media.id}
+              />
             </LightGalleryItem>
           ))}
         </LightGallery>
       </div>
-    </div>
+    </>
   );
 }

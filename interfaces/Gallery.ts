@@ -6,13 +6,9 @@ export interface IGallery {
 }
 
 export interface IPrismicGalleryData {
-  medias: IPrismicMedia[];
-}
-
-export interface IPrismicMedia {
-  media: {
-    id: string;
-    // eslint-disable-next-line camelcase
-    last_publication_date: string;
-  };
+  medias: {
+    media: {
+      id: string | undefined;
+    };
+  }[];
 }

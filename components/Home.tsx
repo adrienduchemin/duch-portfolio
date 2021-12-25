@@ -1,19 +1,20 @@
 /* eslint-disable camelcase */
 import { fullpageApi } from '@fullpage/react-fullpage';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 
 import Facebook from '@assets/svg/facebook.svg';
 import Instagram from '@assets/svg/instagram.svg';
 import Logo from '@assets/svg/logo.svg';
 import Youtube from '@assets/svg/youtube.svg';
+import Arrow from '@components/Arrow';
 import LazySource from '@components/LazySource';
 import LazyVideo from '@components/LazyVideo';
 import { IHome } from '@interfaces/Home';
 import { atoms } from '@styles/sprinkles.css';
 
-const Arrow = dynamic(() => import('@components/Arrow'), {
-  ssr: false,
-});
+// const Arrow = dynamic(() => import('@components/Arrow'), {
+//   ssr: false,
+// });
 
 interface HomeProps {
   home: IHome;
@@ -49,17 +50,11 @@ export default function Home({
       </LazyVideo>
       <div
         className={atoms({
-          // background: 'overlay',
-          // left: 0,
-          // top: 0,
-          // position: 'absolute',
           display: 'flex',
           flexDirection: 'column',
           rowGap: '40px',
           justifyContent: 'center',
           alignItems: 'center',
-          height: 'cent',
-          width: '100%',
           color: 'white',
         })}
       >
@@ -107,7 +102,7 @@ export default function Home({
           </a>
         </div>
       </div>
-      <Arrow fullpage={fullpage} pos="bottom" />
+      <Arrow fullpage={fullpage} />
     </>
   );
 }

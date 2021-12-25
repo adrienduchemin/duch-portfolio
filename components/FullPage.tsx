@@ -19,8 +19,6 @@ export default function FullPage({
       licenseKey="YOUR_KEY_HERE"
       scrollOverflow
       lazyLoading={false}
-      controlArrows={false}
-      loopHorizontal={false}
       render={({ fullpageApi }) => (
         <ReactFullpage.Wrapper>
           <div className="section">

@@ -4,11 +4,13 @@ import { whitePixel } from '@utils/constants';
 import LazyImage from './LazyImage';
 
 interface GalleryItemProps {
+  gallery: IMedia['gallery'];
   photo: IMedia['photo'];
 }
 
 export default function GalleryItem({
-  photo: { alt, gallery },
+  gallery,
+  photo: { alt },
 }: GalleryItemProps): JSX.Element {
   return (
     <LazyImage

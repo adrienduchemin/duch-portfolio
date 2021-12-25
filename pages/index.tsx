@@ -3,11 +3,7 @@ import { Document } from '@prismicio/client/types/documents';
 import { GetStaticProps } from 'next';
 
 import FullPage from '@components/FullPage';
-import {
-  IGallery,
-  IPrismicGalleryData,
-  IPrismicMedia,
-} from '@interfaces/Gallery';
+import { IGallery, IPrismicGalleryData } from '@interfaces/Gallery';
 import { IHome, IPrismicHomeData } from '@interfaces/Home';
 import { IMedia, IPrismicMediaData } from '@interfaces/Media';
 import { client } from '@utils/prismic';
@@ -37,6 +33,7 @@ export const getStaticProps: GetStaticProps<IndexProps> = async () => {
 
 async function getHome(): Promise<IHome> {
   if (process.env.OFFLINE === 'true') return getHomeFixture();
+
   const prismicHome = await client.getSingle('home', {});
   const data = prismicHome.data as IPrismicHomeData;
 
@@ -66,7 +63,7 @@ async function getGalleries(): Promise<IGallery[]> {
     medias: galleries.reduce(
       (medias, gallery) => [
         ...medias,
-        ...gallery.medias.filter((media) => media.video.url !== undefined),
+        ...gallery.medias.filter((media) => media.video !== null),
       ],
       [] as IMedia[],
     ),
@@ -90,7 +87,9 @@ async function getGallery(document: Document): Promise<IGallery> {
   };
 }
 
-async function getMedia(media: IPrismicMedia): Promise<IMedia | undefined> {
+async function getMedia(
+  media: IPrismicGalleryData['medias'][number],
+): Promise<IMedia | undefined> {
   if (!media.media.id) {
     return undefined;
   }
@@ -101,9 +100,14 @@ async function getMedia(media: IPrismicMedia): Promise<IMedia | undefined> {
 
   const data = prismicMedia.data as IPrismicMediaData;
 
+  const { gallery, ...photo } = data.photo;
+
   return {
     id: prismicMedia.id,
-    ...data,
-    updatedAt: prismicMedia.last_publication_date!,
+    photo,
+    gallery,
+    video: data.video.url
+      ? { type: data.video.link_type!, url: data.video.url }
+      : null,
   };
 }
