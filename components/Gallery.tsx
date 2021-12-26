@@ -71,6 +71,7 @@ export default function Gallery({
               gallery={media.gallery}
               photo={media.photo}
               key={media.id}
+              video={media.video}
             />
           </LightGalleryItem>
         ))}

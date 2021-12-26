@@ -15,7 +15,14 @@ export default function LightGalleryItem({
     <div
       className={`item ${atoms({
         cursor: 'pointer',
-      })}`}
+      })} ${
+        video
+          ? atoms({
+              position: 'relative',
+              display: 'inline-block',
+            })
+          : ''
+      }`}
       data-slide-name={id}
       data-src={!video ? photo.url : undefined}
       data-video={getVideoParams(video)}

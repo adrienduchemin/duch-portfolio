@@ -16,6 +16,7 @@ const height = {
   xxxs: '16px',
   xxs: '30px',
   xs: '30px',
+  ahhh: '60px',
   sm: '100px',
   small: '150px',
   medium: '80%',
@@ -36,8 +37,8 @@ const margin = {
 const repeat = {
   small: 'repeat(2, 1fr)',
   medium: 'repeat(3, 1fr)',
-  large: 'repeat(4, 1fr)',
-  extraLarge: 'repeat(5, 1fr)',
+  large: 'repeat(3, 1fr)',
+  extraLarge: 'repeat(4, 1fr)',
 };
 
 const responsiveStyles = createAtomicStyles({
@@ -295,6 +296,13 @@ export const animationBounceArrowLeft = style({
 
 export const animationBounceArrowRight = style({
   animation: `${bounceRight} 0.4s ease 0s alternate infinite`,
+});
+
+export const playerStyle = style({
+  // left: calc('50%').subtract('30px').toString(),
+  // top: calc('50%').subtract('30px').toString(),
+  left: '15px',
+  top: '15px',
 });
 
 export const firstDotStyle = style({
