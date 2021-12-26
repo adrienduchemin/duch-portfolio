@@ -77,7 +77,6 @@ export default function Gallery({
           controls={false}
           download={false}
           gotoNextSlideOnVideoEnd={false}
-          // updateSlides(galleryItems, 1);
           loop={false}
           videojs
           // videojsOptions={{ muted: true }}
