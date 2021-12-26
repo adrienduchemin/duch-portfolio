@@ -7,6 +7,8 @@ import Instagram from '@assets/svg/instagram.svg';
 import Logo from '@assets/svg/logo.svg';
 import Youtube from '@assets/svg/youtube.svg';
 import Arrow from '@components/Arrow';
+import LazySource from '@components/LazySource';
+import LazyVideo from '@components/LazyVideo';
 import { IHome } from '@interfaces/Home';
 import { atoms } from '@styles/sprinkles.css';
 
@@ -25,13 +27,14 @@ export default function Home({
 }: HomeProps): JSX.Element {
   return (
     <>
-      <video
-        autoPlay
+      <LazyVideo
+        autoplay
         muted
         loop
         playsInline
         /* video de basse qualité */
-        className={atoms({
+        dataSrc={background.url}
+        atom={{
           position: 'absolute',
           right: 0,
           bottom: 0,
@@ -41,10 +44,11 @@ export default function Home({
           backgroundPosition: 'center center',
           objectFit: 'cover',
           zIndex: -1,
-        })}
+        }}
       >
-        <source src={background.url} type="video/mp4" />
-      </video>
+        <LazySource dataSrc={background.url} type="video/mp4" />
+      </LazyVideo>
+
       <div
         className={atoms({
           display: 'flex',
