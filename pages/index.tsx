@@ -13,7 +13,7 @@ import { getHomeFixture } from '../fixtures/home';
 
 interface IndexProps {
   home: IHome;
-  galleries: IGallery[];
+  gallery: IGallery;
 }
 
 export default function Index(props: IndexProps): JSX.Element {
@@ -21,12 +21,12 @@ export default function Index(props: IndexProps): JSX.Element {
 }
 
 export const getStaticProps: GetStaticProps<IndexProps> = async () => {
-  const [home, galleries] = await Promise.all([getHome(), getGalleries()]);
+  const [home, gallery] = await Promise.all([getHome(), getGalleries()]);
 
   return {
     props: {
       home,
-      galleries,
+      gallery,
     },
   };
 };
@@ -43,7 +43,7 @@ async function getHome(): Promise<IHome> {
   };
 }
 
-async function getGalleries(): Promise<IGallery[]> {
+async function getGalleries(): Promise<IGallery> {
   if (process.env.OFFLINE === 'true') {
     return getGalleriesFixture(80);
   }
@@ -52,24 +52,11 @@ async function getGalleries(): Promise<IGallery[]> {
     Prismic.Predicates.at('document.type', 'gallery'),
   );
 
-  const galleries = await Promise.all(
-    prismicGalleries.results.map(async (prismicGallery) =>
-      getGallery(prismicGallery),
-    ),
+  const gallery = await getGallery(
+    prismicGalleries.results.find((result) => result.uid === 'gallery')!,
   );
 
-  galleries.push({
-    name: 'video',
-    medias: galleries.reduce(
-      (medias, gallery) => [
-        ...medias,
-        ...gallery.medias.filter((media) => media.video !== null),
-      ],
-      [] as IMedia[],
-    ),
-  });
-
-  return galleries;
+  return gallery;
 }
 
 async function getGallery(document: Document): Promise<IGallery> {

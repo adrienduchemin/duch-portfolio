@@ -7,12 +7,12 @@ import { IHome } from '@interfaces/Home';
 
 interface FullPageProps {
   home: IHome;
-  galleries: IGallery[];
+  gallery: IGallery;
 }
 
 export default function FullPage({
   home,
-  galleries,
+  gallery,
 }: FullPageProps): JSX.Element {
   return (
     <ReactFullpage
@@ -25,7 +25,7 @@ export default function FullPage({
             <Home home={home} fullpage={fullpageApi} />
           </div>
           <div className="section">
-            <Gallery fullpage={fullpageApi} galleries={galleries} />
+            <Gallery fullpage={fullpageApi} gallery={gallery} />
           </div>
         </ReactFullpage.Wrapper>
       )}

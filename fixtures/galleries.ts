@@ -4,18 +4,14 @@ import { IGallery } from '../interfaces/Gallery';
 
 export async function getGalleriesFixture(
   numberOfItems: number,
-): Promise<IGallery[]> {
+): Promise<IGallery> {
   return new Promise((resolve) => {
     resolve(generateGalleryItems(numberOfItems));
   });
 }
 
-function generateGalleryItems(numberOfItems: number): IGallery[] {
-  const galleries: IGallery[] = [
-    { name: 'danse', medias: [] },
-    { name: 'portrait', medias: [] },
-    { name: 'taiwan', medias: [] },
-  ];
+function generateGalleryItems(numberOfItems: number): IGallery {
+  const gallery: IGallery = { name: 'gallery', medias: [] };
 
   for (let i = 1; i < numberOfItems; i++) {
     const isVideo = Math.random() < 0.3;
@@ -44,15 +40,8 @@ function generateGalleryItems(numberOfItems: number): IGallery[] {
       id: `${isVideo ? 'video' : 'photo'}-${i}`,
     };
 
-    const medias =
-      Math.random() < 0.5
-        ? galleries[0]?.medias
-        : Math.random() < 0.5
-        ? galleries[1]?.medias
-        : galleries[2]?.medias;
-
-    medias?.push(media);
+    gallery.medias.push(media);
   }
 
-  return galleries;
+  return gallery;
 }

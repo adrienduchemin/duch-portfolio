@@ -10,6 +10,16 @@ export interface IMedia {
   } | null;
 }
 
+export interface IOldMedia {
+  photo: IPhoto & {
+    gallery: IPhoto;
+    galleryMobile: IPhoto;
+    galleryTablet: IPhoto;
+    galleryDesktop: IPhoto;
+    galleryLargeDesktop: IPhoto;
+  };
+}
+
 export interface IPrismicMediaData {
   photo: IPhoto & {
     gallery: IPhoto;
