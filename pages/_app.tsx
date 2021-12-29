@@ -43,10 +43,9 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
           href="https://unpkg.com/video.js/dist/video-js.min.css"
           rel="stylesheet"
         />
-        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script src="https://unpkg.com/video.js/dist/video.min.js" />
-        <script src="/picturefill.min.js" async />
-        <script src="/youtube.min.js" async />
+        <script src="https://unpkg.com/video.js/dist/video.min.js" async />
+        {/* <script src="/picturefill.min.js" async /> */}
+        {/* <script src="/youtube.min.js" async /> */}
         <script
           async
           defer

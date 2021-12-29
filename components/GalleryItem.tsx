@@ -25,6 +25,7 @@ export default function GalleryItem({
             color: 'white',
             width: '60px',
             height: 'ahhh',
+            zIndex: 3,
           })} ${playerStyle}`}
         />
       )}
